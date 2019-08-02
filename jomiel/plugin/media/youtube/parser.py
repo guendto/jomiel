@@ -76,10 +76,10 @@ class Parser(PluginMediaParser):
                 try:
                     self.media.title = video_info['title'][0]
                 except KeyError:
-                    pr = video_info['player_response'][0]
+                    player_response = video_info['player_response'][0]
                     from json import loads
-                    pr_json = loads(pr)
-                    self.media.title = pr_json['videoDetails']['title']
+                    json_pr = loads(player_response)
+                    self.media.title = json_pr['videoDetails']['title']
 
             parse_video_title()
             self.add_streams(video_info)
