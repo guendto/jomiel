@@ -73,7 +73,13 @@ class Parser(PluginMediaParser):
 
             def parse_video_title():
                 """Return video title from the video info."""
-                self.media.title = video_info['title'][0]
+                try:
+                    self.media.title = video_info['title'][0]
+                except KeyError:
+                    pr = video_info['player_response'][0]
+                    from json import loads
+                    pr_json = loads(pr)
+                    self.media.title = pr_json['videoDetails']['title']
 
             parse_video_title()
             self.add_streams(video_info)
