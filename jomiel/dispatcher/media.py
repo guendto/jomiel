@@ -10,10 +10,7 @@
 #
 """TODO."""
 
-try:
-    from urlparse import urlparse  # python2
-except ImportError:
-    from urllib.parse import urlparse  # python3
+from urllib.parse import urlparse
 
 from jomiel.error import CannotParseError, NoParserError
 from jomiel.cache import plugin_handlers  # pylint: disable=E0611
