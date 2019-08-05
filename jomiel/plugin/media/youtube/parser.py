@@ -10,13 +10,10 @@
 #
 """TODO."""
 
+from urllib.parse import parse_qs
+
 from jomiel.plugin.media.parser import PluginMediaParser
 from jomiel.error import ParseError
-
-try:
-    from urllib.parse import parse_qs
-except ImportError:  # python2
-    from urlparse import parse_qs
 
 
 class Parser(PluginMediaParser):
@@ -99,10 +96,7 @@ class Parser(PluginMediaParser):
 
         def video_info_uri():
             """Return the URI to query the info for the video."""
-            try:
-                from urllib.parse import urlencode
-            except ImportError:  # python2
-                from urllib import urlencode
+            from urllib.parse import urlencode
             data = urlencode({
                 'video_id':
                 video_id,
