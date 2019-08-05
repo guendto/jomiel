@@ -72,10 +72,7 @@ def read_input(**kwargs):
 
     if validate_uri:
         # lgg.debug('validate input URIs')
-        try:  # Python 2
-            from urlparse import urlparse, urlunparse
-        except ImportError:  # Python 3
-            from urllib.parse import urlparse, urlunparse
+        from urllib.parse import urlparse, urlunparse
 
     def parse():
         '''Parse input for URIs.'''
