@@ -1,15 +1,13 @@
 # jomiel
 
-`jomiel` is the meta inquiry middleware for distributed systems. Two
-core technologies serve as a basis for `jomiel`:
+`jomiel` is the meta inquiry middleware for distributed systems. It
+returns meta data for content on [video-sharing][40] websites (e.g.
+YouTube) and runs as a service, responding to client inquiries.
+
+Two core technologies serve as a basis for `jomiel`:
 
 - [Protocol Buffers][20] for platform-independent data serialization
 - [ZeroMQ][21] as the messaging library
-
-## About
-
-`jomiel` returns meta data for content on [video-sharing][30] websites
-(e.g. YouTube). It runs as a service, responding to client inquiries.
 
 The client applications can be written in modern [languages][5] for most
 platforms.
@@ -86,6 +84,100 @@ The plugins can be found in the jomiel/plugin/ directory.
 - Make sure the site is not dedicated to copyright infringement, be that
   they host the media or the link to it
 
+## HOWTO
+
+### Use of a proxy
+
+If you need to use a proxy with HTTP connections, you can configure
+proxies by setting the environment variables http_proxy and https_proxy.
+
+```shell
+$ export https_proxy="https://localhost:3128"
+```
+
+"In addition to basic HTTP proxies, Requests also supports proxies using
+the SOCKS protocol. This is an optional feature that requires that
+additional third-party libraries be installed before use." --
+[python-requests.org][41]
+
+```shell
+$ pip install requests[socks]
+```
+
+Once you’ve installed those dependencies, using a SOCKS proxy is just as
+easy as using a HTTP one:
+
+```shell
+$ export https_proxy="socks5://localhost:5580"
+```
+
+The proxy string can be specified with a protocol:// prefix to specify
+an alternative proxy protocol (e.g. "socks4://", "socks4a://",
+"socks5://" or "socks5h://").
+
+See also the [documentation][42].
+
+### Authentication and encryption using CURVE
+
+    "[CURVE is] ... a protocol for secure messaging across the
+    Internet." -- curvezmq.org
+
+Generate a new public and secret CURVE keypair for both server (jomiel)
+and client (yomiel):
+
+```shell
+$ jomiel-keygen server client
+```
+
+**jomiel (server-side)**
+
+```shell
+$ mkdir -p .curve
+$ mv server.secret_key .curve   # Make server CURVE secret key usable
+$ mv client.key .curve          # Make client CURVE public key usable
+$ jomiel --curve-enable         # Restart jomiel with CURVE enabled
+```
+
+`jomiel` will search .curve/ dir for both (allowed) client public keys
+and the server secret key. To change the default behaviour, you can use:
+
+    --curve-server-key-file
+    --curve-public-key-dir
+
+**yomiel (client-side)**
+
+```shell
+$ mkdir -p .curve
+$ mv client.secret_key .curve   # Make client CURVE secret key usable
+$ mv server.key .curve          # Make server CURVE public key usable
+$ yomiel --auth-mode curve URI  # Start yomiel with CURVE enabled
+```
+
+`yomiel` will search .curve/ dir for both the client secret key
+and the server public key. To change the default behaviour, you can use:
+
+    --curve-server-public-key-file
+    --curve-client-key-file
+
+### Authentication and encryption using SSH
+
+**jomiel (server-side)**
+
+- Make sure you have configured SSH server and it is running
+- Make sure `jomiel` is running
+
+**yomiel (client-side)**
+
+```shell
+$ yomiel --auth-mode ssh --ssh-server user@host:port URI
+```
+
+**Notes**
+
+- Make sure you have installed either [pexpect][29] or [paramiko][30]
+  (recommended)
+- You can tell `yomiel` to use [paramiko][30] (--ssh-paramiko)
+
 ## Development notes
 
 ### Versioning
@@ -135,4 +227,8 @@ the subdirectories:
 [26]: https://pypi.org/project/flake8/
 [27]: https://pypi.org/project/yamllint/
 [28]: https://pypi.org/project/yapf/
-[30]: https://en.wikipedia.org/wiki/Video_hosting_service
+[29]: https://pypi.org/project/pexpect/
+[30]: https://pypi.org/project/paramiko/
+[40]: https://en.wikipedia.org/wiki/Video_hosting_service
+[41]: https://2.python-requests.org/
+[42]: https://2.python-requests.org/en/master/user/advanced/#proxies
