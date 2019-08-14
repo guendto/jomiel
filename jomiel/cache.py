@@ -13,12 +13,25 @@
 
 def dump_plugins():
     """Dumps plugin details to the stdout."""
-    for namespace in plugin_handlers:  # pylint: disable=E0602
-        print(namespace + ':')
-        for handler in plugin_handlers[namespace]:  # pylint: disable=E0602
-            print('- %s' % handler.name)
-    from jomiel.kore.app import exit_normal
-    exit_normal()
+    def foreach_plugin():
+        """Repeat for each found plugin.
+
+        Returns:
+            a dict containing the plugin data
+
+        """
+        namespaces = {}
+        # pylint: disable=E0602
+        for nspace in plugin_handlers:
+            namespaces[nspace] = [
+                handler.name for handler in plugin_handlers[nspace]
+            ]
+        return namespaces
+
+    yaml = {'plugins': foreach_plugin()}
+
+    from jomiel.kore.app import dump_as_yaml
+    dump_as_yaml(yaml)
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
