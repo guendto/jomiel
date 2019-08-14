@@ -179,6 +179,7 @@ def to_yaml(message, stream=None):
     yaml = YAML(typ='safe')
     yaml.default_flow_style = False
 
+    stream.write('---\n')
     return round_trip_dump(data, stream)
 
 
