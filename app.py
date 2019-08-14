@@ -184,6 +184,12 @@ class App:
                     help='Print logger identities and exit',
                     action='store_true')
 
+            grp.add(
+                '--logger-idents-verbose',
+                help=
+                'Print logger identities in detail, use together with --logger-idents',
+                action='store_true')
+
             grp.add('-l',
                     '--logger-ident',
                     help='Use the logger identity',
@@ -377,6 +383,21 @@ def round_trip_dump_yaml(data, stream=None):
     yaml = YAML(typ='safe')
     yaml.default_flow_style = False
     round_trip_dump(data, stream)
+
+
+def dump_logger_identities(loggers, detailed=False):
+    """Dump the found logger identities to the stdout and exit.
+
+    Args:
+        loggers (dict): from the parsed .yaml to be dumped
+        detailed (bool): be detailed
+
+    """
+    idents = loggers if detailed else [ident for ident in loggers]
+    yaml = {'identities': idents}
+    stdout.write('---\n')
+    round_trip_dump_yaml(yaml, stdout)
+    exit_normal()
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
