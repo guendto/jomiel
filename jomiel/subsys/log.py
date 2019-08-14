@@ -28,6 +28,12 @@ def init():
         dump_logger_identities(logger_idents,
                                opts.logger_idents_verbose)
 
+    if opts.plugin_list:
+        # Prevent INFO lines from being printed to the output with
+        # --plugin-list.
+        from logging import WARNING
+        lg().level = WARNING
+
     lg().info('log subsystem initiated')
 
 
