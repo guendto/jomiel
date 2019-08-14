@@ -235,8 +235,7 @@ class App:
                 data = {
                     'configuration': opts.__dict__,
                 }
-                round_trip_dump_yaml(data, stdout)
-                exit_normal()
+                dump_as_yaml(data)
 
             def print_report_config(parser):
                 """Prints the configuration sources to stdout and
@@ -292,7 +291,7 @@ class App:
 
                 from sys import version as py_version
 
-                data = {
+                return {
                     'version': app_version(),
                     'python': {
                         'version': py_version.replace('\n', ''),
@@ -300,10 +299,8 @@ class App:
                     }
                 }
 
-                round_trip_dump_yaml(data, stdout)
-
-            version_long()
-            exit_normal()
+            yaml = version_long()
+            dump_as_yaml(yaml)
 
         def setup_global_config():
             """Sets up the global config module with the parsed options."""
@@ -385,6 +382,18 @@ def round_trip_dump_yaml(data, stream=None):
     round_trip_dump(data, stream)
 
 
+def dump_as_yaml(yaml):
+    """Dump the given data as YAML to stdout and exit process.
+
+    Args:
+        yaml (dict): data to be dumped
+
+    """
+    stdout.write('---\n')
+    round_trip_dump_yaml(yaml, stdout)
+    exit_normal()
+
+
 def dump_logger_identities(loggers, detailed=False):
     """Dump the found logger identities to the stdout and exit.
 
@@ -395,9 +404,7 @@ def dump_logger_identities(loggers, detailed=False):
     """
     idents = loggers if detailed else [ident for ident in loggers]
     yaml = {'identities': idents}
-    stdout.write('---\n')
-    round_trip_dump_yaml(yaml, stdout)
-    exit_normal()
+    dump_as_yaml(yaml)
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
