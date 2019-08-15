@@ -76,7 +76,12 @@ class Parser(PluginMediaParser):
                     player_response = video_info['player_response'][0]
                     from json import loads
                     json_pr = loads(player_response)
-                    self.media.title = json_pr['videoDetails']['title']
+                    try:
+                        self.media.title = json_pr['videoDetails'][
+                            'title']
+                    except KeyError:
+                        raise ParseError(
+                            json_pr['playabilityStatus']['reason'])
 
             parse_video_title()
             self.add_streams(video_info)
