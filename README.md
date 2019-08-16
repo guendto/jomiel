@@ -21,6 +21,17 @@ platforms.
 - Highly configurable
 - Runs as a service
 
+## Screencast
+
+[![jomiel screencast](media/screencast-scaled.png)](media/screencast.png)
+
+(Click to enlarge the image)
+
+**Description**
+
+1. Start jomiel
+2. Send an inquiry using [yomiel][1], using the 'terse' output filter
+
 ## License
 
 `jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
