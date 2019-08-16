@@ -207,6 +207,7 @@ The plugins can be found in the jomiel/plugin/ directory.
 
 - Make sure the site is not dedicated to copyright infringement, be that
   they host the media or the link to it
+- Make sure the site is not NSFW
 
 ### Acknowledgements
 
