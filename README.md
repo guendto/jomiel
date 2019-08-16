@@ -55,34 +55,16 @@ $ python setup.py build_py  # generate the protobuf message bindings
 $ python jomiel             # starts the service
 ```
 
-## Experiment with it
+## Status
 
-`jomiel` is still a young project. Once you have `jomiel` running, you
-can try one of the following to interact with it:
+Keep in mind that `jomiel` is still a young project. Once you have
+`jomiel` running, try:
 
 - [examples][5] - the demo programs written in most modern languages
 - [yomiel][1] - the pretty printer for `jomiel` messages
 
-They take an input URI to be inquired from `jomiel` and display the
-returned meta data.
-
-## Supported websites
-
-The website coverage is currently very limited:
-
-```shell
-$ jomiel --plugin-list
-```
-
-The plugins can be found in the jomiel/plugin/ directory.
-
-- `jomiel` is written in [Python][22] which is an easy language to learn
-- Additional support can be implemented by adding new plugins
-
-**Note**
-
-- Make sure the site is not dedicated to copyright infringement, be that
-  they host the media or the link to it
+To pass input URIs to inquire and display the meta data from `jomiel`.
+See also [Development: Supported websites](#supported-websites).
 
 ## HOWTO
 
@@ -207,6 +189,24 @@ the subdirectories:
 - [jomiel-proto.git][3] (jomiel/comm/proto)
 - [jomiel-comm.git][2]  (jomiel/comm)
 - [jomiel-kore.git][4]  (jomiel/kore)
+
+### Supported websites
+
+The website coverage is currently very limited:
+
+```shell
+$ jomiel --plugin-list
+```
+
+The plugins can be found in the jomiel/plugin/ directory.
+
+- `jomiel` is written in [Python][22] which is an easy language to learn
+- Additional support can be implemented by adding new plugins
+
+**Notes**
+
+- Make sure the site is not dedicated to copyright infringement, be that
+  they host the media or the link to it
 
 ### Acknowledgements
 
