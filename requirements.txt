@@ -1,5 +1,5 @@
 ConfigArgParse==0.14.0
-protobuf==3.9.0
-pyzmq==18.0.2
+protobuf==3.9.1
+pyzmq==18.1.0
 requests==2.22.0
-ruamel.yaml==0.16.0
+ruamel.yaml==0.16.4
