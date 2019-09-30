@@ -90,6 +90,11 @@ class App(KoreApp):
             """Add the broker option group."""
             grp = parser.add_argument_group('broker')
 
+            grp.add('-I',
+                    '--broker-input-allow-any',
+                    help='Disable input URI validation',
+                    action='store_true')
+
             grp.add(
                 '-r',
                 '--broker-router-endpoint',
