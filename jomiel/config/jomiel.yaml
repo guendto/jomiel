@@ -57,6 +57,10 @@
 #
 # Number of worker threads that listen waiting for client connections
 broker-worker-threads: 1
+#
+# Disable input URI validation and allow the input to pass as it
+# is. By default, jomiel validates the input URI.
+# broker-input-allow-any: true
 
 # [CURVE]
 #

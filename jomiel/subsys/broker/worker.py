@@ -14,15 +14,16 @@ from traceback import format_exc
 from re import compile as rxc
 from logging import DEBUG
 import binascii
+from validators import url as is_url
 
 from zmq import Context, REP, ZMQError, ContextTerminated  # pylint: disable=E0611
 from requests.exceptions import RequestException
 from google.protobuf.message import DecodeError
 
+from jomiel.error import ParseError, NoParserError, InvalidInputError
 from jomiel.comm.proto.Message_pb2 import Response, Inquiry
 from jomiel.cache import opts  # pylint: disable=E0611
 from jomiel.dispatcher.media import script_dispatcher
-from jomiel.error import ParseError, NoParserError
 import jomiel.comm.proto.Status_pb2 as Status
 from jomiel.comm import to_json
 from jomiel.kore.app import exit_error
@@ -169,12 +170,23 @@ class Worker:
             """
             return script_dispatcher(inquiry.input_uri)
 
+        def validate_input_uri():
+            """Validate the input URI unless configured to skip this."""
+            if opts.broker_input_allow_any:
+                return
+
+            if not is_url(inquiry.input_uri):
+                raise InvalidInputError(
+                    'Validation failed for URI <%s>' %
+                    inquiry.input_uri)
+
         def failed(error):
             """Check if an error occurred."""
             builder = ResponseBuilder(error)
             self.message_send(builder.response)
 
         try:
+            validate_input_uri()
             handler = match_handler()
             self.message_send(handler.response)
         except Exception as error:  # pylint: disable=W0703
@@ -228,6 +240,8 @@ class ResponseBuilder:
             self.parse_failed(error)
         elif error_type == NoParserError:
             self.handler_not_found(error)
+        elif error_type == InvalidInputError:
+            self.invalid_input_given(error)
         else:
             if not self.is_requests_error(error, error_type):
                 self.fail_with_traceback()
@@ -258,6 +272,11 @@ class ResponseBuilder:
         """System raised NoParserError, initalize response accordingly."""
         self.init(error.message, Status.NotImplemented,
                   Status.NoParserError)
+
+    def invalid_input_given(self, error):
+        """System raised InvalidInputError, initialize response accordingly."""
+        self.init(error.message, Status.BadRequest,
+                  Status.InvalidInputError)
 
     def is_requests_error(self, error, error_type):
         """Handle Requests error (if any)

@@ -25,6 +25,15 @@ class BaseError(Exception):
         self.message = message if message else ''
 
 
+class InvalidInputError(BaseError):
+    """Validation failed for the given URI.
+
+    Broker validates the given input URI before passing it to the plugin
+    handlers. If the validation fails, this error is raised.
+
+    """
+
+
 class NoParserError(BaseError):
     """Failed to find a parser for the given URI.
 
