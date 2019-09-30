@@ -13,7 +13,7 @@
 from traceback import format_exc
 from re import compile as rxc
 from logging import DEBUG
-import binascii
+from binascii import hexlify
 from validators import url as is_url
 
 from zmq import Context, REP, ZMQError, ContextTerminated  # pylint: disable=E0611
@@ -124,7 +124,7 @@ class Worker:
         """
         if lg().level <= DEBUG:
             ln = len(message)
-            hx = binascii.hexlify(bytearray(message))
+            hx = hexlify(bytearray(message))
             self.log('<%s:serialized> [%s] %s' %
                      (prefix, ln, log_sanitize_string(hx)))
 
