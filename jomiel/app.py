@@ -24,6 +24,7 @@ class App(KoreApp):
             'configargparse': 'ConfigArgParse',
             'google.protobuf': 'protobuf',
             'ruamel.yaml': 'ruamel.yaml',
+            'validators': 'validators',
             'requests': 'Requests',
             'zmq': 'PyZMQ'
         }
