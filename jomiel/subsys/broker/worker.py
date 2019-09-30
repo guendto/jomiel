@@ -123,10 +123,10 @@ class Worker:
 
         """
         if lg().level <= DEBUG:
-            ln = len(message)
-            hx = hexlify(bytearray(message))
+            _len = len(message)
+            _hex = hexlify(bytearray(message))
             self.log('<%s:serialized> [%s] %s' %
-                     (prefix, ln, log_sanitize_string(hx)))
+                     (prefix, _len, log_sanitize_string(_hex)))
 
     def message_send(self, response):
         """Sends a response message back to the client.
