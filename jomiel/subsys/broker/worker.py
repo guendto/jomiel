@@ -177,7 +177,7 @@ class Worker:
 
             if not is_url(inquiry.input_uri):
                 raise InvalidInputError(
-                    'Validation failed for URI <%s>' %
+                    'Invalid input URI value given <%s>' %
                     inquiry.input_uri)
 
         def failed(error):
