@@ -75,7 +75,7 @@ See also [Development: Supported websites](#supported-websites).
 
 ## HOWTO
 
-### Use of a proxy
+### Use a proxy
 
 If you need to use a proxy with HTTP connections, you can configure
 proxies by setting the environment variables http_proxy and https_proxy.
@@ -106,7 +106,7 @@ an alternative proxy protocol (e.g. "socks4://", "socks4a://",
 
 See also the [documentation][42].
 
-### Authentication and encryption using CURVE
+### Authenticate and encrypt using CURVE
 
     "[CURVE is] ... a protocol for secure messaging across the
     Internet." -- curvezmq.org
@@ -148,7 +148,7 @@ and the server public key. To change the default behaviour, you can use:
     --curve-server-public-key-file
     --curve-client-key-file
 
-### Authentication and encryption using SSH
+### Authenticate and encrypt using SSH
 
 **jomiel (server-side)**
 
