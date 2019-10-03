@@ -84,9 +84,9 @@ proxies by setting the environment variables http_proxy and https_proxy.
 export https_proxy="https://localhost:3128"
 ```
 
-"In addition to basic HTTP proxies, Requests also supports proxies using
+**"In addition to basic HTTP proxies, Requests also supports proxies using
 the SOCKS protocol. This is an optional feature that requires that
-additional third-party libraries be installed before use." --
+additional third-party libraries be installed before use."** --
 [python-requests.org][41]
 
 ```shell
@@ -104,7 +104,7 @@ The proxy string can be specified with a protocol:// prefix to specify
 an alternative proxy protocol (e.g. "socks4://", "socks4a://",
 "socks5://" or "socks5h://").
 
-See also the [documentation][42].
+For more information, see the [documentation][42].
 
 ### Authenticate and encrypt using CURVE
 
