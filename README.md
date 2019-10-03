@@ -108,8 +108,8 @@ For more information, see the [documentation][42].
 
 ### Authenticate and encrypt using CURVE
 
-    "[CURVE is] ... a protocol for secure messaging across the
-    Internet." -- curvezmq.org
+**"[CURVE is] ... a protocol for secure messaging across the
+Internet."** -- [curvezmq.org][43]
 
 Generate a new public and secret CURVE keypair for both server (jomiel)
 and client (yomiel):
@@ -240,3 +240,4 @@ The plugins can be found in the jomiel/plugin/ directory.
 [40]: https://en.wikipedia.org/wiki/Video_hosting_service
 [41]: https://2.python-requests.org/
 [42]: https://2.python-requests.org/en/master/user/advanced/#proxies
+[43]: http://curvezmq.org
