@@ -25,8 +25,6 @@ platforms.
 
 [![jomiel screencast](media/screencast-scaled.png)](media/screencast.png)
 
-**Description**
-
 1. Start jomiel
 2. Send an inquiry using [yomiel][1], using the 'terse' output filter
 
