@@ -1,0 +1,4 @@
+include LICENSE NOTICE requirements.txt
+recursive-include jomiel/comm/proto *.proto
+recursive-include media *.png
+global-exclude *.py[co]
