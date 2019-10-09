@@ -38,8 +38,8 @@ platforms.
 To install `jomiel` from from [PyPI][24]:
 
 ```shell
-pip install jomiel        # for the latest release
-jomiel                    # starts the service
+pip install jomiel        # For the latest release
+jomiel                    # Starts the service
 ```
 
 To run `jomiel` from the repository:
