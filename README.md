@@ -92,23 +92,22 @@ local time).
 When run from the repository, the output of the `git-describe` and the
 `git-show` command will be used for the version number, instead.
 
-### Subprojects
-
-`jomiel` includes (as `git-subtree`) the following subprojects within
-the subdirectories:
-
-- [jomiel-proto.git][3] (jomiel/comm/proto)
-- [jomiel-comm.git][2]  (jomiel/comm)
-- [jomiel-kore.git][4]  (jomiel/kore)
-
 ## License
 
 `jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
 
-### Acknowledgements
+## Acknowledgements
 
 - Linted by [pylint][25], [flake8][26] and [yamllint][27]
 - Formatted by [yapf][28]
+
+### Subprojects
+
+`jomiel` subtrees (includes) the following subprojects:
+
+- [jomiel-proto.git][3] (jomiel/comm/proto)
+- [jomiel-comm.git][2]  (jomiel/comm)
+- [jomiel-kore.git][4]  (jomiel/kore)
 
 [1]: https://github.com/guendto/jomiel-yomiel/
 [2]: https://github.com/guendto/jomiel-comm/
