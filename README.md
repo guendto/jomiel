@@ -14,6 +14,21 @@ platforms.
 
 ![Example (jomiel)](./docs/examples/jomiel-framed.svg)
 
+## Table of Contents
+
+<!-- vim-markdown-toc GFM -->
+
+* [Features](#features)
+* [Getting started](#getting-started)
+    * [Website coverage](#website-coverage)
+* [HOWTO](#howto)
+* [Versioning](#versioning)
+* [License](#license)
+* [Acknowledgements](#acknowledgements)
+    * [Subprojects](#subprojects)
+
+<!-- vim-markdown-toc -->
+
 ## Features
 
 - Plug-in system enabling customization to add support for media hosts
