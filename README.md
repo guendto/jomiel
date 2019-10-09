@@ -70,10 +70,6 @@ found in the jomiel/plugin/ directory.
   they host the media or the link to it
 - Make sure the site is not NSFW
 
-## License
-
-`jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
-
 ## HOWTO
 
 See [docs/HOWTO](./docs/HOWTO.md).
@@ -104,6 +100,10 @@ the subdirectories:
 - [jomiel-proto.git][3] (jomiel/comm/proto)
 - [jomiel-comm.git][2]  (jomiel/comm)
 - [jomiel-kore.git][4]  (jomiel/kore)
+
+## License
+
+`jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
 
 ### Acknowledgements
 
