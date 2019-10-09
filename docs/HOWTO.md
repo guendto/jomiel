@@ -90,3 +90,9 @@ yomiel --auth-mode ssh --ssh-server user@host:port URI
 
 - Have either  [pexpect][29] or [paramiko][30] (recommended) installed
 - Use --ssh-paramiko to tell `yomiel` to use it
+
+[29]: https://pypi.org/project/pexpect/
+[30]: https://pypi.org/project/paramiko/
+[41]: https://2.python-requests.org/
+[42]: https://2.python-requests.org/en/master/user/advanced/#proxies
+[43]: http://curvezmq.org

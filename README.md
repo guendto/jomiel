@@ -123,9 +123,4 @@ When run from the repository, the output of the `git-describe` and the
 [26]: https://pypi.org/project/flake8/
 [27]: https://pypi.org/project/yamllint/
 [28]: https://pypi.org/project/yapf/
-[29]: https://pypi.org/project/pexpect/
-[30]: https://pypi.org/project/paramiko/
 [40]: https://en.wikipedia.org/wiki/Video_hosting_service
-[41]: https://2.python-requests.org/
-[42]: https://2.python-requests.org/en/master/user/advanced/#proxies
-[43]: http://curvezmq.org
