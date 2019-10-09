@@ -175,15 +175,6 @@ local time).
 When run from the repository, the output of the `git-describe` and the
 `git-show` command will be used for the version number, instead.
 
-### Subprojects
-
-`jomiel` includes (as `git-subtree`) the following subprojects within
-the subdirectories:
-
-- [jomiel-proto.git][3] (jomiel/comm/proto)
-- [jomiel-comm.git][2]  (jomiel/comm)
-- [jomiel-kore.git][4]  (jomiel/kore)
-
 ### Supported websites
 
 ```shell
@@ -201,6 +192,15 @@ found in the jomiel/plugin/ directory.
 - Make sure the site is not dedicated to copyright infringement, be that
   they host the media or the link to it
 - Make sure the site is not NSFW
+
+### Subprojects
+
+`jomiel` includes (as `git-subtree`) the following subprojects within
+the subdirectories:
+
+- [jomiel-proto.git][3] (jomiel/comm/proto)
+- [jomiel-comm.git][2]  (jomiel/comm)
+- [jomiel-kore.git][4]  (jomiel/kore)
 
 ### Acknowledgements
 
