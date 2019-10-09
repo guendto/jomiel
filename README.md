@@ -21,12 +21,9 @@ platforms.
 - Highly configurable
 - Runs as a service
 
-## Screencast
+## Example
 
-[![jomiel screencast](media/screencast-scaled.png)](media/screencast.png)
-
-1. Start jomiel
-2. Send an inquiry using [yomiel][1], using the 'terse' output filter
+![Example (jomiel)](./docs/examples/jomiel-framed.svg)
 
 ## License
 
