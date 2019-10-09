@@ -167,8 +167,8 @@ uses the format `yy.m.d` for version numbers.
 
 `2019-07-25` would become `19.7.25`. An additional number (time) will be
 added to the version number, if another release was made on the same day
-(e.g. `19.7.25` would become `19.7.25.1041`, 1041 would be 10:41 local
-time).
+(e.g. `19.7.25` would become `19.7.25.1041`, "1041" being 10:41 for the
+local time).
 
 **The exception**
 
