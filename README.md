@@ -25,6 +25,8 @@ platforms.
 
 ## Getting started
 
+- **`jomiel` requires [Python 3.5+][22]**
+
 To install `jomiel` from from [PyPI][24]:
 
 ```shell
@@ -55,10 +57,6 @@ See also [Supported websites](#supported-websites).
 ## License
 
 `jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
-
-## Requirements
-
-`jomiel` is written for [Python][22] 3.5 and later.
 
 ## HOWTO
 
