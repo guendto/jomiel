@@ -52,37 +52,7 @@ can experiment sending inquries to it:
 - [examples][5] - the demo programs written in most modern languages
 - [yomiel][1] - the pretty printer for `jomiel` messages
 
-See also [Supported websites](#supported-websites).
-
-## License
-
-`jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
-
-## HOWTO
-
-See [docs/HOWTO](./docs/HOWTO.md).
-
-## Development notes
-
-### Versioning
-
-`jomiel` uses a custom versioning scheme. With each new release, the
-release date (and time) will be used for the version number. `jomiel`
-uses the format `yy.m.d` for version numbers.
-
-**For example**
-
-`2019-07-25` would become `19.7.25`. An additional number (time) will be
-added to the version number, if another release was made on the same day
-(e.g. `19.7.25` would become `19.7.25.1041`, "1041" being 10:41 for the
-local time).
-
-**The exception**
-
-When run from the repository, the output of the `git-describe` and the
-`git-show` command will be used for the version number, instead.
-
-### Supported websites
+### Website coverage
 
 ```shell
 jomiel --plugin-list    # List supported websites
@@ -99,6 +69,32 @@ found in the jomiel/plugin/ directory.
 - Make sure the site is not dedicated to copyright infringement, be that
   they host the media or the link to it
 - Make sure the site is not NSFW
+
+## License
+
+`jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
+
+## HOWTO
+
+See [docs/HOWTO](./docs/HOWTO.md).
+
+## Versioning
+
+`jomiel` uses a custom versioning scheme. With each new release, the
+release date (and time) will be used for the version number. `jomiel`
+uses the format `yy.m.d` for version numbers.
+
+**For example**
+
+`2019-07-25` would become `19.7.25`. An additional number (time) will be
+added to the version number, if another release was made on the same day
+(e.g. `19.7.25` would become `19.7.25.1041`, "1041" being 10:41 for the
+local time).
+
+**The exception**
+
+When run from the repository, the output of the `git-describe` and the
+`git-show` command will be used for the version number, instead.
 
 ### Subprojects
 
