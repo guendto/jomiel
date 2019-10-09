@@ -141,8 +141,8 @@ and the server public key. To change the default behaviour, you can use:
 
 **jomiel (server-side)**
 
-- Make sure you have configured SSH server and it is running
-- Make sure `jomiel` is running
+- Have SSH configured and running
+- Have `jomiel` running
 
 **yomiel (client-side)**
 
@@ -152,9 +152,8 @@ yomiel --auth-mode ssh --ssh-server user@host:port URI
 
 **Notes**
 
-- Make sure you have installed either [pexpect][29] or [paramiko][30]
-  (recommended)
-- You can tell `yomiel` to use [paramiko][30] (--ssh-paramiko)
+- Have either  [pexpect][29] or [paramiko][30] (recommended) installed
+- Use --ssh-paramiko to tell `yomiel` to use it
 
 ## Development notes
 
