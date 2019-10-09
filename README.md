@@ -12,6 +12,8 @@ Two core technologies serve as a basis for `jomiel`:
 The client applications can be written in modern [languages][5] for most
 platforms.
 
+![Example (jomiel)](./docs/examples/jomiel-framed.svg)
+
 ## Features
 
 - Plug-in system enabling customization to add support for media hosts
@@ -20,10 +22,6 @@ platforms.
 - [Protocol Buffers][20] are language-neutral, platform-neutral
 - Highly configurable
 - Runs as a service
-
-## Example
-
-![Example (jomiel)](./docs/examples/jomiel-framed.svg)
 
 ## License
 
