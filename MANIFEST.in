@@ -1,4 +1,4 @@
 include LICENSE NOTICE requirements.txt
 recursive-include jomiel/comm/proto *.proto
-recursive-include docs *.svg
+recursive-include docs *.svg *.md
 global-exclude *.py[co]
