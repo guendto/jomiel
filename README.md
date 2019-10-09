@@ -35,28 +35,23 @@ platforms.
 
 ## Installation
 
-You can install the latest version from either [PyPI][24] or from the
-git repository.
-
-### PyPI
+To install `jomiel` from from [PyPI][24]:
 
 ```shell
 pip install jomiel        # for the latest release
 jomiel                    # starts the service
 ```
 
-### git repository
+To run `jomiel` from the repository:
 
-Make sure you have installed the *protobuffer library* and the
-*compiler*. For example, on Debian based systems these are the
-`libprotobuf*` and the `protobuf-compiler` packages.
+- Make sure you have installed protobuf compiler first (debian:
+  protobuf-compiler)
 
 ```shell
-git clone https://github.com/guendto/jomiel.git
-cd jomiel
+git clone https://github.com/guendto/jomiel.git && cd jomiel
 pip install -r ./requirements.txt
-python setup.py build_py  # generate the protobuf message bindings
-python jomiel             # starts the service
+python setup.py build_py    # Generate the protobuf message bindings
+python jomiel               # Starts the service
 ```
 
 ## Status
