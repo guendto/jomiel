@@ -23,15 +23,7 @@ platforms.
 - Highly configurable
 - Runs as a service
 
-## License
-
-`jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
-
-## Requirements
-
-`jomiel` is written for [Python][22] 3.5 and later.
-
-## Installation
+## Getting started
 
 To install `jomiel` from from [PyPI][24]:
 
@@ -58,7 +50,15 @@ can experiment sending inquries to it:
 - [examples][5] - the demo programs written in most modern languages
 - [yomiel][1] - the pretty printer for `jomiel` messages
 
-See also [Development: Supported websites](#supported-websites).
+See also [Supported websites](#supported-websites).
+
+## License
+
+`jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
+
+## Requirements
+
+`jomiel` is written for [Python][22] 3.5 and later.
 
 ## HOWTO
 
