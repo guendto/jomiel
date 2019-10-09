@@ -172,9 +172,8 @@ local time).
 
 **The exception**
 
-When the program runs from the repository code, the output of the
-`git-describe` and the `git-show` command will be used for the version
-number.
+When run from the repository, the output of the `git-describe` and the
+`git-show` command will be used for the version number, instead.
 
 ### Subprojects
 
@@ -187,18 +186,17 @@ the subdirectories:
 
 ### Supported websites
 
-The website coverage is currently very limited:
-
 ```shell
-jomiel --plugin-list
+jomiel --plugin-list    # List supported websites
 ```
 
-The plugins can be found in the jomiel/plugin/ directory.
+The website coverage is currently very limited. The plugins can be
+found in the jomiel/plugin/ directory.
 
 - `jomiel` is written in [Python][22] which is an easy language to learn
 - Additional support can be implemented by adding new plugins
 
-**Notes**
+**Notes for those considering contributing new plugins**
 
 - Make sure the site is not dedicated to copyright infringement, be that
   they host the media or the link to it
