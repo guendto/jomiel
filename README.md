@@ -54,15 +54,12 @@ python setup.py build_py    # Generate the protobuf message bindings
 python jomiel               # Starts the service
 ```
 
-## Status
-
-Keep in mind that `jomiel` is still a young project. Once you have
-`jomiel` running, try:
+`jomiel` is still a young project. Once you have `jomiel` running, you
+can experiment sending inquries to it:
 
 - [examples][5] - the demo programs written in most modern languages
 - [yomiel][1] - the pretty printer for `jomiel` messages
 
-To pass input URIs to inquire and display the meta data from `jomiel`.
 See also [Development: Supported websites](#supported-websites).
 
 ## HOWTO
