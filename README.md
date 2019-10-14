@@ -1,16 +1,16 @@
 # jomiel
 
 `jomiel` is the meta inquiry middleware for distributed systems. It
-returns meta data for content on [video-sharing][40] websites (e.g.
+returns meta data for content on [video-sharing] websites (e.g.
 YouTube) and runs as a service, responding to client inquiries.
 
 Two core technologies serve as a basis for `jomiel`:
 
-- [Protocol Buffers][20] for platform-independent data serialization
-- [ZeroMQ][21] as the messaging library
+- [Protocol Buffers] for platform-independent data serialization
+- [ZeroMQ] as the messaging library
 
-The client applications can be written in modern [languages][5] for most
-platforms.
+The client applications can be written in modern [languages][examples]
+for most platforms.
 
 ![Example (jomiel)](./docs/examples/jomiel-framed.svg)
 
@@ -33,16 +33,16 @@ platforms.
 
 - Plug-in system enabling customization to add support for media hosts
 - Support for authentication and encryption (CURVE and SSH)
-- [ZeroMQ][21] supports every modern language and platform
-- [Protocol Buffers][20] are language-neutral, platform-neutral
+- [ZeroMQ] supports every modern language and platform
+- [Protocol Buffers] are language-neutral, platform-neutral
 - Highly configurable
 - Runs as a service
 
 ## Getting started
 
-- **`jomiel` requires [Python 3.5+][22]**
+- **`jomiel` requires [Python] 3.5+**
 
-To install `jomiel` from from [PyPI][24]:
+To install `jomiel` from from [PyPI]:
 
 ```shell
 pip install jomiel        # For the latest release
@@ -64,8 +64,8 @@ python jomiel               # Starts the service
 `jomiel` is still a young project. Once you have `jomiel` running, you
 can experiment sending inquries to it:
 
-- [examples][5] - the demo programs written in most modern languages
-- [yomiel][1] - the pretty printer for `jomiel` messages
+- [examples] - the demo programs written in most modern languages
+- [yomiel] - the pretty printer for `jomiel` messages
 
 ### Website coverage
 
@@ -76,7 +76,7 @@ jomiel --plugin-list    # List supported websites
 The website coverage is currently very limited. The plugins can be
 found in the jomiel/plugin/ directory.
 
-- `jomiel` is written in [Python][22] which is an easy language to learn
+- `jomiel` is written in [Python] which is an easy language to learn
 - Additional support can be implemented by adding new plugins
 
 **Notes for those considering contributing new plugins**
@@ -109,33 +109,33 @@ When run from the repository, the output of the `git-describe` and the
 
 ## License
 
-`jomiel` is licensed under the [Apache License version 2.0][23] (APLv2).
+`jomiel` is licensed under the [Apache License version 2.0][APLv2].
 
 ## Acknowledgements
 
-- Linted by [pylint][25], [flake8][26] and [yamllint][27]
-- Formatted by [yapf][28]
+- Linted by [pylint], [flake8] and [yamllint]
+- Formatted by [yapf]
 
 ### Subprojects
 
 `jomiel` subtrees (includes) the following subprojects:
 
-- [jomiel-proto.git][3] (jomiel/comm/proto)
-- [jomiel-comm.git][2]  (jomiel/comm)
-- [jomiel-kore.git][4]  (jomiel/kore)
+- [jomiel-proto] (jomiel/comm/proto)
+- [jomiel-comm]  (jomiel/comm)
+- [jomiel-kore]  (jomiel/kore)
 
-[1]: https://github.com/guendto/jomiel-yomiel/
-[2]: https://github.com/guendto/jomiel-comm/
-[3]: https://github.com/guendto/jomiel-proto/
-[4]: https://github.com/guendto/jomiel-kore/
-[5]: https://github.com/guendto/jomiel-examples/
-[20]: https://developers.google.com/protocol-buffers/
-[21]: https://zeromq.org/
-[22]: https://www.python.org/about/gettingstarted/
-[23]: https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)
-[24]: https://pypi.org/
-[25]: https://pypi.org/project/pylint/
-[26]: https://pypi.org/project/flake8/
-[27]: https://pypi.org/project/yamllint/
-[28]: https://pypi.org/project/yapf/
-[40]: https://en.wikipedia.org/wiki/Video_hosting_service
+[APLv2]: https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)
+[video-sharing]: https://en.wikipedia.org/wiki/Video_hosting_service
+[Protocol Buffers]: https://developers.google.com/protocol-buffers/
+[jomiel-proto]: https://github.com/guendto/jomiel-proto/
+[examples]: https://github.com/guendto/jomiel-examples/
+[Python]: https://www.python.org/about/gettingstarted/
+[jomiel-comm]: https://github.com/guendto/jomiel-comm/
+[jomiel-kore]: https://github.com/guendto/jomiel-kore/
+[yomiel]: https://github.com/guendto/jomiel-yomiel/
+[yamllint]: https://pypi.org/project/yamllint/
+[pylint]: https://pypi.org/project/pylint/
+[flake8]: https://pypi.org/project/flake8/
+[yapf]: https://pypi.org/project/yapf/
+[ZeroMQ]: https://zeromq.org/
+[PyPI]: https://pypi.org/
