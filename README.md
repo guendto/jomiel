@@ -79,7 +79,7 @@ found in the jomiel/plugin/ directory.
 - `jomiel` is written in [Python] which is an easy language to learn
 - Additional support can be implemented by adding new plugins
 
-**Notes for those considering contributing new plugins**
+**Notes for those thinking of contributing new plugins**
 
 - Make sure the site is not dedicated to copyright infringement, be that
   they host the media or the link to it
