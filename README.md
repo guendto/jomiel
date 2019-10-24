@@ -124,7 +124,7 @@ When run from the repository, the output of the `git-describe` and the
 - [jomiel-comm]  (jomiel/comm)
 - [jomiel-kore]  (jomiel/kore)
 
-[APLv2]: https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)
+[APLv2]: https://www.tldrlegal.com/l/apache2
 [video-sharing]: https://en.wikipedia.org/wiki/Video_hosting_service
 [Protocol Buffers]: https://developers.google.com/protocol-buffers/
 [jomiel-proto]: https://github.com/guendto/jomiel-proto/
