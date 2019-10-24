@@ -1,5 +1,18 @@
 # jomiel - HOWTO
 
+<!-- vim-markdown-toc GFM -->
+
+* [Use a proxy](#use-a-proxy)
+* [Authenticate and encrypt using CURVE](#authenticate-and-encrypt-using-curve)
+  * [CURVE: jomiel (server-side)](#curve-jomiel-server-side)
+  * [CURVE: yomiel (client-side)](#curve-yomiel-client-side)
+* [Authenticate and encrypt using SSH](#authenticate-and-encrypt-using-ssh)
+  * [SSH: jomiel (server-side)](#ssh-jomiel-server-side)
+  * [SSH: yomiel (client-side)](#ssh-yomiel-client-side)
+  * [SSH Notes](#ssh-notes)
+
+<!-- vim-markdown-toc -->
+
 ## Use a proxy
 
 If you need to use a proxy with HTTP connections, you can configure
@@ -43,7 +56,7 @@ and client (yomiel):
 jomiel-keygen server client
 ```
 
-**jomiel (server-side)**
+### CURVE: jomiel (server-side)
 
 ```shell
 mkdir -p .curve
@@ -55,10 +68,12 @@ jomiel --curve-enable         # Restart jomiel with CURVE enabled
 `jomiel` will search .curve/ dir for both (allowed) client public keys
 and the server secret key. To change the default behaviour, you can use:
 
-    --curve-server-key-file
-    --curve-public-key-dir
+```
+--curve-server-key-file
+--curve-public-key-dir
+```
 
-**yomiel (client-side)**
+### CURVE: yomiel (client-side)
 
 ```shell
 mkdir -p .curve
@@ -70,26 +85,28 @@ yomiel --auth-mode curve URI  # Start yomiel with CURVE enabled
 `yomiel` will search .curve/ dir for both the client secret key
 and the server public key. To change the default behaviour, you can use:
 
-    --curve-server-public-key-file
-    --curve-client-key-file
+```
+--curve-server-public-key-file
+--curve-client-key-file
+```
 
 ## Authenticate and encrypt using SSH
 
-**jomiel (server-side)**
+### SSH: jomiel (server-side)
 
-- Have SSH configured and running
-- Have `jomiel` running
+* Have SSH configured and running
+* Have `jomiel` running
 
-**yomiel (client-side)**
+### SSH: yomiel (client-side)
 
 ```shell
 yomiel --auth-mode ssh --ssh-server user@host:port URI
 ```
 
-**Notes**
+### SSH Notes
 
-- Have either  [pexpect][29] or [paramiko][30] (recommended) installed
-- Use --ssh-paramiko to tell `yomiel` to use it
+* Have either  [pexpect][29] or [paramiko][30] (recommended) installed
+* Use --ssh-paramiko to tell `yomiel` to use it
 
 [29]: https://pypi.org/project/pexpect/
 [30]: https://pypi.org/project/paramiko/
