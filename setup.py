@@ -11,6 +11,9 @@
 #
 """setup.py for jomiel."""
 
+from sys import path
+path.insert(0, '.')
+
 # Enable VERSION_TIME to append "%H%M" to the version number.
 #
 
