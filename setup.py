@@ -59,7 +59,10 @@ setup(
         ],
     },
     python_requires='>=3.5',
-    install_requires=read_file('requirements.txt').splitlines(),
+    install_requires=[
+        "configargparse", "protobuf", "pyzmq", "requests",
+        "ruamel.yaml", "validators"
+    ],
     entry_points={
         'console_scripts':
         ['jomiel=jomiel:main', 'jomiel-keygen=jomiel.keygen:main']
