@@ -11,16 +11,14 @@
 #
 """setup.py for jomiel."""
 
-# NOTES:
-#    - Set VERSION_TIME to get %H%M appended to the semantic version
+# Enable VERSION_TIME to append "%H%M" to the version number.
 #
 
 from setuptools import setup, find_packages
 from jomiel.kore.setup import init as setup_init
 
-setup_init(
-    'jomiel',  # Must be done before the cmd imports below
-    'comm/proto')
+setup_init(  # Do this before the import lines for "cmd" below.
+    'jomiel', 'comm/proto')
 
 # pylint: disable=C0413
 from jomiel.kore.setup.cmd import CustomCommand__bdist_wheel
@@ -44,12 +42,18 @@ setup(
     url=GITHUB_ADDR,
     packages=find_packages(exclude=[]),
     package_data={
-        # Add comm/proto/*.py here because for some reason the at the
-        # 'build' stage the script can't seem to be able to find the
-        # generated *_pb2.py binding files -- even if build_py is called
-        # first.
-        'jomiel':
-        ['config/logger/jomiel.yaml', 'VERSION', 'comm/proto/*.py'],
+        'jomiel': [
+            'config/logger/jomiel.yaml',
+            'VERSION',
+            # Issue:
+            #   - The 'build' stage fails to find the generated *_pb2.py
+            #   files, even when 'build_py' target is built first
+            # Workaround:
+            #   - Force the inclusion of 'comm/proto/*.py files here so that
+            #   they are included
+            #
+            'comm/proto/*.py'
+        ],
     },
     python_requires='>=3.5',
     install_requires=read_file('requirements.txt').splitlines(),
