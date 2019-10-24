@@ -22,10 +22,10 @@ proxies by setting the environment variables http_proxy and https_proxy.
 export https_proxy="https://localhost:3128"
 ```
 
-**"In addition to basic HTTP proxies, Requests also supports proxies using
-the SOCKS protocol. This is an optional feature that requires that
+**"In addition to basic HTTP proxies, Requests also supports proxies
+using the SOCKS protocol. This is an optional feature that requires that
 additional third-party libraries be installed before use."** --
-[python-requests.org][41]
+[python-requests.org]
 
 ```shell
 pip install requests[socks]
@@ -42,12 +42,12 @@ The proxy string can be specified with a protocol:// prefix to specify
 an alternative proxy protocol (e.g. "socks4://", "socks4a://",
 "socks5://" or "socks5h://").
 
-For more information, see the [documentation][42].
+For more information, see the [requests documentation].
 
 ## Authenticate and encrypt using CURVE
 
 **"[CURVE is] ... a protocol for secure messaging across the
-Internet."** -- [curvezmq.org][43]
+Internet."** -- [curvezmq.org]
 
 Generate a new public and secret CURVE keypair for both server (jomiel)
 and client (yomiel):
@@ -105,11 +105,11 @@ yomiel --auth-mode ssh --ssh-server user@host:port URI
 
 ### SSH Notes
 
-* Have either  [pexpect][29] or [paramiko][30] (recommended) installed
+* Have either  [pexpect] or [paramiko] (recommended) installed
 * Use --ssh-paramiko to tell `yomiel` to use it
 
-[29]: https://pypi.org/project/pexpect/
-[30]: https://pypi.org/project/paramiko/
-[41]: https://2.python-requests.org/
-[42]: https://2.python-requests.org/en/master/user/advanced/#proxies
-[43]: http://curvezmq.org
+[pexpect]: https://pypi.org/project/pexpect/
+[paramiko]: https://pypi.org/project/paramiko/
+[python-requests.org]: https://2.python-requests.org/
+[requests documentation]: https://2.python-requests.org/en/master/user/advanced/#proxies
+[curvezmq.org]: http://curvezmq.org
