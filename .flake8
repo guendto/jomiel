@@ -1,0 +1,22 @@
+[flake8]
+
+exclude =
+    .git/
+    jomiel/kore/
+    jomiel/comm/
+    build/
+    dist/
+    docs/
+
+per-file-ignores =
+    # module level import not at top of file
+    setup.py:E402
+    # unexpected spaces around keyword / parameter equals
+    jomiel/app.py:E251
+    # F821 undefined name 'plugin_handlers'
+    jomiel/cache.py:F821
+    # do not use bare 'except'
+    jomiel/dispatcher/media.py:E722
+    # line too long (81 > 79 characters)
+    jomiel/subsys/broker/__init__.py:E501
+    jomiel/subsys/broker/worker.py:E501
