@@ -45,14 +45,13 @@
 # Device: Router (for talking to the clients)
 # - Examples:
 #   - ipc:///tmp/foo
-#   - tcp://*:5570
-# broker-router-endpoint: tcp://*:5570
+#   - tcp://*:5514
+# broker-router-endpoint: tcp://*:5514
 #
 # Device: Dealer (for talking to the workers)
 # - Examples:
 #   - ipc:///tmp/foo
 #   - inproc://foo
-#   - tcp://*:5570
 # broker-dealer-endpoint: inproc://workers
 #
 # Number of worker threads that listen waiting for client connections
