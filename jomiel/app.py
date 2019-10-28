@@ -100,7 +100,7 @@ class App(KoreApp):
                 '--broker-router-endpoint',
                 help=
                 '''Bind the frontend (router) socket to the local endpoint''',
-                default='tcp://*:5570',
+                default='tcp://*:5514',
                 metavar='ADDR')
 
             grp.add(
