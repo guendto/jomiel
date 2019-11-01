@@ -65,10 +65,14 @@ mv client.key .curve          # Make client CURVE public key usable
 jomiel --curve-enable         # Restart jomiel with CURVE enabled
 ```
 
-`jomiel` will search .curve/ dir for both (allowed) client public keys
-and the server secret key. To change the default behaviour, you can use:
+`jomiel` will search (by default) the .curve/ subdir for
 
-```
+* any **public** *client keys* (note plural)
+* the **secret** *server key*
+
+You can override the default search paths with the options:
+
+```plaintext
 --curve-server-key-file
 --curve-public-key-dir
 ```
@@ -82,10 +86,14 @@ mv server.key .curve          # Make server CURVE public key usable
 yomiel --auth-mode curve URI  # Start yomiel with CURVE enabled
 ```
 
-`yomiel` will search .curve/ dir for both the client secret key
-and the server public key. To change the default behaviour, you can use:
+`yomiel` will search (by default) the .curve/ subdir for
 
-```
+* the **secret** *client* key
+* the **public** *server* key
+
+You can override the default search paths with the options:
+
+```plaintext
 --curve-server-public-key-file
 --curve-client-key-file
 ```
