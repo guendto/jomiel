@@ -16,7 +16,7 @@ from jomiel.plugin.uri import PluginURIRefiner
 class URIRefiner(PluginURIRefiner):
     """URI refiner implementation for YouTube."""
 
-    __slots__ = ['regex']
+    __slots__ = ["regex"]
 
     def __init__(self):
         """Initializes the refiner object."""
@@ -34,13 +34,15 @@ class URIRefiner(PluginURIRefiner):
             dict: The updated URI components
 
         """
+
         def is_youtube_uri():
             """Check if the given URI is a shortened YouTube URI."""
             netloc = uri.netloc.lower()
-            return self.regex['netloc'].match(netloc)
+            return self.regex["netloc"].match(netloc)
 
         def capture_components():
             """Match and return the relevant URI components."""
+
             def match(pattern, in_string):
                 """Return the captured text from a string."""
                 result = self.regex[pattern].match(in_string)
@@ -49,7 +51,7 @@ class URIRefiner(PluginURIRefiner):
                 raise ValueError
 
             result = {}
-            for pattern in ['scheme', 'netloc', 'path']:
+            for pattern in ["scheme", "netloc", "path"]:
                 result[pattern] = match(pattern, getattr(uri, pattern))
             return result
 
@@ -57,7 +59,7 @@ class URIRefiner(PluginURIRefiner):
         if is_youtube_uri():
             try:
                 result = capture_components()
-                netloc = result['netloc'] if result['netloc'] else ''
+                netloc = result["netloc"] if result["netloc"] else ""
 
                 def replace(uri, **kwargs):
                     """Replace a component in the parsed URI."""
@@ -65,10 +67,10 @@ class URIRefiner(PluginURIRefiner):
                         uri = uri._replace(**{name: value})
                     return uri
 
-                uri = replace(uri, netloc=netloc + 'youtube.com')
-                uri = replace(uri, scheme=result['scheme'])
-                uri = replace(uri, path='/watch')
-                uri = replace(uri, query='v=' + result['path'])
+                uri = replace(uri, netloc=netloc + "youtube.com")
+                uri = replace(uri, scheme=result["scheme"])
+                uri = replace(uri, path="/watch")
+                uri = replace(uri, query="v=" + result["path"])
             except ValueError:  # Failed to match a pattern
                 pass
         return uri
@@ -79,10 +81,11 @@ class URIRefiner(PluginURIRefiner):
 
         """
         from re import compile as rxc
+
         self.regex = {
-            'scheme': rxc(r'(https?)$'),
-            'netloc': rxc(r'(\w+\.)?youtu\.be$'),
-            'path': rxc(r'/([\w\-_]{11})')
+            "scheme": rxc(r"(https?)$"),
+            "netloc": rxc(r"(\w+\.)?youtu\.be$"),
+            "path": rxc(r"/([\w\-_]{11})"),
         }
 
 
