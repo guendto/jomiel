@@ -16,7 +16,7 @@ from jomiel.error import CannotParseError, NoParserError
 from jomiel.cache import plugin_handlers  # pylint: disable=E0611
 from jomiel import lg, log_sanitize_string
 
-NS_NAME = 'jomiel.plugin.media'
+NS_NAME = "jomiel.plugin.media"
 
 
 def script_dispatcher(input_uri):
@@ -32,11 +32,16 @@ def script_dispatcher(input_uri):
         NoParserError if no matching handler could not be found
 
     """
-    lg().debug('dispatcher<%s>: match \'%s\'', NS_NAME,
-               log_sanitize_string(input_uri))
+    lg().debug(
+        "dispatcher<%s>: match '%s'",
+        NS_NAME,
+        log_sanitize_string(input_uri),
+    )
 
-    (uri_handlers, uri_components) = (plugin_handlers[NS_NAME],
-                                      urlparse(input_uri))
+    (uri_handlers, uri_components) = (
+        plugin_handlers[NS_NAME],
+        urlparse(input_uri),
+    )
 
     for handler in uri_handlers:
         try:
@@ -57,7 +62,8 @@ def script_dispatcher(input_uri):
     # not find a matching parser for the given input URI.
     #
     raise NoParserError(
-        'Unable to find a matching parser for URI <%s>' % input_uri)
+        "Unable to find a matching parser for URI <%s>" % input_uri
+    )
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
