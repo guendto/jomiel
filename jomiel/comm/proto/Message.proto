@@ -16,8 +16,8 @@ option go_package = "proto";
 
 package jomiel;
 
-import "Media.proto"
-import "Status.proto"
+import "Status.proto";
+import "Media.proto";
 
 message Inquiry {
     oneof inquiry {
