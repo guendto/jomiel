@@ -13,7 +13,6 @@
 from abc import ABCMeta, abstractmethod
 from importlib import import_module
 from sys import stdout
-from configargparse import get_parser
 
 
 class App:
@@ -139,6 +138,7 @@ class App:
         (config_files, self._logger_files) = determine_xdg_paths()
         self._version = determine_version()
 
+        from configargparse import get_parser
         parser = get_parser(default_config_files=config_files,
                             add_config_file_help=False)
 
