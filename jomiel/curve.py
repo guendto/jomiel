@@ -22,7 +22,7 @@ def setup(socket):
         Nothing
 
     """
-    from jomiel.cache import opts  # pylint: disable=E0611
+    from jomiel.cache import opts
     from zmq import Context
 
     ctx = Context.instance()
