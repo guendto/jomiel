@@ -126,9 +126,7 @@ class Parser(PluginMediaParser):
         video_info = http_get(info_uri).text
         parse_metadata(video_info)
 
-    def add_streams(
-        self, video_info
-    ):  # pylint: disable=too-many-locals
+    def add_streams(self, video_info):
         """Go through the returned video streams and return them."""
 
         def get_value(keyname, index=0):
