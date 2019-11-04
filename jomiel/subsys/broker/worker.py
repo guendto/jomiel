@@ -16,7 +16,12 @@ from logging import DEBUG
 from binascii import hexlify
 from validators import url as is_url
 
-from zmq import Context, REP, ZMQError, ContextTerminated  # pylint: disable=E0611
+from zmq import (
+    Context,
+    REP,
+    ZMQError,
+    ContextTerminated,
+)  # pylint: disable=E0611
 from requests.exceptions import RequestException
 from google.protobuf.message import DecodeError
 
@@ -38,7 +43,7 @@ class Worker:
 
     """
 
-    __slots__ = ['worker_id', 'context', 'socket', 'dealer_endpoint']
+    __slots__ = ["worker_id", "context", "socket", "dealer_endpoint"]
 
     def __init__(self, worker_id):
         self.dealer_endpoint = opts.broker_dealer_endpoint
@@ -54,9 +59,11 @@ class Worker:
         try:
             sck.connect(self.dealer_endpoint)
         except ZMQError as error:
-            self.log('%s (%s)' % (error, self.dealer_endpoint), 'error')
+            self.log(
+                "{} ({})".format(error, self.dealer_endpoint), "error"
+            )
             exit_error()
-        self.log('connected to <%s>' % self.dealer_endpoint)
+        self.log("connected to <%s>" % self.dealer_endpoint)
         return sck
 
     def renew_socket(self):
@@ -75,20 +82,22 @@ class Worker:
         """The I/O loop."""
         while True:
             try:
-                self.log('awaiting')
+                self.log("awaiting")
                 self.message_receive()
             except DecodeError as error:
-                self.log('received invalid message: %s' % (error),
-                         'error')
+                self.log(
+                    "received invalid message: %s" % (error), "error"
+                )
                 self.renew_socket()
             finally:
-                self.log('reset')
+                self.log("reset")
 
-    def log(self, text, msgtype='debug'):
+    def log(self, text, msgtype="debug"):
         """Write a new (debug) worker entry to the logger."""
         logger = getattr(lg(), msgtype)
-        logger('subsystem/broker<worker#%03d>: %s', self.worker_id,
-               text)
+        logger(
+            "subsystem/broker<worker#%03d>: %s", self.worker_id, text
+        )
 
     def run(self):
         """Runs the worker."""
@@ -97,9 +106,9 @@ class Worker:
         except ContextTerminated as msg:
             self.log(msg)
         except KeyboardInterrupt:
-            self.log('interrupted')
+            self.log("interrupted")
         finally:
-            self.log('exit')
+            self.log("exit")
 
     def message_dump(self, logtext, message):
         """Dump the message details in JSON to the logger
@@ -125,8 +134,10 @@ class Worker:
         if lg().level <= DEBUG:
             _len = len(message)
             _hex = hexlify(bytearray(message))
-            self.log('<%s:serialized> [%s] %s' %
-                     (prefix, _len, log_sanitize_string(_hex)))
+            self.log(
+                "<%s:serialized> [%s] %s"
+                % (prefix, _len, log_sanitize_string(_hex))
+            )
 
     def message_send(self, response):
         """Sends a response message back to the client.
@@ -136,28 +147,31 @@ class Worker:
 
         """
         serialized_response = Response.SerializeToString(response)
-        self.message_log_serialized('send', serialized_response)
+        self.message_log_serialized("send", serialized_response)
         self.socket.send(serialized_response)
-        self.message_dump('sent: %s', response)
+        self.message_dump("sent: %s", response)
 
     def message_receive(self):
         """Awaits for an inquiry request from a client."""
         recvd_data = self.socket.recv()
         inquiry = Inquiry()
 
-        self.message_log_serialized('recvd', recvd_data)
+        self.message_log_serialized("recvd", recvd_data)
 
         inquiry.ParseFromString(recvd_data)
-        self.message_dump('received: %s', inquiry)
+        self.message_dump("received: %s", inquiry)
 
-        if inquiry.WhichOneof('inquiry') == 'media':
-            self.handle_media_inquiry(inquiry.media)  # pylint: disable=E1101
+        if inquiry.WhichOneof("inquiry") == "media":
+            self.handle_media_inquiry(
+                inquiry.media
+            )  # pylint: disable=E1101
         else:
             # TODO: Do something useful here pylint: disable=W0511
-            self.log('ignored unknown inquiry type')
+            self.log("ignored unknown inquiry type")
 
     def handle_media_inquiry(self, inquiry):
         """Handles the incoming inquiry requests."""
+
         def match_handler():
             """Matches the given input URI to a script.
 
@@ -177,8 +191,9 @@ class Worker:
 
             if not is_url(inquiry.input_uri):
                 raise InvalidInputError(
-                    'Invalid input URI value given <%s>' %
-                    inquiry.input_uri)
+                    "Invalid input URI value given <%s>"
+                    % inquiry.input_uri
+                )
 
         def failed(error):
             """Check if an error occurred."""
@@ -218,11 +233,12 @@ class ResponseBuilder:
         response (obj): the created Response object
 
     """
-    __slots__ = ['response']
+
+    __slots__ = ["response"]
 
     def __init__(self, error=None):
         self.response = Response()
-        self.init('Not an error', Status.OK, Status.NoError)
+        self.init("Not an error", Status.OK, Status.NoError)
         if error:
             self.determine(error)
 
@@ -265,18 +281,21 @@ class ResponseBuilder:
 
     def parse_failed(self, error):
         """System raised ParseError, initalize response accordingly."""
-        self.init(error.message, Status.InternalServer,
-                  Status.ParseError)
+        self.init(
+            error.message, Status.InternalServer, Status.ParseError
+        )
 
     def handler_not_found(self, error):
         """System raised NoParserError, initalize response accordingly."""
-        self.init(error.message, Status.NotImplemented,
-                  Status.NoParserError)
+        self.init(
+            error.message, Status.NotImplemented, Status.NoParserError
+        )
 
     def invalid_input_given(self, error):
         """System raised InvalidInputError, initialize response accordingly."""
-        self.init(error.message, Status.BadRequest,
-                  Status.InvalidInputError)
+        self.init(
+            error.message, Status.BadRequest, Status.InvalidInputError
+        )
 
     def is_requests_error(self, error, error_type):
         """Handle Requests error (if any)
@@ -293,21 +312,25 @@ class ResponseBuilder:
 
             def get_http_code():
                 """Return HTTP code from the HTTP header."""
-                regex = rxc(r'^(\d{3}) Server Error:')
+                regex = rxc(r"^(\d{3}) Server Error:")
                 result = regex.match(message)
                 return result.group(1) if result else 200
 
             message = str(error)
             code = get_http_code()
 
-            return self.init(message, Status.InternalServer,
-                             Status.HttpError, code)
+            return self.init(
+                message, Status.InternalServer, Status.HttpError, code
+            )
         return False
 
     def fail_with_traceback(self):
         """Pass the Python stack traceback to the client."""
-        self.init(format_exc(), Status.InternalServer,
-                  Status.UnknownSeeMessageError)
+        self.init(
+            format_exc(),
+            Status.InternalServer,
+            Status.UnknownSeeMessageError,
+        )
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
