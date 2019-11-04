@@ -45,7 +45,7 @@ def http_get(uri):
         obj: requests.Response
 
     """
-    from jomiel.cache import opts  # pylint: disable=E0611
+    from jomiel.cache import opts
 
     hdrs = {"User-Agent": opts.http_user_agent}
 

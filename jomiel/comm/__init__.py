@@ -40,7 +40,7 @@ def connect(addr, no_linger=True, auth=None, logger=None):
             needs to be applied to establish the connection
 
     """
-    from zmq import Context, REQ, LINGER  # pylint: disable=E0611
+    from zmq import Context, REQ, LINGER
 
     ctx = Context.instance()
     sck = ctx.socket(REQ)
@@ -92,7 +92,7 @@ def inquire(socket, input_uri, timeout=60):
         from .proto.Message_pb2 import Inquiry
 
         inquiry = Inquiry()
-        inquiry.media.input_uri = input_uri  # pylint: disable=E1101
+        inquiry.media.input_uri = input_uri
         return Inquiry.SerializeToString(inquiry)
 
     def receive_response():
@@ -109,7 +109,6 @@ def inquire(socket, input_uri, timeout=60):
         resp = Response()
         resp.ParseFromString(data)
 
-        # pylint: disable=E1101
         if resp.status.code != OK:
             raise InquireError(
                 "%s (status=%d, error=%d, http=%d)"

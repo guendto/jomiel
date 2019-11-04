@@ -50,7 +50,7 @@ def init():
 
     lg().info("plugin subsystem initiated")
 
-    from jomiel.cache import opts, dump_plugins  # pylint: disable=E0611
+    from jomiel.cache import opts, dump_plugins
 
     if opts.plugin_list:
         dump_plugins()

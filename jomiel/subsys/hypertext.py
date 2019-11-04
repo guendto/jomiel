@@ -14,7 +14,7 @@
 def init():
     """Initiates the HTTP subsystem."""
 
-    from jomiel.cache import opts  # pylint: disable=E0611
+    from jomiel.cache import opts
     from jomiel import lg
 
     if opts.http_debug:

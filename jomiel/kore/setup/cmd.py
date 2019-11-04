@@ -10,14 +10,16 @@
 #
 """TODO."""
 
-from distutils.command.clean import clean  # pylint: disable=E0611,E0401
+from distutils.command.clean import clean
+
 from setuptools.command.build_py import build_py
 from setuptools.command.sdist import sdist
 from wheel.bdist_wheel import bdist_wheel
-from .cache import PROTO_INIT  # pylint: disable=E0611
+
+from .cache import PROTO_INIT
 
 
-class CustomCommand__sdist(sdist):  # pylint: disable=R0903,C0103
+class CustomCommand__sdist(sdist):
     """Custom command for setup target sdist."""
 
     def run(self):
@@ -26,9 +28,7 @@ class CustomCommand__sdist(sdist):  # pylint: disable=R0903,C0103
         return sdist.run(self)
 
 
-class CustomCommand__bdist_wheel(
-    bdist_wheel
-):  # pylint: disable=R0903,C0103
+class CustomCommand__bdist_wheel(bdist_wheel):
     """Custom command for setup target bdist_wheel."""
 
     def run(self):
@@ -37,7 +37,7 @@ class CustomCommand__bdist_wheel(
         return bdist_wheel.run(self)
 
 
-class CustomCommand__build_py(build_py):  # pylint: disable=R0903,C0103
+class CustomCommand__build_py(build_py):
     """Custom command for setup target build_py."""
 
     def run(self):
@@ -53,7 +53,7 @@ class CustomCommand__build_py(build_py):  # pylint: disable=R0903,C0103
         return build_py.run(self)
 
 
-class CustomCommand__clean(clean):  # pylint: disable=R0903,C0103
+class CustomCommand__clean(clean):
     """Custom command for setup target clean."""
 
     def run(self):
@@ -61,7 +61,7 @@ class CustomCommand__clean(clean):  # pylint: disable=R0903,C0103
         from .cache import (
             PROTO_FILES,
             VERSION_FILE,
-        )  # pylint: disable=E0611
+        )
 
         # Proto files
         #
@@ -84,7 +84,7 @@ class CustomCommand__clean(clean):  # pylint: disable=R0903,C0103
         #
         files.append(VERSION_FILE)
 
-        from distutils.debug import DEBUG  # pylint: disable=E0611,E0401
+        from distutils.debug import DEBUG
         from ..file import unlink_if
 
         for _file in files:
@@ -100,9 +100,7 @@ class CustomCommand__clean(clean):  # pylint: disable=R0903,C0103
                 https://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/
 
             """
-            from distutils.dir_util import (
-                remove_tree,
-            )  # pylint: disable=E0611,E0401
+            from distutils.dir_util import remove_tree
             from os.path import isdir
 
             def rmtree_if(dirname):
@@ -110,7 +108,7 @@ class CustomCommand__clean(clean):  # pylint: disable=R0903,C0103
                 if isdir(dirname):
                     remove_tree(dirname)
 
-            from .cache import PKG_NAME  # pylint: disable=E0611
+            from .cache import PKG_NAME
 
             dirs = [
                 PKG_NAME + ".egg-info",

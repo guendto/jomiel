@@ -28,9 +28,7 @@ class PluginMediaParser(metaclass=ABCMeta):
 
     __slots__ = ["response", "media"]
 
-    def __init__(
-        self, uri_components
-    ):  # pylint: disable=unused-argument
+    def __init__(self, uri_components):
         """Initializes the object.
 
         Args:
@@ -42,7 +40,7 @@ class PluginMediaParser(metaclass=ABCMeta):
         (self.response, self.media) = (None, None)
 
         self.response = ResponseBuilder().response
-        self.media = self.response.media  # pylint: disable=E1101
+        self.media = self.response.media
 
     @abstractmethod
     def parse(self, uri_components):
