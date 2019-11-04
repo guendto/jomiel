@@ -19,7 +19,7 @@ from jomiel.error import CannotParseError
 class Handler(PluginMediaHandler):
     """Media handler implementation for YouTube."""
 
-    __slots__ = ['name', 'regex', 'refiner']
+    __slots__ = ["name", "regex", "refiner"]
 
     def __init__(self):
         """Initializes the object."""
@@ -64,19 +64,22 @@ class Handler(PluginMediaHandler):
 
         """
         uri = uri_components
-        return (self.regex['scheme'].match(uri.scheme)
-                and self.regex['netloc'].search(uri.netloc.lower())
-                and self.regex['query'].search(uri.query.lower())
-                and self.regex['path'].match(uri.path.lower()))
+        return (
+            self.regex["scheme"].match(uri.scheme)
+            and self.regex["netloc"].search(uri.netloc.lower())
+            and self.regex["query"].search(uri.query.lower())
+            and self.regex["path"].match(uri.path.lower())
+        )
 
     def compile_regexes(self):
         """Compiles and caches the regexes used to match the URI."""
         from re import compile as rxc
+
         self.regex = {
-            'scheme': rxc(r'https?$'),
-            'netloc': rxc(r'youtube\.com$'),
-            'query': rxc(r'v=[\w\-_]{11}'),
-            'path': rxc(r'/watch$')
+            "scheme": rxc(r"https?$"),
+            "netloc": rxc(r"youtube\.com$"),
+            "query": rxc(r"v=[\w\-_]{11}"),
+            "path": rxc(r"/watch$"),
         }
 
 
