@@ -21,13 +21,13 @@ from zmq import (
     REP,
     ZMQError,
     ContextTerminated,
-)  # pylint: disable=E0611
+)
 from requests.exceptions import RequestException
 from google.protobuf.message import DecodeError
 
 from jomiel.error import ParseError, NoParserError, InvalidInputError
 from jomiel.comm.proto.Message_pb2 import Response, Inquiry
-from jomiel.cache import opts  # pylint: disable=E0611
+from jomiel.cache import opts
 from jomiel.dispatcher.media import script_dispatcher
 import jomiel.comm.proto.Status_pb2 as Status
 from jomiel.comm import to_json
@@ -162,11 +162,9 @@ class Worker:
         self.message_dump("received: %s", inquiry)
 
         if inquiry.WhichOneof("inquiry") == "media":
-            self.handle_media_inquiry(
-                inquiry.media
-            )  # pylint: disable=E1101
+            self.handle_media_inquiry(inquiry.media)
         else:
-            # TODO: Do something useful here pylint: disable=W0511
+            # TODO: Do something useful here
             self.log("ignored unknown inquiry type")
 
     def handle_media_inquiry(self, inquiry):
@@ -204,7 +202,7 @@ class Worker:
             validate_input_uri()
             handler = match_handler()
             self.message_send(handler.response)
-        except Exception as error:  # pylint: disable=W0703
+        except Exception as error:
             failed(error)
 
 
@@ -272,7 +270,6 @@ class ResponseBuilder:
             http (int): HTTP code (default is 200)
 
         """
-        # pylint: disable=E1101
         self.response.status.http.code = http
         self.response.status.message = msg
         self.response.status.code = status
