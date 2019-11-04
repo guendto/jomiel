@@ -10,29 +10,24 @@
 #
 """TODO."""
 
-from traceback import format_exc
-from re import compile as rxc
-from logging import DEBUG
 from binascii import hexlify
-from validators import url as is_url
+from logging import DEBUG
+from re import compile as rxc
+from traceback import format_exc
 
-from zmq import (
-    Context,
-    REP,
-    ZMQError,
-    ContextTerminated,
-)
-from requests.exceptions import RequestException
 from google.protobuf.message import DecodeError
+from requests.exceptions import RequestException
+from validators import url as is_url
+from zmq import REP, Context, ContextTerminated, ZMQError
 
-from jomiel.error import ParseError, NoParserError, InvalidInputError
-from jomiel.comm.proto.Message_pb2 import Response, Inquiry
-from jomiel.cache import opts
-from jomiel.dispatcher.media import script_dispatcher
 import jomiel.comm.proto.Status_pb2 as Status
-from jomiel.comm import to_json
-from jomiel.kore.app import exit_error
 from jomiel import lg, log_sanitize_string
+from jomiel.cache import opts
+from jomiel.comm import to_json
+from jomiel.comm.proto.Message_pb2 import Inquiry, Response
+from jomiel.dispatcher.media import script_dispatcher
+from jomiel.error import InvalidInputError, NoParserError, ParseError
+from jomiel.kore.app import exit_error
 
 
 class Worker:
