@@ -14,13 +14,16 @@
 def main():
     """main"""
     from jomiel.kore.path import set_proto_path
-    set_proto_path(__file__, 'comm/proto/')
+
+    set_proto_path(__file__, "comm/proto/")
 
     from jomiel.app import App
 
-    App(module_name=__name__,
+    App(
+        module_name=__name__,
         pkg_resources_name=__name__,
-        config_module='jomiel.cache').run()
+        config_module="jomiel.cache",
+    ).run()
 
 
 def lg():  # pylint: disable=C0103
@@ -41,6 +44,7 @@ def lg():  # pylint: disable=C0103
     """
     from jomiel.cache import opts  # pylint: disable=E0611
     import logging as lg
+
     return lg.getLogger(opts.logger_ident)
 
 
@@ -59,7 +63,8 @@ def log_sanitize_string(data):
 
     """
     from jomiel.cache import opts  # pylint: disable=E0611
-    return data if opts.debug_sensitive else '<withheld>'
+
+    return data if opts.debug_sensitive else "<withheld>"
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:

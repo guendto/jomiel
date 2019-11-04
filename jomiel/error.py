@@ -18,11 +18,12 @@ class BaseError(Exception):
         message (str): explanation of the error
 
     """
-    __slots__ = ['message']
+
+    __slots__ = ["message"]
 
     def __init__(self, message=None):
         super(BaseError, self).__init__()
-        self.message = message if message else ''
+        self.message = message if message else ""
 
 
 class InvalidInputError(BaseError):

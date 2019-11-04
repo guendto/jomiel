@@ -19,10 +19,11 @@ def init():
 
     if opts.http_debug:
         from jomiel.hypertext import be_verbose
-        be_verbose()
-        lg().debug('enable http logging')
 
-    lg().info('http subsystem initiated')
+        be_verbose()
+        lg().debug("enable http logging")
+
+    lg().info("http subsystem initiated")
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:

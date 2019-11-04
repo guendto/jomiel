@@ -13,9 +13,11 @@
 
 def be_verbose():
     """Make httplib and requests verbose."""
+
     def verbose_httplib():
         """Enable verbose output in httplib."""
         from http.client import HTTPConnection
+
         HTTPConnection.debuglevel = 1
 
     def verbose_logging():
@@ -25,7 +27,7 @@ def be_verbose():
         basicConfig()
         getLogger().setLevel(DEBUG)
 
-        logger = getLogger('requests.packages.urllib3')
+        logger = getLogger("requests.packages.urllib3")
         logger.propagate = True
         logger.setLevel(DEBUG)
 
@@ -44,16 +46,21 @@ def http_get(uri):
 
     """
     from jomiel.cache import opts  # pylint: disable=E0611
-    hdrs = {'User-Agent': opts.http_user_agent}
+
+    hdrs = {"User-Agent": opts.http_user_agent}
 
     from jomiel import lg, log_sanitize_string
-    lg().debug('http<get>: \'%s\'', log_sanitize_string(uri))
+
+    lg().debug("http<get>: '%s'", log_sanitize_string(uri))
 
     from requests import get
-    resp = get(uri,
-               allow_redirects=opts.http_allow_redirects,
-               timeout=opts.http_timeout,
-               headers=hdrs)
+
+    resp = get(
+        uri,
+        allow_redirects=opts.http_allow_redirects,
+        timeout=opts.http_timeout,
+        headers=hdrs,
+    )
 
     resp.raise_for_status()
     return resp

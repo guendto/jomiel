@@ -25,10 +25,13 @@ class PluginMediaParser:
 
         media (obj): a short-hand for response.media
     """
-    __slots__ = ['response', 'media']
+
+    __slots__ = ["response", "media"]
     __metaclass__ = ABCMeta
 
-    def __init__(self, uri_components):  # pylint: disable=unused-argument
+    def __init__(
+        self, uri_components
+    ):  # pylint: disable=unused-argument
         """Initializes the object.
 
         Args:
@@ -36,6 +39,7 @@ class PluginMediaParser:
 
         """
         from jomiel.subsys.broker.worker import ResponseBuilder
+
         (self.response, self.media) = (None, None)
 
         self.response = ResponseBuilder().response
@@ -49,6 +53,7 @@ class PluginMediaParser:
             uri_components (dict): The input URI components
 
         """
+
     def __repr__(self):
         """Returns an unambiguous representation of the object."""
         return "Media:\n  response=%s" % self.response

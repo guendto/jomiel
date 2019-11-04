@@ -20,21 +20,25 @@ def init():
 
     from jomiel import lg
 
-    lg().debug('subsys/log: configuration file loaded from \'%s\'',
-               logger_file)
+    lg().debug(
+        "subsys/log: configuration file loaded from '%s'", logger_file
+    )
 
     if opts.logger_idents:
         from jomiel.kore.app import dump_logger_identities
-        dump_logger_identities(logger_idents,
-                               opts.logger_idents_verbose)
+
+        dump_logger_identities(
+            logger_idents, opts.logger_idents_verbose
+        )
 
     if opts.plugin_list:
         # Prevent INFO lines from being printed to the output with
         # --plugin-list.
         from logging import WARNING
+
         lg().level = WARNING
 
-    lg().info('log subsystem initiated')
+    lg().info("log subsystem initiated")
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:

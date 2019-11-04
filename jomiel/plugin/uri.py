@@ -20,6 +20,7 @@ class PluginURIRefiner:
         - Subclass this when you write a new URI refiner
 
     """
+
     __metaclass__ = ABCMeta
     __slots__ = []
 
@@ -38,6 +39,7 @@ class PluginURIRefiner:
             dict: The updated URI components
 
         """
+
     @abstractmethod
     def compile_regexes(self):
         """[Override] Compiles and caches the regexes used to match and

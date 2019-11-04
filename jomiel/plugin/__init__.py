@@ -21,15 +21,17 @@ def load(ns_pkg):
         dict: Containing the imported plugin modules
 
     """
+
     def iter_namespace():
-        return iter_modules(ns_pkg.__path__, ns_pkg.__name__ + '.')
+        return iter_modules(ns_pkg.__path__, ns_pkg.__name__ + ".")
 
     from importlib import import_module
     from pkgutil import iter_modules
 
     return {
         name: import_module(name)
-        for finder, name, ispkg in iter_namespace() if ispkg
+        for finder, name, ispkg in iter_namespace()
+        if ispkg
     }
 
 

@@ -10,11 +10,13 @@
 #
 """TODO."""
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from sys import path
-    path.insert(0, '.')
+
+    path.insert(0, ".")
 
     from jomiel.keygen import main
+
     main()
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
