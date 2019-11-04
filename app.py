@@ -15,7 +15,7 @@ from importlib import import_module
 from sys import stdout
 
 
-class App:
+class App(metaclass=ABCMeta):
     """A simple core class that wraps all-things-necessary to create
     command line interface application with very little effort."""
 
@@ -29,8 +29,6 @@ class App:
         "_logger_files",
         "_version",
     ]
-
-    __metaclass__ = ABCMeta
 
     def __init__(self, **kwargs):
         """Initializes the object.
