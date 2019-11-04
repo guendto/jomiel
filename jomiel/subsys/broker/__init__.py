@@ -16,7 +16,7 @@ from zmq import (
     ROUTER,
     DEALER,
     proxy,
-)  # pylint: disable=E0611
+)
 from jomiel.kore.sig import GracefulExit
 from jomiel.kore.app import exit_error
 from jomiel import lg
@@ -49,7 +49,7 @@ def init():
             exit_error()
         return (sck, auth)
 
-    from jomiel.cache import opts  # pylint: disable=E0611
+    from jomiel.cache import opts
 
     def bind_router():
         """Bind the router device for talking to the clients."""
