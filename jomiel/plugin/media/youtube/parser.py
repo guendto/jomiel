@@ -12,8 +12,8 @@
 
 from urllib.parse import parse_qs
 
-from jomiel.plugin.media.parser import PluginMediaParser
 from jomiel.error import ParseError
+from jomiel.plugin.media.parser import PluginMediaParser
 
 
 class Parser(PluginMediaParser):
