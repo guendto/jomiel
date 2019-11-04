@@ -16,21 +16,29 @@ from collections import namedtuple
 def curve_opts_new(server_public_key_file, client_key_file):
     """Returns a namedtuple containing the curve options."""
 
-    curve_opts = namedtuple('curve_opts',
-                            'server_public_key_file, client_key_file')
+    curve_opts = namedtuple(
+        "curve_opts", "server_public_key_file, client_key_file"
+    )
 
     return curve_opts(server_public_key_file, client_key_file)
 
 
-def ssh_opts_new(ssh_server, ssh_key_file, ssh_password, ssh_timeout,
-                 ssh_paramiko):
+def ssh_opts_new(
+    ssh_server, ssh_key_file, ssh_password, ssh_timeout, ssh_paramiko
+):
     """Return a namedtuple containing the ssh options."""
 
     ssh_opts = namedtuple(
-        'ssh_opts', 'server, key_file, password, timeout, paramiko')
+        "ssh_opts", "server, key_file, password, timeout, paramiko"
+    )
 
-    return ssh_opts(ssh_server, ssh_key_file, ssh_password, ssh_timeout,
-                    ssh_paramiko)
+    return ssh_opts(
+        ssh_server,
+        ssh_key_file,
+        ssh_password,
+        ssh_timeout,
+        ssh_paramiko,
+    )
 
 
 def auth_opts_new(curve=None, ssh=None):
@@ -55,13 +63,14 @@ def auth_opts_new(curve=None, ssh=None):
 
     """
     if not curve and not ssh:
-        raise ValueError('curve and ssh cannot both be None')
+        raise ValueError("curve and ssh cannot both be None")
 
     elif curve and ssh:
         raise ValueError(
-            'you can set only either curve or ssh, not both')
+            "you can set only either curve or ssh, not both"
+        )
 
-    auth_opts = namedtuple('auth_opts', 'curve, ssh')
+    auth_opts = namedtuple("auth_opts", "curve, ssh")
     return auth_opts(curve, ssh)
 
 

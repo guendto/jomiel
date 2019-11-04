@@ -22,13 +22,15 @@ def setup(socket, addr, ssh):
     """
     from zmq.ssh import tunnel_connection
 
-    tunnel_connection(socket,
-                      addr,
-                      ssh.server,
-                      keyfile=ssh.key_file,
-                      password=ssh.password,
-                      timeout=ssh.timeout,
-                      paramiko=ssh.paramiko)
+    tunnel_connection(
+        socket,
+        addr,
+        ssh.server,
+        keyfile=ssh.key_file,
+        password=ssh.password,
+        timeout=ssh.timeout,
+        paramiko=ssh.paramiko,
+    )
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:

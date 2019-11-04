@@ -13,6 +13,7 @@
 
 class InquireError(Exception):
     """Failed to communicate with jomiel."""
+
     __slots__ = []
 
 
@@ -49,10 +50,12 @@ def connect(addr, no_linger=True, auth=None, logger=None):
         if auth.curve:
             # Setup CURVE
             from .auth.curve import setup
+
             setup(sck, auth.curve, logger=logger)
         elif auth.ssh:
             # Setup SSH
             from .auth.ssh import setup
+
             setup(sck, addr, auth.ssh)
             skip_connect = True
 
@@ -83,9 +86,11 @@ def inquire(socket, input_uri, timeout=60):
         InquireError if jomiel returned an error
 
     """
+
     def inquiry_new():
         """Create a new media inquiry message."""
         from .proto.Message_pb2 import Inquiry
+
         inquiry = Inquiry()
         inquiry.media.input_uri = input_uri  # pylint: disable=E1101
         return Inquiry.SerializeToString(inquiry)
@@ -107,9 +112,14 @@ def inquire(socket, input_uri, timeout=60):
         # pylint: disable=E1101
         if resp.status.code != OK:
             raise InquireError(
-                '%s (status=%d, error=%d, http=%d)' %
-                (resp.status.message, resp.status.code,
-                 resp.status.error, resp.status.http.code))
+                "%s (status=%d, error=%d, http=%d)"
+                % (
+                    resp.status.message,
+                    resp.status.code,
+                    resp.status.error,
+                    resp.status.http.code,
+                )
+            )
 
         return resp
 
@@ -125,7 +135,7 @@ def inquire(socket, input_uri, timeout=60):
 
     if poller.poll(connect_timeout):
         return receive_response()
-    raise IOError('connection timed out')
+    raise IOError("connection timed out")
 
 
 def to_json(message, minified=False, stream=None):
@@ -148,10 +158,12 @@ def to_json(message, minified=False, stream=None):
 
     """
     from google.protobuf.json_format import MessageToJson
+
     rval = MessageToJson(message)
 
     if minified:
         from json import loads, dumps
+
         loaded = loads(rval)
         rval = dumps(loaded)
 
@@ -172,14 +184,15 @@ def to_yaml(message, stream=None):
 
     """
     from google.protobuf.json_format import MessageToDict
+
     data = MessageToDict(message)
 
     from ruamel.yaml import YAML, round_trip_dump
 
-    yaml = YAML(typ='safe')
+    yaml = YAML(typ="safe")
     yaml.default_flow_style = False
 
-    stream.write('---\n')
+    stream.write("---\n")
     return round_trip_dump(data, stream)
 
 
