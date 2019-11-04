@@ -25,7 +25,6 @@ setup_init(  # Do this before the import lines for "cmd" below.
     "jomiel", "comm/proto"
 )
 
-# pylint: disable=C0413
 from jomiel.kore.setup.cmd import CustomCommand__bdist_wheel
 from jomiel.kore.setup.cmd import CustomCommand__build_py
 from jomiel.kore.setup.cmd import CustomCommand__sdist
