@@ -13,7 +13,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class PluginURIRefiner:
+class PluginURIRefiner(metaclass=ABCMeta):
     """An abstract class
 
     Notes:
@@ -21,7 +21,6 @@ class PluginURIRefiner:
 
     """
 
-    __metaclass__ = ABCMeta
     __slots__ = []
 
     @abstractmethod
