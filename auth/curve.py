@@ -14,6 +14,7 @@
 def exit_error():
     """Wraps the sys.exit call, exits with an error code (1)."""
     from sys import exit as _exit
+
     _exit(1)
 
 
