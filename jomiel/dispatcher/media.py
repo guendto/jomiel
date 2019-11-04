@@ -13,7 +13,7 @@
 from urllib.parse import urlparse
 
 from jomiel.error import CannotParseError, NoParserError
-from jomiel.cache import plugin_handlers  # pylint: disable=E0611
+from jomiel.cache import plugin_handlers
 from jomiel import lg, log_sanitize_string
 
 NS_NAME = "jomiel.plugin.media"
@@ -53,7 +53,7 @@ def script_dispatcher(input_uri):
             # Rinse and repeat until we run out of handlers.
             #
             pass
-        except:  # pylint: disable=W0706
+        except:
             # Fail at all other exceptions by passing the raised
             # exception.
             #
