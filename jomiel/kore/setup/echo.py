@@ -10,7 +10,7 @@
 #
 """TODO."""
 
-from distutils.debug import DEBUG  # pylint: disable=E0611,E0401
+from distutils.debug import DEBUG
 from sys import stdout
 
 
