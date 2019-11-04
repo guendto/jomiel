@@ -10,7 +10,7 @@
 #
 """TODO."""
 
-from signal import getsignal, signal, SIGTERM
+from signal import SIGTERM, getsignal, signal
 
 
 class GracefulExit:
