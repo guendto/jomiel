@@ -21,7 +21,8 @@ def init():
     broker.init()
 
     from jomiel import lg
-    lg().info('exit normally')
+
+    lg().info("exit normally")
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
