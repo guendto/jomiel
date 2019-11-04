@@ -117,8 +117,8 @@ When run from the repository, the output of the `git-describe` and the
 
 ## Acknowledgements
 
-* Linted by [pylint], [flake8], [yamllint] and [markdownlint]
-* Formatted by [yapf]
+* Linted by [flake8], [yamllint] and [markdownlint]
+* Formatted by [black]
 
 ### Subprojects
 
@@ -139,8 +139,7 @@ When run from the repository, the output of the `git-describe` and the
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
 [yamllint]: https://pypi.org/project/yamllint/
 [APLv2]: https://www.tldrlegal.com/l/apache2
-[pylint]: https://pypi.org/project/pylint/
 [flake8]: https://pypi.org/project/flake8/
-[yapf]: https://pypi.org/project/yapf/
+[black]: https://pypi.org/project/black/
 [ZeroMQ]: https://zeromq.org/
 [PyPI]: https://pypi.org/
