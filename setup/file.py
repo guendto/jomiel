@@ -19,13 +19,15 @@ def touch_file(fpath):
 
     """
     from .echo import put
-    put('Touching %s...' % fpath)
 
-    with open(fpath, 'a'):
+    put("Touching %s..." % fpath)
+
+    with open(fpath, "a"):
         from os import utime
+
         utime(fpath, None)
 
-    put(' done.\n')
+    put(" done.\n")
 
 
 def read_file(fpath):
@@ -35,7 +37,7 @@ def read_file(fpath):
         fpath (str): the file name
 
     """
-    with open(fpath, 'r') as handle:
+    with open(fpath, "r") as handle:
         return handle.read()
 
 

@@ -19,22 +19,27 @@ from .cache import PROTO_INIT  # pylint: disable=E0611
 
 class CustomCommand__sdist(sdist):  # pylint: disable=R0903,C0103
     """Custom command for setup target sdist."""
+
     def run(self):
         """run"""
-        self.run_command('build_py')
+        self.run_command("build_py")
         return sdist.run(self)
 
 
-class CustomCommand__bdist_wheel(bdist_wheel):  # pylint: disable=R0903,C0103
+class CustomCommand__bdist_wheel(
+    bdist_wheel
+):  # pylint: disable=R0903,C0103
     """Custom command for setup target bdist_wheel."""
+
     def run(self):
         """run"""
-        self.run_command('build_py')
+        self.run_command("build_py")
         return bdist_wheel.run(self)
 
 
 class CustomCommand__build_py(build_py):  # pylint: disable=R0903,C0103
     """Custom command for setup target build_py."""
+
     def run(self):
         """run"""
         from .proto import generate_protobuf_bindings
@@ -50,21 +55,26 @@ class CustomCommand__build_py(build_py):  # pylint: disable=R0903,C0103
 
 class CustomCommand__clean(clean):  # pylint: disable=R0903,C0103
     """Custom command for setup target clean."""
+
     def run(self):
         """run"""
-        from .cache import PROTO_FILES, VERSION_FILE  # pylint: disable=E0611
+        from .cache import (
+            PROTO_FILES,
+            VERSION_FILE,
+        )  # pylint: disable=E0611
 
         # Proto files
         #
         def proto_binding_files():
             """Return the list containing the generated *_pb2.py files."""
             from os.path import splitext, join, dirname, basename
+
             result = []
             for proto_file in PROTO_FILES:
                 path = dirname(proto_file)
                 name = basename(proto_file)
                 (prefix, _) = splitext(name)
-                result.append(join(path, prefix + '_pb2.py'))
+                result.append(join(path, prefix + "_pb2.py"))
             return result
 
         files = proto_binding_files()
@@ -90,7 +100,9 @@ class CustomCommand__clean(clean):  # pylint: disable=R0903,C0103
                 https://blog.ionelmc.ro/2014/06/25/python-packaging-pitfalls/
 
             """
-            from distutils.dir_util import remove_tree  # pylint: disable=E0611,E0401
+            from distutils.dir_util import (
+                remove_tree,
+            )  # pylint: disable=E0611,E0401
             from os.path import isdir
 
             def rmtree_if(dirname):
@@ -101,8 +113,8 @@ class CustomCommand__clean(clean):  # pylint: disable=R0903,C0103
             from .cache import PKG_NAME  # pylint: disable=E0611
 
             dirs = [
-                PKG_NAME + '.egg-info',
-                'build',
+                PKG_NAME + ".egg-info",
+                "build",
             ]
 
             for _dir in dirs:

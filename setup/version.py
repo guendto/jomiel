@@ -27,16 +27,16 @@ def get_semantic_version():
     """
     from os import environ as env
 
-    if 'USE_SEMANTIC_VERSION' in env:
-        return env['USE_SEMANTIC_VERSION']
+    if "USE_SEMANTIC_VERSION" in env:
+        return env["USE_SEMANTIC_VERSION"]
 
     from datetime import datetime
 
     now = datetime.now()
-    fmt = '%y.%-m.%-d'
+    fmt = "%y.%-m.%-d"
 
-    if 'VERSION_TIME' in env:
-        fmt = fmt + '.%-H%-M'
+    if "VERSION_TIME" in env:
+        fmt = fmt + ".%-H%-M"
 
     return now.strftime(fmt)
 
@@ -47,17 +47,18 @@ def save_version_file():
 
     semantic = get_semantic_version()
 
-    if isdir('.git'):
+    if isdir(".git"):
         from ..version import git_version
+
         packaged = git_version(shortened=True)
     else:
-        packaged = '(unknown)'
+        packaged = "(unknown)"
 
     from .cache import VERSION_FILE  # pylint: disable=E0611
 
-    with open(VERSION_FILE, 'w') as handle:
+    with open(VERSION_FILE, "w") as handle:
         for line in [semantic, packaged]:
-            handle.write(line + '\n')
+            handle.write(line + "\n")
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:

@@ -61,11 +61,11 @@ def read_input(**kwargs):
         list: Parsed values
 
     """
-    unique_items_only = kwargs.get('unique_items_only', True)
-    components_only = kwargs.get('components_only', False)
-    validate_uri = kwargs.get('validate_uri', False)
-    rebuild_uri = kwargs.get('rebuild_uri', True)
-    nargs = kwargs.get('nargs')
+    unique_items_only = kwargs.get("unique_items_only", True)
+    components_only = kwargs.get("components_only", False)
+    validate_uri = kwargs.get("validate_uri", False)
+    rebuild_uri = kwargs.get("rebuild_uri", True)
+    nargs = kwargs.get("nargs")
 
     rebuild_uri = False if components_only else rebuild_uri
     validate_uri = True if components_only else validate_uri
@@ -75,7 +75,8 @@ def read_input(**kwargs):
         from urllib.parse import urlparse, urlunparse
 
     def parse():
-        '''Parse input for URIs.'''
+        """Parse input for URIs."""
+
         def add(value):
             """Append a new value to the results."""
 
@@ -86,8 +87,8 @@ def read_input(**kwargs):
                 uri_components = urlparse(value)
                 sch = uri_components.scheme
 
-                if not sch.startswith('http'):
-                    raise ValueError('%s: not a valid URI' % value)
+                if not sch.startswith("http"):
+                    raise ValueError("%s: not a valid URI" % value)
 
                 if rebuild_uri:
                     value = urlunparse(uri_components)
@@ -107,11 +108,12 @@ def read_input(**kwargs):
             def read_stdin():
                 """Read from stdin."""
                 from sys import stdin
+
                 while True:
                     line = stdin.readline().strip()
                     if not line:
                         break
-                    line = line.split('#', 1)[0].strip()
+                    line = line.split("#", 1)[0].strip()
                     if line:
                         add(line)
 
@@ -131,40 +133,51 @@ def read_input(**kwargs):
     return result
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     def parse_opts():
         """Parse options."""
 
         from configargparse import get_parser
+
         parser = get_parser(add_config_file_help=False)
 
-        parser.add('-b',
-                   '--verbose',
-                   help='Enable DEBUG logging level',
-                   action='store_true')
+        parser.add(
+            "-b",
+            "--verbose",
+            help="Enable DEBUG logging level",
+            action="store_true",
+        )
 
-        parser.add('-v',
-                   '--validate-uri',
-                   help='Validate each item as an URI',
-                   action='store_true')
+        parser.add(
+            "-v",
+            "--validate-uri",
+            help="Validate each item as an URI",
+            action="store_true",
+        )
 
-        parser.add('-u',
-                   '--unique-items-only',
-                   help='Return unique items only',
-                   action='store_true')
+        parser.add(
+            "-u",
+            "--unique-items-only",
+            help="Return unique items only",
+            action="store_true",
+        )
 
-        parser.add('-c',
-                   '--components-only',
-                   help='Return items as broken down components',
-                   action='store_true')
+        parser.add(
+            "-c",
+            "--components-only",
+            help="Return items as broken down components",
+            action="store_true",
+        )
 
-        parser.add('-r',
-                   '--rebuild_uri',
-                   help='Rebuild items as URIs',
-                   action='store_true')
+        parser.add(
+            "-r",
+            "--rebuild_uri",
+            help="Rebuild items as URIs",
+            action="store_true",
+        )
 
-        parser.add('uri', nargs='*')
+        parser.add("uri", nargs="*")
         return parser.parse()
 
     opts = parse_opts()  # pylint: disable=C0103
@@ -172,8 +185,9 @@ if __name__ == '__main__':
     def enable_debug():
         """Enable verbose logging."""
         level = lgg.DEBUG if opts.verbose else lgg.INFO
-        lgg.basicConfig(level=level,
-                        format="[%(levelname)s] %(message)s")
+        lgg.basicConfig(
+            level=level, format="[%(levelname)s] %(message)s"
+        )
 
     enable_debug()
 
@@ -183,10 +197,11 @@ if __name__ == '__main__':
             components_only=opts.components_only,
             validate_uri=opts.validate_uri,
             rebuild_uri=opts.rebuild_uri,
-            nargs=opts.uri)
+            nargs=opts.uri,
+        )
         for item in items:
             lgg.info(item)
-        lgg.info('total items %d', len(items))
+        lgg.info("total items %d", len(items))
     except ValueError as error:
         lgg.error(error)
 

@@ -29,7 +29,8 @@ def find_matching_files_py35(find_filename, location):
 
     """
     from glob import iglob
-    _filter = join(location, '**', find_filename)
+
+    _filter = join(location, "**", find_filename)
     result = []
     for filename in iglob(_filter, recursive=True):
         result.append(filename)
@@ -53,6 +54,7 @@ def find_matching_files_py27(find_filename, location):
     """
     from fnmatch import filter as _filter
     from os import walk
+
     result = []
     for root, _, filenames in walk(location):
         for filename in _filter(filenames, find_filename):
@@ -71,6 +73,7 @@ def find_matching_files(find_filename, location=None):
 
     """
     from sys import version_info
+
     if version_info >= (3, 5):
         func = find_matching_files_py35
     else:
@@ -79,6 +82,7 @@ def find_matching_files(find_filename, location=None):
     def cwd():
         """Wraps os.getcwd."""
         from os import getcwd
+
         return getcwd()
 
     location = location if location else cwd()
@@ -93,6 +97,7 @@ def put(msg):
 
     """
     from sys import stdout
+
     stdout.write(msg)
 
 
@@ -106,9 +111,10 @@ def unlink_if(fpath, verbose=True):
     """
     from os.path import exists
     from os import unlink
+
     if exists(fpath):
         if verbose:
-            put('Removing file %s\n' % fpath)
+            put("Removing file %s\n" % fpath)
         unlink(fpath)
 
 

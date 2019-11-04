@@ -41,9 +41,10 @@ def try_version(pkg_resources_name):
 
     """
     from os.path import isdir
-    rval = unknown = '(unknown)'
 
-    if isdir('.git'):
+    rval = unknown = "(unknown)"
+
+    if isdir(".git"):
         try:
             rval = git_version()
         except OSError:
@@ -59,18 +60,21 @@ def try_version(pkg_resources_name):
             list: the read lines from the file (or None if failed)
 
         """
-        with open(fpath, 'r') as handle:
+        with open(fpath, "r") as handle:
             return handle.readlines()
         return None
 
     if unknown in rval and pkg_resources_name:
         from pkg_resources import resource_filename
+
         try:
-            version_file = resource_filename(pkg_resources_name,
-                                             'VERSION')
+            version_file = resource_filename(
+                pkg_resources_name, "VERSION"
+            )
         except FileNotFoundError:
             from os.path import join
-            version_file = join(pkg_resources_name, 'VERSION')
+
+            version_file = join(pkg_resources_name, "VERSION")
         try:
             rval = read_version_file(version_file)
         except FileNotFoundError:
@@ -90,8 +94,9 @@ def git_version(shortened=False):
         str: the constructed version string
 
     """
-    return 'git-%s, %s' % (git_describe_version(),
-                           git_show_version(shortened))
+    return "git-{}, {}".format(
+        git_describe_version(), git_show_version(shortened),
+    )
 
 
 def run_command(args):
@@ -105,17 +110,22 @@ def run_command(args):
 
     """
     (rval, data) = subprocess_open(args)
-    return data if rval == EX_OK else ''
+    return data if rval == EX_OK else ""
 
 
 def git_describe_version():
     """Return the `git describe` output which i sused for the version
     string."""
     args = [
-        'git', 'describe', '--match=v[0-9]*', '--abbrev=6', '--tags',
-        '--always', 'HEAD'
+        "git",
+        "describe",
+        "--match=v[0-9]*",
+        "--abbrev=6",
+        "--tags",
+        "--always",
+        "HEAD",
     ]
-    return run_command(args).replace('v', '')
+    return run_command(args).replace("v", "")
 
 
 def git_show_version(shortened=False):
@@ -130,12 +140,12 @@ def git_show_version(shortened=False):
         str: the version string
 
     """
-    fmt = '--format=%cI'
+    fmt = "--format=%cI"
 
     if not shortened:
-        fmt += ' (%cr)'
+        fmt += " (%cr)"
 
-    return run_command(['git', 'show', '-s', fmt, '--abbrev=6', 'HEAD'])
+    return run_command(["git", "show", "-s", fmt, "--abbrev=6", "HEAD"])
 
 
 def format_module_version(module_name, module_name_alt, destination):
@@ -147,23 +157,30 @@ def format_module_version(module_name, module_name_alt, destination):
         destination (list): the list to store the result (tuple) to
 
     """
+
     def try_module():
         """Tries to import a module."""
         try:
             module = import_module(module_name)
         except ImportError as msg:
-            print('error: %s' % msg)
+            print("error: %s" % msg)
             exit_error()
         return module
 
     module = try_module()
 
-    version = module.__version__ if hasattr(
-        module, '__version__') else '(unknown)'
+    version = (
+        module.__version__
+        if hasattr(module, "__version__")
+        else "(unknown)"
+    )
 
-    if module_name == 'zmq':
+    if module_name == "zmq":
         from zmq import zmq_version
-        version = '%s (libzmq version %s)' % (version, zmq_version())
+
+        version = "{} (libzmq version {})".format(
+            version, zmq_version()
+        )
 
     destination.append((module_name_alt, version))
 

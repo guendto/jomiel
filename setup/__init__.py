@@ -23,13 +23,13 @@ def init(pkg_name, proto_path):
     from os.path import join
 
     cache.PROTO_PATH = join(pkg_name, proto_path)
-    cache.PROTO_FILES = ['Message.proto', 'Status.proto', 'Media.proto']
+    cache.PROTO_FILES = ["Message.proto", "Status.proto", "Media.proto"]
     cache.PROTO_FILES = [
         join(cache.PROTO_PATH, fname) for fname in cache.PROTO_FILES
     ]
 
-    cache.PROTO_INIT = join(cache.PROTO_PATH, '__init__.py')
-    cache.VERSION_FILE = join(pkg_name, 'VERSION')
+    cache.PROTO_INIT = join(cache.PROTO_PATH, "__init__.py")
+    cache.VERSION_FILE = join(pkg_name, "VERSION")
     cache.PKG_NAME = pkg_name
 
 

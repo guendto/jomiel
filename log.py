@@ -33,11 +33,11 @@ def log_init(config_paths):
     # Try to find one of the specified logger config files and load it.
     for path in map(expanduser, config_paths):
         for found in glob(path):
-            with open(found, 'r') as handle:
-                yaml = YAML(typ='safe')
+            with open(found, "r") as handle:
+                yaml = YAML(typ="safe")
                 data = yaml.load(handle)
                 lc.dictConfig(data)
-                return (found, data['loggers'])
+                return (found, data["loggers"])
 
     def set_fallback():
         """Set the fallback logger (if none the config files were found)."""
@@ -45,37 +45,46 @@ def log_init(config_paths):
 
         basicConfig(level=INFO, format="[%(levelname)s] %(message)s")
 
-        info('unable to find %s', config_paths)
-        info('using basic logging configuration instead')
+        info("unable to find %s", config_paths)
+        info("using basic logging configuration instead")
 
-        return ('<stdlib:basic>', [])
+        return ("<stdlib:basic>", [])
 
     return set_fallback()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     def parse_opts():
         """Parse options."""
 
         from configargparse import get_parser
+
         parser = get_parser(add_config_file_help=False)
 
-        parser.add('-f',
-                   '--logger-config',
-                   help='Logger configuration file to read',
-                   metavar='FILE',
-                   required=True)
+        parser.add(
+            "-f",
+            "--logger-config",
+            help="Logger configuration file to read",
+            metavar="FILE",
+            required=True,
+        )
 
-        parser.add('-l',
-                   '--logger-ident',
-                   help='Specify the logger identity to use',
-                   choices=[
-                       'default', 'debug', 'stderr_file', 'syslog',
-                       'file', 'timed_file'
-                   ],
-                   metavar='IDENT',
-                   default='default')
+        parser.add(
+            "-l",
+            "--logger-ident",
+            help="Specify the logger identity to use",
+            choices=[
+                "default",
+                "debug",
+                "stderr_file",
+                "syslog",
+                "file",
+                "timed_file",
+            ],
+            metavar="IDENT",
+            default="default",
+        )
 
         return parser.parse()
 
@@ -85,9 +94,10 @@ if __name__ == '__main__':
     def lg():  # pylint: disable=C0103
         """Return the logger."""
         import logging as lg
+
         return lg.getLogger(opts.logger_ident)
 
-    lg().debug('Debug level message')
-    lg().info('Info level message')
+    lg().debug("Debug level message")
+    lg().info("Info level message")
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
