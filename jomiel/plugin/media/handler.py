@@ -13,7 +13,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class PluginMediaHandler:
+class PluginMediaHandler(metaclass=ABCMeta):
     """An abstract class.
 
     Notes:
@@ -21,7 +21,6 @@ class PluginMediaHandler:
 
     """
 
-    __metaclass__ = ABCMeta
     __slots__ = []
 
     @abstractmethod
