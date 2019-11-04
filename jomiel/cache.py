@@ -13,6 +13,7 @@
 
 def dump_plugins():
     """Dumps plugin details to the stdout."""
+
     def foreach_plugin():
         """Repeat for each found plugin.
 
@@ -28,9 +29,10 @@ def dump_plugins():
             ]
         return namespaces
 
-    yaml = {'plugins': foreach_plugin()}
+    yaml = {"plugins": foreach_plugin()}
 
     from jomiel.kore.app import dump_as_yaml
+
     dump_as_yaml(yaml)
 
 
