@@ -12,9 +12,9 @@
 
 from urllib.parse import urlparse
 
-from jomiel.error import CannotParseError, NoParserError
-from jomiel.cache import plugin_handlers
 from jomiel import lg, log_sanitize_string
+from jomiel.cache import plugin_handlers
+from jomiel.error import CannotParseError, NoParserError
 
 NS_NAME = "jomiel.plugin.media"
 
