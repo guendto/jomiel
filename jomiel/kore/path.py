@@ -35,6 +35,7 @@ def set_proto_path(loaded_from_module_path, proto_path):
     proto_dir = join(pkg_dir, proto_path)
 
     from sys import path
+
     path.insert(2, proto_dir)
 
 

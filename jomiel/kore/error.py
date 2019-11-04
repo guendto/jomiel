@@ -26,10 +26,11 @@ def if_proto_bindings_missing(exception, logger):
 
     """
     msg = str(exception)
-    if 'proto.Message_pb2' in msg:
+    if "proto.Message_pb2" in msg:
         logger.error(msg)
-        logger.error('Did you run `python setup.py build_py`?')
+        logger.error("Did you run `python setup.py build_py`?")
         from .app import exit_error
+
         exit_error()
     else:
         raise exception

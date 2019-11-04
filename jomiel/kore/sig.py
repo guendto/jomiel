@@ -16,7 +16,7 @@ from signal import getsignal, signal, SIGTERM
 class GracefulExit:
     """Wraps SIGTERM handling in a with-statement compatible use."""
 
-    __slots__ = ['orig_sigterm', 'logger']
+    __slots__ = ["orig_sigterm", "logger"]
 
     def __init__(self, logger=None):
         """Initializes the object.
@@ -31,7 +31,7 @@ class GracefulExit:
     def __enter__(self):
         """Traps the SIGTERM."""
 
-        self.log('<sigterm> trap signal handler')
+        self.log("<sigterm> trap signal handler")
         self.orig_sigterm = getsignal(SIGTERM)
 
         def sigterm_handler(signo, frame):
@@ -41,7 +41,7 @@ class GracefulExit:
             which we can handle cleanly.
 
             """
-            self.log('<sigterm> signo=%d, frame=%s' % (signo, frame))
+            self.log("<sigterm> signo=%d, frame=%s" % (signo, frame))
             raise KeyboardInterrupt
 
         signal(SIGTERM, sigterm_handler)
@@ -50,7 +50,7 @@ class GracefulExit:
         """Restore the the SIGTERM handler back to its original state.
 
         """
-        self.log('<sigterm> restore system handler')
+        self.log("<sigterm> restore system handler")
         signal(SIGTERM, self.orig_sigterm)
 
     def log(self, text):
