@@ -10,16 +10,22 @@
 #
 """TODO."""
 
-from zmq import Context, ZMQError, ROUTER, DEALER, proxy  # pylint: disable=E0611
+from zmq import (
+    Context,
+    ZMQError,
+    ROUTER,
+    DEALER,
+    proxy,
+)  # pylint: disable=E0611
 from jomiel.kore.sig import GracefulExit
 from jomiel.kore.app import exit_error
 from jomiel import lg
 
 
-def log(text, msgtype='debug'):
+def log(text, msgtype="debug"):
     """Write a new (debug) entry to the logger."""
     logger = getattr(lg(), msgtype)
-    logger('subsystem/broker: %s', text)
+    logger("subsystem/broker: %s", text)
 
 
 def init():
@@ -32,13 +38,14 @@ def init():
         sck = ctx.socket(device)
         auth = None
         if opts.curve_enable and setup_curve:
-            log('setup curve support')
+            log("setup curve support")
             from jomiel.curve import setup
+
             auth = setup(sck)  # Must come before bind.
         try:
             sck.bind(endpoint)
         except ZMQError as error:
-            log('%s: %s' % (error, endpoint), 'error')
+            log("{}: {}".format(error, endpoint), "error")
             exit_error()
         return (sck, auth)
 
@@ -47,10 +54,10 @@ def init():
     def bind_router():
         """Bind the router device for talking to the clients."""
         router_endpoint = opts.broker_router_endpoint
-        (router, auth) = bind_endpoint(ROUTER,
-                                       router_endpoint,
-                                       setup_curve=True)
-        log('bind router at <%s>' % router_endpoint)
+        (router, auth) = bind_endpoint(
+            ROUTER, router_endpoint, setup_curve=True
+        )
+        log("bind router at <%s>" % router_endpoint)
         return (router, auth)
 
     (router, auth) = bind_router()
@@ -59,13 +66,14 @@ def init():
         """Bind the dealer device for talking to the workers."""
         dealer_endpoint = opts.broker_dealer_endpoint
         (dealer, _) = bind_endpoint(DEALER, dealer_endpoint)
-        log('bind dealer at <%s>' % dealer_endpoint)
+        log("bind dealer at <%s>" % dealer_endpoint)
         return dealer
 
     dealer = bind_dealer()
 
     def main_loop():
         """The main loop; sits and awaits for new connections."""
+
         def start_workers():
             """Creates the worker threads and initiates them."""
 
@@ -73,18 +81,19 @@ def init():
             from threading import Thread
 
             for worker_id in range(opts.broker_worker_threads):
-                worker_thread = Thread(target=worker_new,
-                                       args=(worker_id + 1, ))
+                worker_thread = Thread(
+                    target=worker_new, args=(worker_id + 1,)
+                )
                 worker_thread.start()
 
-            log('%d thread(s) active' % opts.broker_worker_threads)
+            log("%d thread(s) active" % opts.broker_worker_threads)
 
         start_workers()
 
         try:
             proxy(router, dealer)
         except KeyboardInterrupt:
-            log('<sigint> signal interrupt')
+            log("<sigint> signal interrupt")
         except ZMQError as error:
             log(error)
         finally:
@@ -94,7 +103,7 @@ def init():
                 auth.stop()
             ctx.term()
 
-        log('shutdown')
+        log("shutdown")
 
     with GracefulExit(log):
         main_loop()
