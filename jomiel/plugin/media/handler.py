@@ -20,6 +20,7 @@ class PluginMediaHandler:
         - Subclass this when you write a new URI handler
 
     """
+
     __metaclass__ = ABCMeta
     __slots__ = []
 
@@ -38,6 +39,7 @@ class PluginMediaHandler:
             CannotParseError, if the object cannot handle the URI
 
         """
+
     @abstractmethod
     def can_parse(self, uri_components):
         """[Override] Determines whether the given input URI can be
@@ -53,6 +55,7 @@ class PluginMediaHandler:
             - Do NOT call this method, call `inquire', instead
 
         """
+
     @abstractmethod
     def compile_regexes(self):
         """[Override] Compiles and caches the regexes used to match the
