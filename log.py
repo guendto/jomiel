@@ -88,10 +88,10 @@ if __name__ == "__main__":
 
         return parser.parse()
 
-    opts = parse_opts()  # pylint: disable=C0103
+    opts = parse_opts()
     log_init([opts.logger_config])
 
-    def lg():  # pylint: disable=C0103
+    def lg():
         """Return the logger."""
         import logging as lg
 

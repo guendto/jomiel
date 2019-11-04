@@ -351,7 +351,7 @@ class App(metaclass=ABCMeta):
 
         return opts
 
-    def version_long_modules(self):  # pylint: disable=R0201
+    def version_long_modules(self):
         """[Override] Returns the required modules that we wish to check
         with --version-long and append to the output.
 

@@ -23,7 +23,7 @@ def generate_protobuf_bindings():
     from subprocess import call
     from os import EX_OK
 
-    from .cache import PROTO_FILES, PROTO_PATH  # pylint: disable=E0611
+    from .cache import PROTO_FILES, PROTO_PATH
     from .echo import put
 
     put("Compiling the protobuf declarations for jomiel messages\n")
@@ -49,9 +49,7 @@ def detect_protoc():
     if "PROTOC" in environ and exists(environ["PROTOC"]):
         return environ["PROTOC"]
 
-    from distutils.spawn import (
-        find_executable,
-    )  # pylint: disable=E0401,E0611
+    from distutils.spawn import find_executable
 
     return find_executable("protoc")
 

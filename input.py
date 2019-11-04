@@ -180,7 +180,7 @@ if __name__ == "__main__":
         parser.add("uri", nargs="*")
         return parser.parse()
 
-    opts = parse_opts()  # pylint: disable=C0103
+    opts = parse_opts()
 
     def enable_debug():
         """Enable verbose logging."""
@@ -192,7 +192,7 @@ if __name__ == "__main__":
     enable_debug()
 
     try:
-        items = read_input(  # pylint: disable=C0103
+        items = read_input(
             unique_items_only=opts.unique_items_only,
             components_only=opts.components_only,
             validate_uri=opts.validate_uri,

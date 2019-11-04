@@ -54,7 +54,7 @@ def save_version_file():
     else:
         packaged = "(unknown)"
 
-    from .cache import VERSION_FILE  # pylint: disable=E0611
+    from .cache import VERSION_FILE
 
     with open(VERSION_FILE, "w") as handle:
         for line in [semantic, packaged]:
