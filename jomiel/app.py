@@ -55,7 +55,8 @@ class App(KoreApp):
 
             grp.add(
                 "--debug-sensitive",
-                help="Log sensitive data, e.g. input URIs, serialized messages",
+                help="""Log sensitive data, e.g. input URIs,
+                    serialized messages""",
                 action="store_true",
             )
 
@@ -112,7 +113,8 @@ class App(KoreApp):
             grp.add(
                 "-r",
                 "--broker-router-endpoint",
-                help="""Bind the frontend (router) socket to the local endpoint""",
+                help="""Bind the frontend (router) socket to the
+                    local endpoint""",
                 default="tcp://*:5514",
                 metavar="ADDR",
             )
@@ -120,7 +122,8 @@ class App(KoreApp):
             grp.add(
                 "-d",
                 "--broker-dealer-endpoint",
-                help="""Bind the backend (dealer) socket to the local endpoint""",
+                help="""Bind the backend (dealer) socket to the
+                    local endpoint""",
                 default="inproc://workers",
                 metavar="ADDR",
             )
@@ -142,8 +145,8 @@ class App(KoreApp):
             grp.add(
                 "-w",
                 "--broker-worker-threads",
-                help="""Number of worker threads in the pool waiting """
-                """for client connections""",
+                help="""Number of worker threads in the pool waiting
+                    for client connections""",
                 default="5",
                 type=check_worker_thread_range,
                 metavar="[1-64]",

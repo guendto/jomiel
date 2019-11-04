@@ -37,7 +37,7 @@ def init():
 
         for pkg_name in cache.plugin_packages[ns_pkg]:
             module = cache.plugin_packages[ns_pkg][pkg_name]
-            handler = getattr(module, "Handler")()
+            handler = module.Handler()
 
             cache.plugin_handlers[ns_name].append(handler)
             log("<{}> loaded {}".format(pkg_name, ns_pkg))

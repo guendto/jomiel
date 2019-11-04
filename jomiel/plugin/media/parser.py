@@ -13,7 +13,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class PluginMediaParser:
+class PluginMediaParser(metaclass=ABCMeta):
     """An abstract plugin media parser class.
 
     Notes:
@@ -27,7 +27,6 @@ class PluginMediaParser:
     """
 
     __slots__ = ["response", "media"]
-    __metaclass__ = ABCMeta
 
     def __init__(
         self, uri_components
