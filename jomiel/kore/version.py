@@ -13,7 +13,7 @@
 from importlib import import_module
 from os import EX_OK
 
-from .app import subprocess_open, exit_error
+from .app import exit_error, subprocess_open
 
 
 def try_version(pkg_resources_name):
