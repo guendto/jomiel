@@ -10,16 +10,11 @@
 #
 """TODO."""
 
-from zmq import (
-    Context,
-    ZMQError,
-    ROUTER,
-    DEALER,
-    proxy,
-)
-from jomiel.kore.sig import GracefulExit
-from jomiel.kore.app import exit_error
+from zmq import DEALER, ROUTER, Context, ZMQError, proxy
+
 from jomiel import lg
+from jomiel.kore.app import exit_error
+from jomiel.kore.sig import GracefulExit
 
 
 def log(text, msgtype="debug"):
