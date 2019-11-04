@@ -26,7 +26,7 @@ def main():
     ).run()
 
 
-def lg():  # pylint: disable=C0103
+def lg():
     """Returns the logger instance used to print to the logging
     subsystem to record new events.
 
@@ -42,7 +42,7 @@ def lg():  # pylint: disable=C0103
         The logger instance
 
     """
-    from jomiel.cache import opts  # pylint: disable=E0611
+    from jomiel.cache import opts
     import logging as lg
 
     return lg.getLogger(opts.logger_ident)
@@ -62,7 +62,7 @@ def log_sanitize_string(data):
             was not requested
 
     """
-    from jomiel.cache import opts  # pylint: disable=E0611
+    from jomiel.cache import opts
 
     return data if opts.debug_sensitive else "<withheld>"
 
