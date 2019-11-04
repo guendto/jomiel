@@ -10,10 +10,10 @@
 #
 """TODO."""
 
-from jomiel.plugin.media.handler import PluginMediaHandler
-from jomiel.plugin.media.youtube.uri import URIRefiner
-from jomiel.plugin.media.youtube.parser import Parser
 from jomiel.error import CannotParseError
+from jomiel.plugin.media.handler import PluginMediaHandler
+from jomiel.plugin.media.youtube.parser import Parser
+from jomiel.plugin.media.youtube.uri import URIRefiner
 
 
 class Handler(PluginMediaHandler):
