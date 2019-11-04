@@ -22,7 +22,6 @@ def dump_plugins():
 
         """
         namespaces = {}
-        # pylint: disable=E0602
         for nspace in plugin_handlers:
             namespaces[nspace] = [
                 handler.name for handler in plugin_handlers[nspace]
