@@ -8,3 +8,16 @@ build-backend = 'setuptools.build_meta'
 
 [tool.black]
 line-length = 72
+exclude = '''   # exclude common dirs
+(
+    /(
+        jomiel/comm/proto
+        \.tox
+        \.git
+        docker
+        build
+        docs
+        dist
+    )/
+)
+'''
