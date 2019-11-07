@@ -21,3 +21,11 @@ exclude = '''   # exclude common dirs
     )/
 )
 '''
+
+[tool.check-manifest]
+ignore = [
+    "jomiel/comm/proto/*.py",
+    "jomiel/VERSION",
+    "jomiel.yaml",
+    ".tox*"
+]
