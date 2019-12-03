@@ -60,14 +60,7 @@ setup(
         ],
     },
     python_requires=">=3.6",
-    install_requires=[
-        "configargparse",
-        "protobuf",
-        "pyzmq",
-        "requests",
-        "ruamel.yaml",
-        "validators",
-    ],
+    install_requires=read_file("requirements.in").splitlines(),
     entry_points={
         "console_scripts": [
             "jomiel=jomiel:main",
