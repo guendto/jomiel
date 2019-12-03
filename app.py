@@ -286,22 +286,20 @@ class App(metaclass=ABCMeta):
             def version_long():
                 """Return string to be printed with --version-long"""
 
-                def module_versions():
-                    """Return the module versions."""
-                    from .version import format_module_version
+                def package_versions():
+                    """Return the package versions."""
+                    from .version import package_version
 
-                    required_modules = self.version_long_modules()
-                    found_modules = []
+                    required_packages = self.version_long_packages()
+                    found_packages = []
 
-                    for module_name in sorted(required_modules.keys()):
-                        format_module_version(
-                            module_name,
-                            required_modules[module_name],
-                            found_modules,
+                    for package_name in sorted(required_packages):
+                        package_version(
+                            package_name, found_packages,
                         )
 
                     return [
-                        {key: value} for key, value in found_modules
+                        {key: value} for key, value in found_packages
                     ]
 
                 def app_version():
@@ -321,7 +319,7 @@ class App(metaclass=ABCMeta):
                     "version": app_version(),
                     "python": {
                         "version": py_version.replace("\n", ""),
-                        "modules": module_versions(),
+                        "packages": package_versions(),
                     },
                 }
 
@@ -351,23 +349,21 @@ class App(metaclass=ABCMeta):
 
         return opts
 
-    def version_long_modules(self):
-        """[Override] Returns the required modules that we wish to check
+    def version_long_packages(self):
+        """[Override] Returns the required packages that we wish to check
         with --version-long and append to the output.
 
         Note:
             - Override this in your applications
 
         Returns:
-            dict: of module names (empty)
+            list: of package names (empty)
 
             Example:
-                return {'requests': 'Requests',
-                        'yaml': 'PyYAML',
-                        'zmq': 'PyZMQ'}
+                return ['requests', 'yaml', 'pyzmq']
 
         """
-        return {}
+        return []
 
 
 def subprocess_open(args):
