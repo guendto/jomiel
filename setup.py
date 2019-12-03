@@ -59,7 +59,7 @@ setup(
             "comm/proto/*.py",
         ],
     },
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     install_requires=[
         "configargparse",
         "protobuf",
