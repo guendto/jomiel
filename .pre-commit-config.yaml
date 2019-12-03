@@ -32,7 +32,7 @@ repos:
     rev: v1.25.1
     hooks:
     -   id: pyupgrade
--   repo: https://github.com/mgedmin/check-manifest
-    rev: "0.40"
-    hooks:
-    -   id: check-manifest
+#-   repo: https://github.com/mgedmin/check-manifest
+#    rev: "0.40"
+#    hooks:
+#    -   id: check-manifest
