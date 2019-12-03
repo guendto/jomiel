@@ -43,7 +43,7 @@ for most platforms.
 
 ## Getting started
 
-* `jomiel` requires [Python] 3.5+
+* `jomiel` requires [Python] 3.6+
 
 To install `jomiel` from from [PyPI]:
 
