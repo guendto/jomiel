@@ -10,10 +10,16 @@
 #
 """TODO."""
 
-from importlib import import_module
 from os import EX_OK
 
-from .app import exit_error, subprocess_open
+from .app import subprocess_open
+
+try:  # py38+
+    from importlib.metadata import version as metadata_version
+    from importlib.metadata import PackageNotFoundError
+except ImportError:
+    from importlib_metadata import version as metadata_version
+    from importlib_metadata import PackageNotFoundError
 
 
 def try_version(pkg_resources_name):
@@ -148,41 +154,27 @@ def git_show_version(shortened=False):
     return run_command(["git", "show", "-s", fmt, "--abbrev=6", "HEAD"])
 
 
-def format_module_version(module_name, module_name_alt, destination):
-    """Formats the module version string
+def package_version(package_name, destination):
+    """Returns the package version string
 
     Args:
-        module_name (str): the module name to look up
-        module_name_alt (str): the alternative name for the module
+        package_name (str): the package name to look up
         destination (list): the list to store the result (tuple) to
 
     """
+    try:
+        version = metadata_version(package_name)
+    except PackageNotFoundError:
+        version = "<unavailable>"
 
-    def try_module():
-        """Tries to import a module."""
-        try:
-            module = import_module(module_name)
-        except ImportError as msg:
-            print("error: %s" % msg)
-            exit_error()
-        return module
-
-    module = try_module()
-
-    version = (
-        module.__version__
-        if hasattr(module, "__version__")
-        else "(unknown)"
-    )
-
-    if module_name == "zmq":
+    if package_name == "pyzmq":
         from zmq import zmq_version
 
         version = "{} (libzmq version {})".format(
             version, zmq_version()
         )
 
-    destination.append((module_name_alt, version))
+    destination.append((package_name, version))
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
