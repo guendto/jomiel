@@ -1,5 +1,5 @@
 include .pre-commit-config.yaml .flake8 pyproject.toml tox.ini
-include requirements.txt
+include requirements.txt requirements.in
 recursive-include jomiel *.proto *.md *.yaml
 recursive-include . LICENSE NOTICE
 recursive-include docs *.svg *.md
