@@ -10,83 +10,33 @@
 #
 """TODO."""
 
-from os.path import join
-
-
-def find_matching_files_py35(find_filename, location):
-    """Find all matching files (recursively) from the current working
-    directory (default), or from the location specified.
-
-    Args:
-        find_filename (str): file name to look for (can be a mask)
-        location (str): the location to search for matching files
-
-    Returns:
-        list: of matching files
-
-    Note:
-        - This is the Python 3.5+
-
-    """
-    from glob import iglob
-
-    _filter = join(location, "**", find_filename)
-    result = []
-    for filename in iglob(_filter, recursive=True):
-        result.append(filename)
-    return result
-
-
-def find_matching_files_py27(find_filename, location):
-    """Find all matching files (recursively) from the current working
-    directory (default), or from the location specified.
-
-    Args:
-        find_filename (str): file name to look for (can be a mask)
-        location (str): the location to search for matching files
-
-    Returns:
-        list: of matching files
-
-    Note:
-        - This is the Python 2.7
-
-    """
-    from fnmatch import filter as _filter
-    from os import walk
-
-    result = []
-    for root, _, filenames in walk(location):
-        for filename in _filter(filenames, find_filename):
-            result.append(join(root, filename))
-    return result
-
 
 def find_matching_files(find_filename, location=None):
-    """find_matchin_files
+    """Find all matching files (recursively) from the current working
+    directory (default), or from the location specified.
 
     Args:
         find_filename (str): file name to look for (can be a mask)
+        location (str): the location to search for matching files (None
+            for cwd)
 
     Returns:
         list: of matching files
 
     """
-    from sys import version_info
+    from os.path import join
+    from glob import iglob
+    from os import getcwd
 
-    if version_info >= (3, 5):
-        func = find_matching_files_py35
-    else:
-        func = find_matching_files_py27
+    def match_files():
+        pathname = join(location, "**", find_filename)
+        result = []
+        for filename in iglob(pathname, recursive=True):
+            result.append(filename)
+        return result
 
-    def cwd():
-        """Wraps os.getcwd."""
-        from os import getcwd
-
-        return getcwd()
-
-    location = location if location else cwd()
-    return func(find_filename, location)
+    location = location if location else getcwd()
+    return match_files()
 
 
 def put(msg):
