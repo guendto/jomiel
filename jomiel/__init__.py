@@ -19,11 +19,7 @@ def main():
 
     from jomiel.app import App
 
-    App(
-        module_name=__name__,
-        pkg_resources_name=__name__,
-        config_module="jomiel.cache",
-    ).run()
+    App(package_name=__name__, config_module="jomiel.cache",).run()
 
 
 def lg():
