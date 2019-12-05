@@ -22,11 +22,11 @@ class App(metaclass=ABCMeta):
     __slots__ = [
         "_no_default_config_files",
         "_no_config_file_option",
-        "_pkg_resources_name",
         "_no_logger_options",
         "_no_print_config",
         "_config_module",
         "_logger_files",
+        "_package_name",
         "_version",
     ]
 
@@ -38,43 +38,46 @@ class App(metaclass=ABCMeta):
 
         Supported arbitrary keyword args (kwargs):
 
-            module_name (str): The name of the module, e.g. __name__
-                This value will be used to determine the different XDG
-                configuration file paths.
+            package_name (str): The package name to be used with
+                pkg_resources queries and XDG configuration file search
+                paths.
 
-            version (str): The program version string, if undefined, the
-                the version string is formatted from the output `git
-                show`.
+                - The value will be used to determine the different XDG
+                  configuration file paths
 
-            no_print_config (bool): If True, disables the -D nor -E
-                options
+                - Needed to retrieve information about the installed
+                  version of the application
 
-            no_default_config_files (bool): If True, disables the
-                use of the default (XDG) configuration files
+                - If None, the pkg_resources queries will be skipped
 
-            no_config_file_option (bool): If True, disables the support
-                for the --config-file option
+                - If None, XDG configuration file path searches will be
+                  skipped
 
-            no_logger_options (bool): If True, disables the support
-                for logger features (e.g. --logger-file, --logger-ident)
+                The value is typically set to __name__ by the caller.
 
-            config_module (str): Path to the configuration module that will
-                be imported and accessed throughout the app life-cycle.
+            config_module (str): Module path to the "configuration
+                module" used throughout the application runtime
+                life-cycle to access global _cached_ values.
 
-            pkg_resources_name (str): Used with pkg_resources to query
-                access to the data installed with the app, if left
-                undefined, pkg_resource queries are completely skipped.
+            version (str): The program version string, if None, the
+                `git show` return value will be used, instead.
 
-                Needed to retrieve information about the installed
-                version of the application.
+            no_print_config (bool): If True, disable -D and -E options.
 
-                The value is usually set to __name__.
+            no_default_config_files (bool): If True, skip the XDG paths
+                in the configuration file search.
+
+            no_config_file_option (bool): If True, disable the
+                --config-file option.
+
+            no_logger_options (bool): If True, disable all of the logger
+                options (e.g. --logger-file, --logger-ident).
 
         """
         self._no_logger_options = kwargs.get("no_logger_options", False)
         self._no_print_config = kwargs.get("no_print_config", False)
-        self._pkg_resources_name = kwargs.get("pkg_resources_name")
         self._config_module = kwargs.get("config_module")
+        self._package_name = kwargs.get("package_name")
 
         self._no_default_config_files = kwargs.get(
             "no_default_config_files", False
@@ -86,30 +89,31 @@ class App(metaclass=ABCMeta):
 
         def determine_xdg_paths():
             """Return the XDG paths to configuration files."""
-            module_name = kwargs.get("module_name")
 
-            if not module_name or self._no_default_config_files:
+            pkg_name = self._package_name
+
+            if not pkg_name or self._no_default_config_files:
                 return ([], [])
 
             config_files = [
-                "/etc/xdg/{0}/{0}.yaml".format(module_name),
-                "~/.config/{0}/{0}.yaml".format(module_name),
-                "./{}.yaml".format(module_name),
+                "/etc/xdg/{0}/{0}.yaml".format(pkg_name),
+                "~/.config/{0}/{0}.yaml".format(pkg_name),
+                "./{}.yaml".format(pkg_name),
             ]
 
             logger_files = [
-                "/etc/xdg/{}/logger.yaml".format(module_name),
-                "~/.config/{}/logger.yaml".format(module_name),
+                "/etc/xdg/{}/logger.yaml".format(pkg_name),
+                "~/.config/{}/logger.yaml".format(pkg_name),
                 "./logger.yaml",
             ]
 
-            if self._pkg_resources_name:
+            if self._package_name:
                 from pkg_resources import resource_filename
 
-                config_path = "config/logger/%s.yaml" % module_name
+                config_path = "config/logger/%s.yaml" % pkg_name
 
                 resource_fname = resource_filename(
-                    self._pkg_resources_name, config_path
+                    pkg_name, config_path
                 )
 
                 logger_files.insert(0, resource_fname)
@@ -129,7 +133,7 @@ class App(metaclass=ABCMeta):
             if not version:
                 from .version import try_version
 
-                version = try_version(self._pkg_resources_name)
+                version = try_version(self._package_name)
 
             if isinstance(
                 version, list
