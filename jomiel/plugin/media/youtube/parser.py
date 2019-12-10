@@ -11,7 +11,7 @@
 """TODO."""
 
 from re import match as re_match
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlencode
 
 from jomiel.error import ParseError
 from jomiel.plugin.media.parser import PluginMediaParser
@@ -96,8 +96,6 @@ class Parser(PluginMediaParser):
 
         def video_info_uri():
             """Return the URI to query the info for the video."""
-            from urllib.parse import urlencode
-
             data = urlencode(
                 {
                     "video_id": video_id,
