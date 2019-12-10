@@ -10,6 +10,7 @@
 #
 """TODO."""
 
+from re import match as re_match
 from urllib.parse import parse_qs
 
 from jomiel.error import ParseError
@@ -84,10 +85,7 @@ class Parser(PluginMediaParser):
 
         def parse_video_id():
             """Return the video ID from the input URI (components)."""
-            from re import compile as rxc
-
-            regex = rxc(r"v=([\w\-_]{11})")
-            result = regex.match(uri_components.query)
+            result = re_match(r"v=([\w\-_]{11})", uri_components.query)
             if result:
                 self.media.identifier = result.group(1)
             else:
