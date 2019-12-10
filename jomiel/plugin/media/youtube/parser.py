@@ -45,21 +45,11 @@ class Parser(PluginMediaParser):
             """Parse meta data from the video info."""
             video_info = parse_qs(video_info)
 
-            def check_token():
-                """Confirm that one of the tokens are present in video info."""
-                keys = [
-                    "token",
-                    "account_playback_token",
-                    "accountPlaybackToken",
-                ]
-                for key in keys:
-                    if key in video_info:
-                        return
+            def check_reason():
                 if "reason" in video_info:
                     raise ParseError(video_info("reason")[0])
-                raise ParseError("none of the token value found")
 
-            check_token()
+            check_reason()
 
             def check_if_rental():
                 """Check if this is a 'rental' video."""
