@@ -14,6 +14,7 @@ from re import match as re_match
 from urllib.parse import parse_qs, urlencode
 
 from jomiel.error import ParseError
+from jomiel.hypertext import http_get
 from jomiel.plugin.media.parser import PluginMediaParser
 
 
@@ -106,8 +107,6 @@ class Parser(PluginMediaParser):
             return "https://www.youtube.com/get_video_info?" + data
 
         info_uri = video_info_uri()
-
-        from jomiel.hypertext import http_get
 
         video_info = http_get(info_uri).text
         parse_metadata(video_info)
