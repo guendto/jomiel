@@ -10,6 +10,7 @@
 #
 """TODO."""
 
+from collections import namedtuple
 from re import match as re_match
 from urllib.parse import parse_qs, urlencode
 
@@ -117,8 +118,6 @@ class Parser(PluginMediaParser):
         def get_value(keyname, index=0):
             """Return a value for the keyname from the video info."""
             return video_info.get(keyname, [""])[index]
-
-        from collections import namedtuple
 
         video_spec = namedtuple(
             "video_spec", "resolution, height, width"
