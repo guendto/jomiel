@@ -18,6 +18,8 @@ from jomiel.error import ParseError
 from jomiel.hypertext import http_get
 from jomiel.plugin.media.parser import PluginMediaParser
 
+# from jomiel.kore.formatter import json_pprint
+
 
 class Parser(PluginMediaParser):
     """Media metadata parser implementation for YouTube."""
@@ -47,18 +49,6 @@ class Parser(PluginMediaParser):
         def parse_metadata(video_info):
             """Parse meta data from the video info."""
 
-            def fail_if_reason():
-                if "reason" in video_info:
-                    raise ParseError(video_info("reason")[0])
-
-            def fail_if_rental():
-                """Check if this is a 'rental' video."""
-                if "ypc_video_rental_bar_text" in video_info:
-                    if "author" not in video_info:
-                        raise ParseError(
-                            '"rental" videos not supported'
-                        )
-
             def parse_player_response():
                 """Check that "player_response" exists and return it.
 
@@ -84,6 +74,12 @@ class Parser(PluginMediaParser):
                 if keyname not in d:
                     raise ParseError("%s not found" % keyname)
                 return d.get(keyname)
+
+            def playability_check_error():
+                """Check for playability error in player response."""
+                playability_status = get_of(resp, "playabilityStatus")
+                if playability_status["status"] == "ERROR":
+                    raise ParseError(playability_status["reason"])
 
             def parse_video_details():
                 """Parse videoDetails of player_response."""
@@ -158,9 +154,9 @@ class Parser(PluginMediaParser):
                 parse("formats")
 
             video_info = parse_qs(video_info)
-            fail_if_reason()
-            fail_if_rental()
             resp = parse_player_response()
+            # json_pprint(resp)
+            playability_check_error()
             parse_video_details()
             parse_streaming_data()
 
