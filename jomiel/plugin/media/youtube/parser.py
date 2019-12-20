@@ -10,10 +10,15 @@
 #
 """TODO."""
 
-from urllib.parse import parse_qs
+from json import loads
+from re import match as re_match
+from urllib.parse import parse_qs, urlencode
 
 from jomiel.error import ParseError
+from jomiel.hypertext import http_get
 from jomiel.plugin.media.parser import PluginMediaParser
+
+# from jomiel.kore.formatter import json_pprint
 
 
 class Parser(PluginMediaParser):
@@ -43,189 +48,146 @@ class Parser(PluginMediaParser):
 
         def parse_metadata(video_info):
             """Parse meta data from the video info."""
+
+            def parse_player_response():
+                """Check that "player_response" exists and return it.
+
+                Returns:
+                    dict: the player response parsed from json
+
+                """
+                if "player_response" not in video_info:
+                    raise ParseError('"player_response" not found')
+                player_response = video_info["player_response"][0]
+                return loads(player_response)
+
+            def get_of(d, keyname):
+                """Return a value from the given dict.
+
+                Args:
+                    d (dict): to query from
+                    keyname (str): key name to query to
+
+                Returns:
+                    the value in the dict
+                """
+                if keyname not in d:
+                    raise ParseError("%s not found" % keyname)
+                return d.get(keyname)
+
+            def playability_check_error():
+                """Check for playability error in player response."""
+                playability_status = get_of(resp, "playabilityStatus")
+                if playability_status["status"] == "ERROR":
+                    raise ParseError(playability_status["reason"])
+
+            def parse_video_details():
+                """Parse videoDetails of player_response."""
+                vd = get_of(resp, "videoDetails")
+
+                self.media.statistics.average_rating = float(
+                    get_of(vd, "averageRating")
+                )
+                self.media.statistics.view_count = int(
+                    get_of(vd, "viewCount")
+                )
+                self.media.description = get_of(vd, "shortDescription")
+                self.media.length_seconds = int(
+                    get_of(vd, "lengthSeconds")
+                )
+                self.media.author.channel_id = get_of(vd, "channelId")
+                self.media.author.name = get_of(vd, "author")
+                self.media.title = get_of(vd, "title")
+
+                thumbs = get_of(vd, "thumbnail")["thumbnails"]
+                for t in thumbs:
+                    thumb = self.media.thumbnail.add()
+                    thumb.width = int(t["width"])
+                    thumb.height = int(t["height"])
+                    thumb.uri = t["url"]
+
+            def parse_streaming_data():
+                """Parse streaming data."""
+
+                def parse(key):
+                    """parse
+
+                    Args:
+                        key (str): the key name
+
+                    """
+
+                    def parse_format(fmt):
+                        """parse_format
+
+                        Args:
+                            fmt (dict): the format dict to parse
+
+                        """
+                        s = self.media.stream.add()
+
+                        s.quality.profile = "{} (itag={})".format(
+                            fmt["qualityLabel"]
+                            if "qualityLabel" in fmt
+                            else fmt["quality"],
+                            fmt["itag"],
+                        )
+
+                        if "width" in fmt and "height" in fmt:
+                            s.quality.width = int(fmt["width"])
+                            s.quality.height = int(fmt["height"])
+
+                        s.quality.bitrate = int(fmt["bitrate"])
+                        if "contentLength" in fmt:
+                            s.content_length = int(fmt["contentLength"])
+
+                        s.mime_type = fmt["mimeType"]
+                        s.uri = fmt["url"]
+
+                    formats = sd[key]
+
+                    for fmt in formats:
+                        parse_format(fmt)
+
+                sd = get_of(resp, "streamingData")
+                parse("adaptiveFormats")
+                parse("formats")
+
             video_info = parse_qs(video_info)
-
-            def check_token():
-                """Confirm that one of the tokens are present in video info."""
-                keys = [
-                    "token",
-                    "account_playback_token",
-                    "accountPlaybackToken",
-                ]
-                for key in keys:
-                    if key in video_info:
-                        return
-                if "reason" in video_info:
-                    raise ParseError(video_info("reason")[0])
-                raise ParseError("none of the token value found")
-
-            check_token()
-
-            def check_if_rental():
-                """Check if this is a 'rental' video."""
-                if "ypc_video_rental_bar_text" in video_info:
-                    if "author" not in video_info:
-                        raise ParseError(
-                            '"rental" videos not supported'
-                        )
-
-            check_if_rental()
-
-            def parse_video_title():
-                """Return video title from the video info."""
-                try:
-                    self.media.title = video_info["title"][0]
-                except KeyError:
-                    player_response = video_info["player_response"][0]
-                    from json import loads
-
-                    json_pr = loads(player_response)
-                    try:
-                        self.media.title = json_pr["videoDetails"][
-                            "title"
-                        ]
-                    except KeyError:
-                        raise ParseError(
-                            json_pr["playabilityStatus"]["reason"]
-                        )
-
-            parse_video_title()
-            self.add_streams(video_info)
-
-        def parse_video_id():
-            """Return the video ID from the input URI (components)."""
-            from re import compile as rxc
-
-            regex = rxc(r"v=([\w\-_]{11})")
-            result = regex.match(uri_components.query)
-            if result:
-                self.media.identifier = result.group(1)
-            else:
-                raise ParseError("unable to determine video ID")
-            return self.media.identifier
-
-        video_id = parse_video_id()
+            resp = parse_player_response()
+            # json_pprint(resp)
+            playability_check_error()
+            parse_video_details()
+            parse_streaming_data()
 
         def video_info_uri():
             """Return the URI to query the info for the video."""
-            from urllib.parse import urlencode
+
+            def parse_video_id():
+                """Parse video ID from the input URI (components)."""
+                result = re_match(
+                    r"v=([\w\-_]{11})", uri_components.query
+                )
+                if result:
+                    self.media.identifier = result.group(1)
+                else:
+                    raise ParseError("unable to match video ID")
+
+            parse_video_id()
 
             data = urlencode(
                 {
-                    "video_id": video_id,
+                    "video_id": self.media.identifier,
                     "eurl": "https://youtube.googleapis.com/v/"
-                    + video_id,
+                    + self.media.identifier,
                 }
             )
             return "https://www.youtube.com/get_video_info?" + data
 
         info_uri = video_info_uri()
 
-        from jomiel.hypertext import http_get
-
         video_info = http_get(info_uri).text
         parse_metadata(video_info)
-
-    def add_streams(self, video_info):
-        """Go through the returned video streams and return them."""
-
-        def get_value(keyname, index=0):
-            """Return a value for the keyname from the video info."""
-            return video_info.get(keyname, [""])[index]
-
-        from collections import namedtuple
-
-        video_spec = namedtuple(
-            "video_spec", "resolution, height, width"
-        )
-
-        def fail_if_rtmp():
-            """Raise an error if this is an RTMP stream."""
-            if "conn" in video_info and get_value("conn").startswith(
-                "rtmp"
-            ):
-                raise ParseError('"rtmp" protocol not supported')
-
-        fail_if_rtmp()
-
-        stream_map = get_value("url_encoded_fmt_stream_map")
-        adaptive_fmts = get_value("adaptive_fmts")
-
-        def fail_if_no_streams():
-            """Raise an error if could not find any (supported) streams."""
-            if not stream_map and not adaptive_fmts:
-                raise ParseError("unable to find any streams")
-
-        fail_if_no_streams()
-        encoded_stream_map = "{},{}".format(stream_map, adaptive_fmts)
-
-        def fail_if_rtmpe():
-            """Raise an error if this is an RTMPE stream."""
-            if "rtmpe%3Dyes" in encoded_stream_map:
-                raise ParseError('"rtmpe" protocol not supported')
-
-        fail_if_rtmpe()
-
-        def parse_fmt_list():
-            """Parse items from the returned fmt_list."""
-
-            def add_spec():
-                """Add a new spec to the formats dict."""
-                result = spec[1].split("x")
-                if len(result) == 2:
-                    fmt_type = int(spec[0])
-                    formats[fmt_type] = video_spec(
-                        resolution=spec[1],
-                        height=int(result[1]),
-                        width=int(result[0]),
-                    )
-
-            fmt_list = get_value("fmt_list")
-
-            if not fmt_list:
-                return {}
-
-            formats = {}
-
-            for fmt in fmt_list.split(","):
-                spec = fmt.split("/")
-                if len(spec) >= 1:
-                    add_spec()
-
-            return formats
-
-        formats = parse_fmt_list()
-
-        def stream_get(keyname, index=0):
-            """Return stream data for the keyname."""
-            return stream_data[keyname][index]
-
-        for stream in encoded_stream_map.split(","):
-            stream_data = parse_qs(stream)
-
-            if "itag" not in stream_data or "url" not in stream_data:
-                continue
-
-            itag = int(stream_get("itag"))
-            url = stream_get("url")
-
-            if "sig" in stream_data:
-                url += "&signature" + stream_get("sig")
-            elif "s" in stream_data:
-                raise ParseError("encrypted stream sigs not supported")
-
-            if "ratebypass" not in url:
-                url += "&ratebypass=yes"
-
-            # Skip anything that is NOT included in the fmt_list.
-            # These are typically DASH, etc.
-            #
-            if itag in formats:
-                stream = self.media.stream.add()
-                stream.quality.profile = str(itag)
-                stream.quality.width = formats[itag].width
-                stream.quality.height = formats[itag].height
-                stream.uri = url
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
