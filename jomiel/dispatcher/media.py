@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -12,9 +12,9 @@
 
 from urllib.parse import urlparse
 
-from jomiel import lg, log_sanitize_string
 from jomiel.cache import plugin_handlers
 from jomiel.error import CannotParseError, NoParserError
+from jomiel.log import lg, log_sanitize_string
 
 NS_NAME = "jomiel.plugin.media"
 
