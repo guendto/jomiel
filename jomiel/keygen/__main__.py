@@ -28,9 +28,9 @@ def main():
         config_module="%s.cache" % pkg_name,
         no_default_config_files=True,
         # no_version_long_option=True,
+        no_print_config_option=True,
         no_config_file_option=True,
         no_logger_options=True,
-        no_print_config=True,
     ).run()
 
 
