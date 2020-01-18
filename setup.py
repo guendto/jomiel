@@ -15,6 +15,8 @@
 #   - VERSION_TIME to append "%H%M" to the version number
 #
 PACKAGE_NAME = "jomiel"
+GITHUB_ADDR = "https://github.com/guendto/%s/" % PACKAGE_NAME
+
 from sys import path
 
 path.insert(0, ".")
@@ -34,7 +36,6 @@ from jomiel.kore.setup.cmd import CustomCommand__clean
 from jomiel.kore.setup.version import get_semantic_version
 from jomiel.kore.setup.file import read_file
 
-GITHUB_ADDR = "https://github.com/guendto/jomiel/"
 
 setup(
     name="jomiel",
