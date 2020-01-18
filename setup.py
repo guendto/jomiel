@@ -94,8 +94,8 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "jomiel=jomiel:main",
-            "jomiel-keygen=jomiel.keygen:main",
+            "jomiel=jomiel.__main__:main",
+            "jomiel-keygen=jomiel.keygen.__main__:main",
         ]
     },
     cmdclass={
