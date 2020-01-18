@@ -65,20 +65,22 @@ setup(
     # structured the project. find_namepace_packages() fails to add any
     # of the ./jomiel/*.py files.
     #
-    package_data={
-        "jomiel": [
-            "config/logger/jomiel.yaml",
-            "VERSION",
-            # Issue:
-            #   - The 'build' stage fails to find the generated *_pb2.py
-            #   files, even when 'build_py' target is built first
-            # Workaround:
-            #   - Force the inclusion of 'comm/proto/*.py files here so that
-            #   they are included
-            #
-            "comm/proto/*.py",
-        ],
-    },
+    include_package_data=True,
+    # There are plenty of confusing and conflicting resources around,
+    # many of which offer different ideas on how you should use:
+    #   - include_package_data
+    #   - MANIFEST.in
+    #   - setup.py
+    #
+    # Throw the protobuf compilation into the mix and you'll begin to
+    # wonder why even bother with packaging at all.
+    #
+    # After spending far more time than anyone ever should -- for
+    # something as simple as this -- it seems that we have found
+    # ourselves a winner combo through great many trials and errors.
+    # And that, is good enough for me.
+    #   -- the author
+    #
     python_requires=">=3.6",
     install_requires=read_file("requirements.in").splitlines(),
     entry_points={
