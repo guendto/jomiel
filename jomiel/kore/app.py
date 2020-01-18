@@ -27,9 +27,9 @@ class App(metaclass=ABCMeta):
     __slots__ = [
         "_no_default_config_files",
         "_no_version_long_option",
+        "_no_print_config_option",
         "_no_config_file_option",
         "_no_logger_options",
-        "_no_print_config",
         "_config_module",
         "_logger_files",
         "_package_additional_search_paths",
@@ -67,8 +67,8 @@ class App(metaclass=ABCMeta):
                 package_name + package_data_dir. Be sure to set
                 package_name, also.
 
-            package_additional_search_paths (list): The _additional_ package
-                search paths to be added to the sys.path.
+            package_additional_search_paths (list): The _additional_
+                package search paths to be added to the sys.path.
 
             config_module (str): Module path to the "configuration
                 module" used throughout the application runtime
@@ -77,7 +77,8 @@ class App(metaclass=ABCMeta):
             version (str): The program version string, if None, the
                 `git show` return value will be used, instead.
 
-            no_print_config (bool): If True, disable -D and -E options.
+            no_print_config_option (bool): If True, disable -D and -E
+                options.
 
             no_default_config_files (bool): If True, skip the XDG paths
                 in the configuration file search.
@@ -95,8 +96,10 @@ class App(metaclass=ABCMeta):
         self._no_version_long_option = kwargs.get(
             "no_version_long_option", False
         )
+        self._no_print_config_option = kwargs.get(
+            "no_print_config_option", False
+        )
         self._no_logger_options = kwargs.get("no_logger_options", False)
-        self._no_print_config = kwargs.get("no_print_config", False)
         self._config_module = kwargs.get("config_module")
 
         self._package_additional_search_paths = kwargs.get(
@@ -219,7 +222,7 @@ class App(metaclass=ABCMeta):
                 metavar="FILE",
             )
 
-        if not self._no_print_config:
+        if not self._no_print_config_option:
             parser.add(
                 "-D",
                 "--print-config",
@@ -293,7 +296,7 @@ class App(metaclass=ABCMeta):
         def handle_print_config():
             """Handle the -D and -E options."""
 
-            if self._no_print_config:
+            if self._no_print_config_option:
                 return
 
             def print_config_values(opts):
