@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -16,7 +16,7 @@ def init():
 
     from jomiel.plugin import load
     import jomiel.cache as cache
-    from jomiel import lg
+    from jomiel.log import lg
 
     def log(text):
         """Write a new (debug) entry to the logger."""
