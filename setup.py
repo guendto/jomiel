@@ -82,7 +82,7 @@ setup(
     #   -- the author
     #
     python_requires=">=3.6",
-    install_requires=read_file("requirements.in").splitlines(),
+    install_requires=requirements,
     entry_points={
         "console_scripts": [
             "jomiel=jomiel:main",
