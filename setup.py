@@ -83,6 +83,15 @@ setup(
     #
     python_requires=">=3.6",
     install_requires=requirements,
+    setup_requires=[
+        # Add anything in requirements.in that uses the "python_version"
+        # environment marker (namely importlib.* that are needed for
+        # building the wheel on py36).
+        #
+        pkg
+        for pkg in requirements
+        if "python_version" in pkg
+    ],
     entry_points={
         "console_scripts": [
             "jomiel=jomiel:main",
