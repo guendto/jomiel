@@ -54,9 +54,12 @@ def save_version_file():
     else:
         packaged = "(unknown)"
 
-    from .cache import VERSION_FILE
+    from .cache import DATA_VERSION_FILE
+    from os.path import sep
 
-    with open(VERSION_FILE, "w") as handle:
+    fname = DATA_VERSION_FILE.replace(".", sep)
+
+    with open(fname, "w") as handle:
         for line in [semantic, packaged]:
             handle.write(line + "\n")
 

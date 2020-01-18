@@ -9,7 +9,7 @@ The minimalistic foundation for creating new [Python][1] applications.
 
 ## Requirements
 
-`jomiel-kore` is written for [Python][1] 3.5 and later.
+`jomiel-kore` is written for [Python][1] 3.6 and later.
 
 ## Installation
 

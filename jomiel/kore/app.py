@@ -3,7 +3,7 @@
 # jomiel-kore
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -14,6 +14,11 @@ from abc import ABCMeta, abstractmethod
 from importlib import import_module
 from sys import stdout
 
+try:  # py37+
+    from importlib.resources import path as resources_path
+except ModuleNotFoundError:
+    from importlib_resources import path as resources_path
+
 
 class App(metaclass=ABCMeta):
     """A simple core class that wraps all-things-necessary to create
@@ -21,11 +26,14 @@ class App(metaclass=ABCMeta):
 
     __slots__ = [
         "_no_default_config_files",
+        "_no_version_long_option",
         "_no_config_file_option",
         "_no_logger_options",
         "_no_print_config",
         "_config_module",
         "_logger_files",
+        "_package_additional_search_paths",
+        "_package_data_dir",
         "_package_name",
         "_version",
     ]
@@ -38,9 +46,9 @@ class App(metaclass=ABCMeta):
 
         Supported arbitrary keyword args (kwargs):
 
-            package_name (str): The package name to be used with
-                pkg_resources queries and XDG configuration file search
-                paths.
+            package_name (str): The package name to be used for
+                package resource queries and building the XDG XDG
+                configuration file search paths.
 
                 - The value will be used to determine the different XDG
                   configuration file paths
@@ -48,12 +56,19 @@ class App(metaclass=ABCMeta):
                 - Needed to retrieve information about the installed
                   version of the application
 
-                - If None, the pkg_resources queries will be skipped
+                - If None, the package resources queries will be skipped
 
                 - If None, XDG configuration file path searches will be
                   skipped
 
                 The value is typically set to __name__ by the caller.
+
+            package_data_dir (str): The package data dir. This is
+                package_name + package_data_dir. Be sure to set
+                package_name, also.
+
+            package_additional_search_paths (list): The _additional_ package
+                search paths to be added to the sys.path.
 
             config_module (str): Module path to the "configuration
                 module" used throughout the application runtime
@@ -67,6 +82,9 @@ class App(metaclass=ABCMeta):
             no_default_config_files (bool): If True, skip the XDG paths
                 in the configuration file search.
 
+            no_version_long_option (bool): If True, disable
+                --version-long option, altogether.
+
             no_config_file_option (bool): If True, disable the
                 --config-file option.
 
@@ -74,9 +92,17 @@ class App(metaclass=ABCMeta):
                 options (e.g. --logger-file, --logger-ident).
 
         """
+        self._no_version_long_option = kwargs.get(
+            "no_version_long_option", False
+        )
         self._no_logger_options = kwargs.get("no_logger_options", False)
         self._no_print_config = kwargs.get("no_print_config", False)
         self._config_module = kwargs.get("config_module")
+
+        self._package_additional_search_paths = kwargs.get(
+            "package_additional_search_paths"
+        )
+        self._package_data_dir = kwargs.get("package_data_dir")
         self._package_name = kwargs.get("package_name")
 
         self._no_default_config_files = kwargs.get(
@@ -86,6 +112,15 @@ class App(metaclass=ABCMeta):
         self._no_config_file_option = kwargs.get(
             "no_config_file_option", False
         )
+
+        def add_package_search_paths():
+            """Append the additional package search paths to sys.path."""
+            if self._package_additional_search_paths:
+                from sys import path as sys_path
+
+                for mod_path in self._package_additional_search_paths:
+                    with resources_path(mod_path, "") as path:
+                        sys_path.append(str(path))
 
         def determine_xdg_paths():
             """Return the XDG paths to configuration files."""
@@ -107,16 +142,20 @@ class App(metaclass=ABCMeta):
                 "./logger.yaml",
             ]
 
-            if self._package_name:
-                from pkg_resources import resource_filename
+            if pkg_name:
+                path_prefix = pkg_name
 
-                config_path = "config/logger/%s.yaml" % pkg_name
+                if self._package_data_dir:
+                    path_prefix = self._package_data_dir
 
-                resource_fname = resource_filename(
-                    pkg_name, config_path
-                )
+                config_path = "%s.config.logger" % path_prefix
+                config_fname = "%s.yaml" % pkg_name
 
-                logger_files.insert(0, resource_fname)
+                try:
+                    with resources_path(config_path, config_fname) as p:
+                        logger_files.insert(0, p)
+                except FileNotFoundError:
+                    pass
 
             return (config_files, logger_files)
 
@@ -133,7 +172,10 @@ class App(metaclass=ABCMeta):
             if not version:
                 from .version import try_version
 
-                version = try_version(self._package_name)
+                if self._package_data_dir:
+                    version = try_version(self._package_data_dir)
+                else:
+                    version = "(unknown)"
 
             if isinstance(
                 version, list
@@ -141,6 +183,8 @@ class App(metaclass=ABCMeta):
                 return version
 
             return (version, None)
+
+        add_package_search_paths()
 
         (config_files, self._logger_files) = determine_xdg_paths()
         self._version = determine_version()
@@ -158,13 +202,14 @@ class App(metaclass=ABCMeta):
             version="%(prog)s version " + self._version[0],
         )
 
-        parser.add(
-            "-v",
-            "--version-long",
-            help="""show version information about program's
-                    environment and exit""",
-            action="store_true",
-        )
+        if not self._no_version_long_option:
+            parser.add(
+                "-v",
+                "--version-long",
+                help="""show version information about program's
+                        environment and exit""",
+                action="store_true",
+            )
 
         if not self._no_config_file_option:
             parser.add(
@@ -284,7 +329,7 @@ class App(metaclass=ABCMeta):
         def handle_version_long():
             """Handle --version-long"""
 
-            if not opts.version_long:
+            if self._no_version_long_option or not opts.version_long:
                 return
 
             def version_long():
@@ -338,10 +383,11 @@ class App(metaclass=ABCMeta):
 
             mod = import_module(self._config_module)
 
-            if opts.logger_config:
-                self._logger_files.insert(0, opts.logger_config)
+            if not self._no_logger_options:
+                if opts.logger_config:
+                    self._logger_files.insert(0, opts.logger_config)
+                mod.logger_paths = self._logger_files
 
-            mod.logger_paths = self._logger_files
             mod.opts = opts
 
         opts = parser.parse()

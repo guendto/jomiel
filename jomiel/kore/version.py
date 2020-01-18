@@ -3,7 +3,7 @@
 # jomiel-kore
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -17,12 +17,12 @@ from .app import subprocess_open
 try:  # py38+
     from importlib.metadata import version as metadata_version
     from importlib.metadata import PackageNotFoundError
-except ImportError:
+except ModuleNotFoundError:
     from importlib_metadata import version as metadata_version
     from importlib_metadata import PackageNotFoundError
 
 
-def try_version(pkg_resources_name):
+def try_version(package_data_path):
     """Try to determine application version from different sources.
 
     Used for --version and alike output. setup.py gets its 'version'
@@ -33,14 +33,12 @@ def try_version(pkg_resources_name):
     If above two fail
         - Use pkg_resources for accessing packaged VERSION file
     If all three fail
-        - Try to read the ./VERSION file
+        - Try to read the PACKAGE_DATA_PATH/VERSION file
     If everything falls apart
         - Submit to defeat, and return '(unknown)'
 
     Args:
-        pkg_resources_name (str): the module name to use with
-            pkg_resources package (this is usually the __name__ of the
-            app).
+        package_data_path (str): the package data path
 
     Returns:
         str: the version string
@@ -70,17 +68,21 @@ def try_version(pkg_resources_name):
             return handle.readlines()
         return None
 
-    if unknown in rval and pkg_resources_name:
-        from pkg_resources import resource_filename
-
+    if unknown in rval and package_data_path:
+        try:  # py37+
+            from importlib.resources import path as resources_path
+        except ImportError:
+            from importlib_resources import path as resources_path
+        fname = "VERSION"
         try:
-            version_file = resource_filename(
-                pkg_resources_name, "VERSION"
-            )
+            with resources_path(package_data_path, fname) as path:
+                version_file = str(path)
         except FileNotFoundError:
-            from os.path import join
+            from os.path import join, sep
 
-            version_file = join(pkg_resources_name, "VERSION")
+            version_file = join(
+                package_data_path.replace(".", sep), fname
+            )
         try:
             rval = read_version_file(version_file)
         except FileNotFoundError:
