@@ -11,12 +11,12 @@
 #
 """setup.py for jomiel."""
 
+# Supported env. definitions:
+#   - VERSION_TIME to append "%H%M" to the version number
+#
 from sys import path
 
 path.insert(0, ".")
-
-# Enable VERSION_TIME to append "%H%M" to the version number.
-#
 
 from setuptools import setup, find_packages
 from jomiel.kore.setup import init as setup_init
