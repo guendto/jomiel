@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -20,14 +20,14 @@ from requests.exceptions import RequestException
 from validators import url as is_url
 from zmq import REP, Context, ContextTerminated, ZMQError
 
-import jomiel.comm.proto.Status_pb2 as Status
-from jomiel import lg, log_sanitize_string
+import jomiel.protobuf.v1alpha1.status_pb2 as Status
 from jomiel.cache import opts
 from jomiel.comm import to_json
-from jomiel.comm.proto.Message_pb2 import Inquiry, Response
 from jomiel.dispatcher.media import script_dispatcher
 from jomiel.error import InvalidInputError, NoParserError, ParseError
 from jomiel.kore.app import exit_error
+from jomiel.log import lg, log_sanitize_string
+from jomiel.protobuf.v1alpha1.message_pb2 import Inquiry, Response
 
 
 class Worker:
@@ -231,7 +231,11 @@ class ResponseBuilder:
 
     def __init__(self, error=None):
         self.response = Response()
-        self.init("Not an error", Status.OK, Status.NoError)
+        self.init(
+            "Not an error",
+            Status.STATUS_CODE_OK,
+            Status.ERROR_CODE_UNSPECIFIED,
+        )
         if error:
             self.determine(error)
 
@@ -260,8 +264,8 @@ class ResponseBuilder:
 
         Args:
             msg (string): explanation of the error
-            status (int): status code (see Status.proto)
-            error (int): error code (see Status.proto)
+            status (int): status code (see status.proto)
+            error (int): error code (see status.proto)
             http (int): HTTP code (default is 200)
 
         """
@@ -274,19 +278,25 @@ class ResponseBuilder:
     def parse_failed(self, error):
         """System raised ParseError, initalize response accordingly."""
         self.init(
-            error.message, Status.InternalServer, Status.ParseError
+            error.message,
+            Status.STATUS_CODE_INTERNAL_SERVER,
+            Status.ERROR_CODE_PARSE,
         )
 
     def handler_not_found(self, error):
         """System raised NoParserError, initalize response accordingly."""
         self.init(
-            error.message, Status.NotImplemented, Status.NoParserError
+            error.message,
+            Status.STATUS_CODE_NOT_IMPLEMENTED,
+            Status.ERROR_CODE_NO_PARSER,
         )
 
     def invalid_input_given(self, error):
         """System raised InvalidInputError, initialize response accordingly."""
         self.init(
-            error.message, Status.BadRequest, Status.InvalidInputError
+            error.message,
+            Status.STATUS_CODE_BAD_REQUEST,
+            Status.ERROR_CODE_INVALID_INPUT,
         )
 
     def is_requests_error(self, error, error_type):
@@ -312,7 +322,10 @@ class ResponseBuilder:
             code = get_http_code()
 
             return self.init(
-                message, Status.InternalServer, Status.HttpError, code
+                message,
+                Status.STATUS_CODE_INTERNAL_SERVER,
+                Status.ERROR_CODE_HTTP,
+                code,
             )
         return False
 
@@ -320,8 +333,8 @@ class ResponseBuilder:
         """Pass the Python stack traceback to the client."""
         self.init(
             format_exc(),
-            Status.InternalServer,
-            Status.UnknownSeeMessageError,
+            Status.STATUS_CODE_INTERNAL_SERVER,
+            Status.ERROR_CODE_UNKNOWN_SEE_MESSAGE,
         )
 
 
