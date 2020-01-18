@@ -9,7 +9,7 @@ The [Python][1] library for communicating with [jomiel][2].
 
 ## Requirements
 
-`jomiel-comm` is written for [Python][1] 3.5 and later.
+`jomiel-comm` is written for [Python][1] 3.6 and later.
 
 ## Installation
 
