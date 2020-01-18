@@ -14,6 +14,7 @@
 # Supported env. definitions:
 #   - VERSION_TIME to append "%H%M" to the version number
 #
+PACKAGE_NAME = "jomiel"
 from sys import path
 
 path.insert(0, ".")
