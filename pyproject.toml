@@ -11,7 +11,7 @@ line-length = 72
 exclude = '''   # exclude common dirs
 (
     /(
-        jomiel/comm/proto
+        jomiel/data/bindings/
         \.tox
         \.git
         docker
@@ -24,7 +24,6 @@ exclude = '''   # exclude common dirs
 
 [tool.check-manifest]
 ignore = [
-    "jomiel/comm/proto/*.py",
     "jomiel/VERSION",
     "jomiel.yaml",
     ".tox*"

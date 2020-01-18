@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -12,9 +12,9 @@
 
 from zmq import DEALER, ROUTER, Context, ZMQError, proxy
 
-from jomiel import lg
 from jomiel.kore.app import exit_error
 from jomiel.kore.sig import GracefulExit
+from jomiel.log import lg
 
 
 def log(text, msgtype="debug"):

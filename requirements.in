@@ -1,5 +1,6 @@
-importlib-metadata ; python_version < '3.8'
 configargparse
+importlib-metadata ; python_version < '3.8'
+importlib-resources ; python_version < '3.7'
 protobuf
 pyzmq
 requests

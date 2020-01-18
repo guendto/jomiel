@@ -4,39 +4,53 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 """setup.py for jomiel."""
 
+# Supported env. definitions:
+#   - VERSION_TIME to append "%H%M" to the version number
+#
+PACKAGE_NAME = "jomiel"
+GITHUB_ADDR = "https://github.com/guendto/%s/" % PACKAGE_NAME
+
 from sys import path
 
 path.insert(0, ".")
 
-# Enable VERSION_TIME to append "%H%M" to the version number.
+# Initialize by calling kore.setup:init(). Do this before importing the
+# custom commands below.
 #
-
-from setuptools import setup, find_packages
 from jomiel.kore.setup import init as setup_init
 
-setup_init(  # Do this before the import lines for "cmd" below.
-    "jomiel", "comm/proto"
+setup_init(
+    name=PACKAGE_NAME,
+    bootstrap_path="%s/comm/proto/bin/bootstrap" % PACKAGE_NAME,
+    proto_root_dir="%s/comm/proto/" % PACKAGE_NAME,
+    bindings_dir="bindings",  # jomiel/data/bindings (*_pb2.py files)
+    data_dir="data",  # jomiel/data (VERSION file, etc.)
 )
 
 from jomiel.kore.setup.cmd import CustomCommand__bdist_wheel
 from jomiel.kore.setup.cmd import CustomCommand__build_py
-from jomiel.kore.setup.cmd import CustomCommand__sdist
 from jomiel.kore.setup.cmd import CustomCommand__clean
+
+# from jomiel.kore.setup.cmd import CustomCommand__sdist
 
 from jomiel.kore.setup.version import get_semantic_version
 from jomiel.kore.setup.file import read_file
 
-GITHUB_ADDR = "https://github.com/guendto/jomiel/"
+requirements = read_file("requirements.in").splitlines()
+
+# setup()
+#
+from setuptools import setup, find_namespace_packages
 
 setup(
-    name="jomiel",
+    name=PACKAGE_NAME,
     author="Toni Gündoğdu",
     author_email="<>",
     version=get_semantic_version(),
@@ -44,33 +58,50 @@ setup(
     long_description=read_file("README.md"),
     long_description_content_type="text/markdown",
     url=GITHUB_ADDR,
-    packages=find_packages(exclude=[]),
-    package_data={
-        "jomiel": [
-            "config/logger/jomiel.yaml",
-            "VERSION",
-            # Issue:
-            #   - The 'build' stage fails to find the generated *_pb2.py
-            #   files, even when 'build_py' target is built first
-            # Workaround:
-            #   - Force the inclusion of 'comm/proto/*.py files here so that
-            #   they are included
-            #
-            "comm/proto/*.py",
-        ],
-    },
+    packages=find_namespace_packages(include=["jomiel.*"], exclude=[])
+    + ["jomiel"],
+    # Note how we append "jomiel" to the "packages" list after looking
+    # up the namespace packages. We do this because of the way we have
+    # structured the project. find_namepace_packages() fails to add any
+    # of the ./jomiel/*.py files.
+    #
+    include_package_data=True,
+    # There are plenty of confusing and conflicting resources around,
+    # many of which offer different ideas on how you should use:
+    #   - include_package_data
+    #   - MANIFEST.in
+    #   - setup.py
+    #
+    # Throw the protobuf compilation into the mix and you'll begin to
+    # wonder why even bother with packaging at all.
+    #
+    # After spending far more time than anyone ever should -- for
+    # something as simple as this -- it seems that we have found
+    # ourselves a winner combo through great many trials and errors.
+    # And that, is good enough for me.
+    #   -- the author
+    #
     python_requires=">=3.6",
-    install_requires=read_file("requirements.in").splitlines(),
+    install_requires=requirements,
+    setup_requires=[
+        # Add anything in requirements.in that uses the "python_version"
+        # environment marker (namely importlib.* that are needed for
+        # building the wheel on py36).
+        #
+        pkg
+        for pkg in requirements
+        if "python_version" in pkg
+    ],
     entry_points={
         "console_scripts": [
-            "jomiel=jomiel:main",
-            "jomiel-keygen=jomiel.keygen:main",
+            "jomiel=jomiel.__main__:main",
+            "jomiel-keygen=jomiel.keygen.__main__:main",
         ]
     },
     cmdclass={
         "bdist_wheel": CustomCommand__bdist_wheel,
         "build_py": CustomCommand__build_py,
-        "sdist": CustomCommand__sdist,
+        #        "sdist": CustomCommand__sdist,
         "clean": CustomCommand__clean,
     },
     classifiers=[

@@ -3,7 +3,7 @@
 # jomiel-comm
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -89,7 +89,7 @@ def inquire(socket, input_uri, timeout=60):
 
     def inquiry_new():
         """Create a new media inquiry message."""
-        from .proto.Message_pb2 import Inquiry
+        from jomiel.protobuf.v1alpha1.message_pb2 import Inquiry
 
         inquiry = Inquiry()
         inquiry.media.input_uri = input_uri
@@ -102,14 +102,14 @@ def inquire(socket, input_uri, timeout=60):
             obj: The response message
 
         """
-        from .proto.Message_pb2 import Response
-        from .proto.Status_pb2 import OK
+        from jomiel.protobuf.v1alpha1.message_pb2 import Response
+        from jomiel.protobuf.v1alpha1.status_pb2 import STATUS_CODE_OK
 
         data = socket.recv()
         resp = Response()
         resp.ParseFromString(data)
 
-        if resp.status.code != OK:
+        if resp.status.code != STATUS_CODE_OK:
             raise InquireError(
                 "%s (status=%d, error=%d, http=%d)"
                 % (

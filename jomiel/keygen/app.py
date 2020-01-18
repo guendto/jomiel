@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -18,8 +18,8 @@ class App(KoreApp):
 
     __slots__ = []
 
-    def version_long_modules(self):
-        return {"zmq": "PyZMQ"}
+    def version_long_packages(self):
+        return ["pyzmq"]
 
     def run(self):
         """Application entry point; executes the app."""
@@ -31,10 +31,21 @@ class App(KoreApp):
             "filename",
             help="""Name for the authentication key-pair files for use
                     with jomiel""",
-            nargs="+",
+            nargs="*",
         )
 
         opts = super(App, self).parse_opts(parser)
+
+        if len(opts.filename) == 0:
+            from sys import stderr
+            from jomiel.kore.app import exit_error
+
+            print(
+                "error: the following arguments are required: filename",
+                file=stderr,
+            )
+
+            exit_error()
 
         def generate_keypair(filename):
             """Generate a new key-pair."""

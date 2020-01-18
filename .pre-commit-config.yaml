@@ -27,7 +27,7 @@ repos:
     rev: 4.3.21-2
     hooks:
     -   id: isort
-        exclude: ^setup\.py$|Message\.proto$
+        exclude: ^setup\.py$|message\.proto$
 -   repo: https://github.com/asottile/pyupgrade
     rev: v1.25.2
     hooks:

@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -18,7 +18,7 @@ def init():
 
     (logger_file, logger_idents) = log_init(logger_paths)
 
-    from jomiel import lg
+    from jomiel.log import lg
 
     lg().debug(
         "subsys/log: configuration file loaded from '%s'", logger_file

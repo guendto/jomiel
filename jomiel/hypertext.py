@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -45,12 +45,10 @@ def http_get(uri):
         obj: requests.Response
 
     """
+    from jomiel.log import lg, log_sanitize_string
     from jomiel.cache import opts
 
     hdrs = {"User-Agent": opts.http_user_agent}
-
-    from jomiel import lg, log_sanitize_string
-
     lg().debug("http<get>: '%s'", log_sanitize_string(uri))
 
     from requests import get

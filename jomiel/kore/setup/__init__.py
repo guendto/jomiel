@@ -3,7 +3,7 @@
 # jomiel-kore
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -11,26 +11,43 @@
 """TODO."""
 
 
-def init(pkg_name, proto_path):
-    """Initializes the setup package for use with setup.py
+def init(**kwargs):
+    """Initializes the cache values for use with setup.py and the custom
+    commands.
 
     Args:
-        pkg_name (str): the package name
-        proto_path (str): the path (under pkg_name) to the proto files
+        **kwargs: arbitrary keyword args
+
+    Supported arbitrary keyword args (kwargs):
+
+        name (str): the package name
+
+        data_dir (str): the package data dir
+
+        bootstrap_path (str): the path to the `bootstrap` script of
+            jomiel-proto
+
+        proto_root_dir (str): the root dir containing the .proto files
+
+        bindings_dir (str): the destination dir for the compiled bindings
 
     """
-    from ..setup import cache  # See that? Get it?
-    from os.path import join
+    from ..setup import cache
 
-    cache.PROTO_PATH = join(pkg_name, proto_path)
-    cache.PROTO_FILES = ["Message.proto", "Status.proto", "Media.proto"]
-    cache.PROTO_FILES = [
-        join(cache.PROTO_PATH, fname) for fname in cache.PROTO_FILES
-    ]
+    cache.NAME = kwargs.get("name", None)
 
-    cache.PROTO_INIT = join(cache.PROTO_PATH, "__init__.py")
-    cache.VERSION_FILE = join(pkg_name, "VERSION")
-    cache.PKG_NAME = pkg_name
+    cache.BOOTSTRAP_PATH = kwargs.get("bootstrap_path", None)
+    cache.PROTO_ROOT_DIR = kwargs.get("proto_root_dir", None)
+
+    cache.DATA_DIR = kwargs.get("data_dir", None)
+
+    cache.DATA_VERSION_FILE = "{}.{}.{}".format(
+        cache.NAME, cache.DATA_DIR, "VERSION",
+    )
+
+    cache.DATA_BINDINGS_DIR = "{}.{}.{}".format(
+        cache.NAME, cache.DATA_DIR, kwargs.get("bindings_dir", None),
+    )
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:

@@ -2,8 +2,8 @@
 
 exclude =
     .git/
+    jomiel/data/bindings/
     jomiel/kore/
-    jomiel/comm/
     build/
     dist/
     docs/

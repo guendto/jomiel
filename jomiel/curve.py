@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -30,7 +30,7 @@ def setup(socket):
     def auth_init():
         """Start an authenticator for this context."""
         from zmq.auth.thread import ThreadAuthenticator
-        from jomiel import lg
+        from jomiel.log import lg
 
         auth = ThreadAuthenticator(ctx, log=lg())
         auth.start()

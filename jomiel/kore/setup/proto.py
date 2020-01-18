@@ -3,7 +3,7 @@
 # jomiel-kore
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -11,8 +11,51 @@
 """TODO."""
 
 
-def generate_protobuf_bindings():
-    """Generates the bindings for the protobuf message declarations."""
+def compile_protobuf_bindings(bootstrap_path, proto_dir, dest_dir):
+    """Compile the proto buffer declarations.
+
+    This function calls the `bootstrap` script of jomiel-kore to produce
+    the bindings.
+
+    Args:
+        bootstrap_path (str): the path to the `bootstrap` script
+
+        proto_dir (str): the path to the _root_ dir containing the
+            .proto files
+
+        dest_dir (str): the destination dir for the compiled bindings
+
+    """
+    from subprocess import call
+    from os.path import sep
+    from os import EX_OK
+
+    args = [
+        bootstrap_path,
+        "-p",
+        proto_dir,
+        "-l",
+        "python",
+        "-d",
+        dest_dir.replace(".", sep),
+    ]
+
+    from ..app import exit_error
+
+    if call(args) != EX_OK:
+        exit_error()
+
+
+def generate_protobuf_bindings(proto_path, proto_files):
+    """Generates the bindings for the protobuf message declarations.
+
+    Args:
+        proto_path (str): the root path to the .proto files, this is
+            essentially what protoc(1) takes as -I<value>
+
+        proto_files (list): the full path to the .proto files
+
+    """
     from ..app import exit_error
 
     protoc = detect_protoc()
@@ -23,17 +66,16 @@ def generate_protobuf_bindings():
     from subprocess import call
     from os import EX_OK
 
-    from .cache import PROTO_FILES, PROTO_PATH
     from .echo import put
 
     put("Compiling the protobuf declarations for jomiel messages\n")
 
-    for fname in PROTO_FILES:
+    for fname in proto_files:
         put("  Compiling %s..." % fname)
         args = [
             protoc,
-            "-I" + PROTO_PATH,
-            "--python_out=" + PROTO_PATH,
+            "-I" + proto_path,
+            "--python_out=.",
             fname,
         ]
         if call(args) != EX_OK:
