@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -20,7 +20,7 @@ def init():
     hypertext.init()
     broker.init()
 
-    from jomiel import lg
+    from jomiel.log import lg
 
     lg().info("exit normally")
 
