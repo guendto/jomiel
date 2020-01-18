@@ -21,7 +21,6 @@ from sys import path
 
 path.insert(0, ".")
 
-from setuptools import setup, find_packages
 from jomiel.kore.setup import init as setup_init
 
 setup_init(  # Do this before the import lines for "cmd" below.
@@ -36,6 +35,7 @@ from jomiel.kore.setup.cmd import CustomCommand__clean
 from jomiel.kore.setup.version import get_semantic_version
 from jomiel.kore.setup.file import read_file
 
+from setuptools import setup, find_namespace_packages
 
 setup(
     name="jomiel",
