@@ -50,7 +50,7 @@ requirements = read_file("requirements.in").splitlines()
 from setuptools import setup, find_namespace_packages
 
 setup(
-    name="jomiel",
+    name=PACKAGE_NAME,
     author="Toni Gündoğdu",
     author_email="<>",
     version=get_semantic_version(),
