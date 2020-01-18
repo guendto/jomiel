@@ -21,10 +21,17 @@ from sys import path
 
 path.insert(0, ".")
 
+# Initialize by calling kore.setup:init(). Do this before importing the
+# custom commands below.
+#
 from jomiel.kore.setup import init as setup_init
 
-setup_init(  # Do this before the import lines for "cmd" below.
-    "jomiel", "comm/proto"
+setup_init(
+    name=PACKAGE_NAME,
+    bootstrap_path="%s/comm/proto/bin/bootstrap" % PACKAGE_NAME,
+    proto_root_dir="%s/comm/proto/" % PACKAGE_NAME,
+    bindings_dir="bindings",  # jomiel/data/bindings (*_pb2.py files)
+    data_dir="data",  # jomiel/data (VERSION file, etc.)
 )
 
 from jomiel.kore.setup.cmd import CustomCommand__bdist_wheel
