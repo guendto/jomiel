@@ -31,10 +31,21 @@ class App(KoreApp):
             "filename",
             help="""Name for the authentication key-pair files for use
                     with jomiel""",
-            nargs="+",
+            nargs="*",
         )
 
         opts = super(App, self).parse_opts(parser)
+
+        if len(opts.filename) == 0:
+            from sys import stderr
+            from jomiel.kore.app import exit_error
+
+            print(
+                "error: the following arguments are required: filename",
+                file=stderr,
+            )
+
+            exit_error()
 
         def generate_keypair(filename):
             """Generate a new key-pair."""
