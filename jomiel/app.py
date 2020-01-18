@@ -3,7 +3,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -196,15 +196,9 @@ class App(KoreApp):
         curve_group()
         super(App, self).parse_opts(parser)
 
-        try:
-            from jomiel.subsys import init
+        from jomiel.subsys import init
 
-            init()
-        except ImportError as error:
-            from jomiel.kore.error import if_proto_bindings_missing
-            from jomiel import lg
-
-            if_proto_bindings_missing(error, lg())
+        init()
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
