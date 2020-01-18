@@ -11,17 +11,6 @@
 """TODO."""
 
 
-def main():
-    """main"""
-    from jomiel.kore.path import set_proto_path
-
-    set_proto_path(__file__, "comm/proto/")
-
-    from jomiel.app import App
-
-    App(package_name=__name__, config_module="jomiel.cache",).run()
-
-
 def lg():
     """Returns the logger instance used to print to the logging
     subsystem to record new events.
@@ -31,7 +20,7 @@ def lg():
 
     To use this function (lg):
 
-        from jomiel import lg
+        from jomiel.log import lg
         lg().debug('foo=%s' % foo)
 
     Returns
