@@ -43,6 +43,8 @@ from jomiel.kore.setup.cmd import CustomCommand__clean
 from jomiel.kore.setup.version import get_semantic_version
 from jomiel.kore.setup.file import read_file
 
+requirements = read_file("requirements.in").splitlines()
+
 # setup()
 #
 from setuptools import setup, find_namespace_packages
