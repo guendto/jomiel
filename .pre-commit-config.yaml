@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/psf/black
-    rev: stable
+    rev: 19.10b0
     hooks:
     -   id: black
         args: [--safe]
@@ -19,17 +19,17 @@ repos:
         language_version: python3.8
         #log_file: flake8.log
 -   repo: https://github.com/asottile/seed-isort-config
-    rev: v1.9.3
+    rev: v1.9.4
     hooks:
     -   id: seed-isort-config
         args: [--application-directories, "jomiel:."]
 -   repo: https://github.com/timothycrosley/isort
-    rev: 4.3.21-2
+    rev: 4.3.21
     hooks:
     -   id: isort
         exclude: ^setup\.py$|message\.proto$
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v1.25.2
+    rev: v1.26.2
     hooks:
     -   id: pyupgrade
 #-   repo: https://github.com/mgedmin/check-manifest
