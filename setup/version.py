@@ -3,7 +3,7 @@
 # jomiel-kore
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -33,12 +33,13 @@ def get_semantic_version():
     from datetime import datetime
 
     now = datetime.now()
-    fmt = "%y.%-m.%-d"
+    fmt = "%-y.%-m.%-d"
 
     if "VERSION_TIME" in env:
         fmt = fmt + ".%-H%-M"
 
-    return now.strftime(fmt)
+    s = now.strftime(fmt)
+    return s[:1] + "." + s[1:]
 
 
 def save_version_file():
