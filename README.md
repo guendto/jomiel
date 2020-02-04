@@ -24,8 +24,7 @@ for most platforms.
   * [If you are contributing new plugins](#if-you-are-contributing-new-plugins)
 * [HOWTO](#howto)
 * [Versioning](#versioning)
-  * [For example](#for-example)
-  * [The exception](#the-exception)
+  * [The versioning exception](#the-versioning-exception)
 * [License](#license)
 * [Acknowledgements](#acknowledgements)
   * [Subprojects](#subprojects)
@@ -95,21 +94,20 @@ See [docs/HOWTO](./docs/HOWTO.md).
 
 ## Versioning
 
-`jomiel` uses a custom versioning scheme. With each new release, the
+`jomiel` uses a _custom versioning scheme_. With each new release, the
 release date (and time) will be used for the version number. `jomiel`
-uses the format `yy.m.d` for version numbers.
+uses the format `y.y.m.d(.hhmm)` for version number. For example:
+  - `2019-07-25` would become `1.9.7.25`
 
-### For example
+If another release was made the same day at 10:41 local time, an
+additional number (time) would be added to the version. For example:
+  - `1.9.7.25` would become `1.9.7.25.1041`
 
-`2019-07-25` would become `19.7.25`. An additional number (time) will be
-added to the version number, if another release was made on the same day
-(e.g. `19.7.25` would become `19.7.25.1041`, "1041" being 10:41 for the
-local time).
+### The versioning exception
 
-### The exception
-
-When run from the repository, the output of the `git-describe` and the
-`git-show` command will be used for the version number, instead.
+When `jomiel` is run using the repository code, the output of the
+`git-describe` and the `git-show` commands will be used for the version
+number, instead.
 
 ## License
 
