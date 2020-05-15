@@ -35,6 +35,10 @@ repos:
     rev: v2.3.0
     hooks:
     -   id: pyupgrade
+-   repo: https://github.com/markdownlint/markdownlint
+    rev: v0.9.0
+    hooks:
+    -   id: markdownlint
 #-   repo: https://github.com/mgedmin/check-manifest
 #    rev: "0.40"
 #    hooks:
