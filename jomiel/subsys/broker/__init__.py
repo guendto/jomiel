@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,8 +8,11 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
-from zmq import DEALER, ROUTER, Context, ZMQError, proxy
+from zmq import Context
+from zmq import DEALER
+from zmq import proxy
+from zmq import ROUTER
+from zmq import ZMQError
 
 from jomiel.kore.app import exit_error
 from jomiel.kore.sig import GracefulExit
@@ -40,7 +42,7 @@ def init():
         try:
             sck.bind(endpoint)
         except ZMQError as error:
-            log("{}: {}".format(error, endpoint), "error")
+            log(f"{error}: {endpoint}", "error")
             exit_error()
         return (sck, auth)
 
@@ -50,7 +52,7 @@ def init():
         """Bind the router device for talking to the clients."""
         router_endpoint = opts.broker_router_endpoint
         (router, auth) = bind_endpoint(
-            ROUTER, router_endpoint, setup_curve=True
+            ROUTER, router_endpoint, setup_curve=True,
         )
         log("bind router at <%s>" % router_endpoint)
         return (router, auth)
@@ -77,7 +79,7 @@ def init():
 
             for worker_id in range(opts.broker_worker_threads):
                 worker_thread = Thread(
-                    target=worker_new, args=(worker_id + 1,)
+                    target=worker_new, args=(worker_id + 1,),
                 )
                 worker_thread.start()
 
