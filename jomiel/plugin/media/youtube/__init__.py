@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,7 +8,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from jomiel.error import CannotParseError
 from jomiel.plugin.media.handler import PluginMediaHandler
 from jomiel.plugin.media.youtube.parser import Parser
@@ -23,7 +21,7 @@ class Handler(PluginMediaHandler):
 
     def __init__(self):
         """Initializes the object."""
-        super(Handler, self).__init__()
+        super().__init__()
         self.refiner = URIRefiner()
         self.compile_regexes()
         self.name = __name__
