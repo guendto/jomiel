@@ -1,0 +1,10 @@
+[tool.black]
+line-length = 72
+exclude = '''   # exclude common dirs
+(
+    /(
+        proto
+        \.git
+    )/
+)
+'''

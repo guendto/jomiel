@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-comm
 #
@@ -34,7 +33,7 @@ def load_cert_file(path, logger=None):
 
     try:
         return load_certificate(keyfile)
-    except IOError as message:
+    except OSError as message:
         if logger:
             logger.error(message)
         exit_error()
