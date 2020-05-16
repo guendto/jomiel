@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -40,7 +39,7 @@ def init():
             handler = module.Handler()
 
             cache.plugin_handlers[ns_name].append(handler)
-            log("<{}> loaded {}".format(pkg_name, ns_pkg))
+            log(f"<{pkg_name}> loaded {ns_pkg}")
 
         num_handlers = len(cache.plugin_handlers[ns_name])
         log("<%s> cached %d handler(s)" % (ns_name, num_handlers))
