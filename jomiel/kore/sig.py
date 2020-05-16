@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-kore
 #
@@ -9,8 +8,9 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
-from signal import SIGTERM, getsignal, signal
+from signal import getsignal
+from signal import signal
+from signal import SIGTERM
 
 
 class GracefulExit:

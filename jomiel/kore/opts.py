@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-kore
 #
@@ -19,7 +18,7 @@ def check_if_positive_integer(argval):
         value = int(argval)
     except ValueError:
         raise ArgumentTypeError(
-            "invalid value type: %s (expected integer)" % argval
+            "invalid value type: %s (expected integer)" % argval,
         )
     if value < 1:
         raise ArgumentTypeError("the value must be a positive integer")

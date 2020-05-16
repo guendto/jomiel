@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-kore
 #
@@ -9,7 +8,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from os import EX_OK
 
 from .app import subprocess_open
@@ -64,7 +62,7 @@ def try_version(package_data_path):
             list: the read lines from the file (or None if failed)
 
         """
-        with open(fpath, "r") as handle:
+        with open(fpath) as handle:
             return handle.readlines()
         return None
 
@@ -81,7 +79,7 @@ def try_version(package_data_path):
             from os.path import join, sep
 
             version_file = join(
-                package_data_path.replace(".", sep), fname
+                package_data_path.replace(".", sep), fname,
             )
         try:
             rval = read_version_file(version_file)
@@ -173,7 +171,7 @@ def package_version(package_name, destination):
         from zmq import zmq_version
 
         version = "{} (libzmq version {})".format(
-            version, zmq_version()
+            version, zmq_version(),
         )
 
     destination.append((package_name, version))
