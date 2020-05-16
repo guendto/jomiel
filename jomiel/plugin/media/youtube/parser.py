@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,10 +8,10 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from json import loads
 from re import match as re_match
-from urllib.parse import parse_qs, urlencode
+from urllib.parse import parse_qs
+from urllib.parse import urlencode
 
 from jomiel.error import ParseError
 from jomiel.hypertext import http_get
@@ -33,7 +32,7 @@ class Parser(PluginMediaParser):
             uri_components (dict): The input URI components
 
         """
-        super(Parser, self).__init__(uri_components)
+        super().__init__(uri_components)
         self.parse(uri_components)
 
     def parse(self, uri_components):
@@ -86,14 +85,14 @@ class Parser(PluginMediaParser):
                 vd = get_of(resp, "videoDetails")
 
                 self.media.statistics.average_rating = float(
-                    get_of(vd, "averageRating")
+                    get_of(vd, "averageRating"),
                 )
                 self.media.statistics.view_count = int(
-                    get_of(vd, "viewCount")
+                    get_of(vd, "viewCount"),
                 )
                 self.media.description = get_of(vd, "shortDescription")
                 self.media.length_seconds = int(
-                    get_of(vd, "lengthSeconds")
+                    get_of(vd, "lengthSeconds"),
                 )
                 self.media.author.channel_id = get_of(vd, "channelId")
                 self.media.author.name = get_of(vd, "author")
@@ -166,7 +165,7 @@ class Parser(PluginMediaParser):
             def parse_video_id():
                 """Parse video ID from the input URI (components)."""
                 result = re_match(
-                    r"v=([\w\-_]{11})", uri_components.query
+                    r"v=([\w\-_]{11})", uri_components.query,
                 )
                 if result:
                     self.media.identifier = result.group(1)
@@ -180,7 +179,7 @@ class Parser(PluginMediaParser):
                     "video_id": self.media.identifier,
                     "eurl": "https://youtube.googleapis.com/v/"
                     + self.media.identifier,
-                }
+                },
             )
             return "https://www.youtube.com/get_video_info?" + data
 
