@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,7 +8,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from jomiel.kore.app import App as KoreApp
 
 
@@ -34,7 +32,7 @@ class App(KoreApp):
             nargs="*",
         )
 
-        opts = super(App, self).parse_opts(parser)
+        opts = super().parse_opts(parser)
 
         if len(opts.filename) == 0:
             from sys import stderr
@@ -63,7 +61,7 @@ class App(KoreApp):
                     public_key_file,
                     secret_key_file,
                 ) = create_certificates(basedir, name)
-            except IOError as message:
+            except OSError as message:
                 print("error: %s" % message)
                 from jomiel.kore.app import exit_error
 
@@ -76,7 +74,7 @@ class App(KoreApp):
 
             print(
                 "Created:\n  %s\n  %s"
-                % (public_key_file, secret_key_file)
+                % (public_key_file, secret_key_file),
             )
 
         for filename in opts.filename:

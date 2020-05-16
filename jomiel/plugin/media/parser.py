@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,8 +8,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
+from abc import abstractmethod
 
 
 class PluginMediaParser(metaclass=ABCMeta):

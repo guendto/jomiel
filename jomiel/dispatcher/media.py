@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,12 +8,13 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from urllib.parse import urlparse
 
 from jomiel.cache import plugin_handlers
-from jomiel.error import CannotParseError, NoParserError
-from jomiel.log import lg, log_sanitize_string
+from jomiel.error import CannotParseError
+from jomiel.error import NoParserError
+from jomiel.log import lg
+from jomiel.log import log_sanitize_string
 
 NS_NAME = "jomiel.plugin.media"
 
@@ -62,7 +62,7 @@ def script_dispatcher(input_uri):
     # not find a matching parser for the given input URI.
     #
     raise NoParserError(
-        "Unable to find a matching parser for URI <%s>" % input_uri
+        "Unable to find a matching parser for URI <%s>" % input_uri,
     )
 
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -10,7 +9,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """setup.py for jomiel."""
-
 # Supported env. definitions:
 #   - VERSION_TIME to append "%H%M" to the version number
 #
@@ -96,7 +94,7 @@ setup(
         "console_scripts": [
             "jomiel=jomiel.__main__:main",
             "jomiel-keygen=jomiel.keygen.__main__:main",
-        ]
+        ],
     },
     cmdclass={
         "bdist_wheel": CustomCommand__bdist_wheel,

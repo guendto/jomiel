@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-kore
 #
@@ -9,8 +8,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
+from abc import abstractmethod
 from importlib import import_module
 from sys import stdout
 
@@ -94,26 +93,26 @@ class App(metaclass=ABCMeta):
 
         """
         self._no_version_long_option = kwargs.get(
-            "no_version_long_option", False
+            "no_version_long_option", False,
         )
         self._no_print_config_option = kwargs.get(
-            "no_print_config_option", False
+            "no_print_config_option", False,
         )
         self._no_logger_options = kwargs.get("no_logger_options", False)
         self._config_module = kwargs.get("config_module")
 
         self._package_additional_search_paths = kwargs.get(
-            "package_additional_search_paths"
+            "package_additional_search_paths",
         )
         self._package_data_dir = kwargs.get("package_data_dir")
         self._package_name = kwargs.get("package_name")
 
         self._no_default_config_files = kwargs.get(
-            "no_default_config_files", False
+            "no_default_config_files", False,
         )
 
         self._no_config_file_option = kwargs.get(
-            "no_config_file_option", False
+            "no_config_file_option", False,
         )
 
         def add_package_search_paths():
@@ -136,12 +135,12 @@ class App(metaclass=ABCMeta):
             config_files = [
                 "/etc/xdg/{0}/{0}.yaml".format(pkg_name),
                 "~/.config/{0}/{0}.yaml".format(pkg_name),
-                "./{}.yaml".format(pkg_name),
+                f"./{pkg_name}.yaml",
             ]
 
             logger_files = [
-                "/etc/xdg/{}/logger.yaml".format(pkg_name),
-                "~/.config/{}/logger.yaml".format(pkg_name),
+                f"/etc/xdg/{pkg_name}/logger.yaml",
+                f"~/.config/{pkg_name}/logger.yaml",
                 "./logger.yaml",
             ]
 
@@ -181,7 +180,7 @@ class App(metaclass=ABCMeta):
                     version = "(unknown)"
 
             if isinstance(
-                version, list
+                version, list,
             ):  # Value read from VERSION file
                 return version
 

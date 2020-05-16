@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-kore
 #
@@ -9,7 +8,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 import logging as lgg
 
 
@@ -186,7 +184,7 @@ if __name__ == "__main__":
         """Enable verbose logging."""
         level = lgg.DEBUG if opts.verbose else lgg.INFO
         lgg.basicConfig(
-            level=level, format="[%(levelname)s] %(message)s"
+            level=level, format="[%(levelname)s] %(message)s",
         )
 
     enable_debug()

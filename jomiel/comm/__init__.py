@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-comm
 #
@@ -117,7 +116,7 @@ def inquire(socket, input_uri, timeout=60):
                     resp.status.code,
                     resp.status.error,
                     resp.status.http.code,
-                )
+                ),
             )
 
         return resp
@@ -134,7 +133,7 @@ def inquire(socket, input_uri, timeout=60):
 
     if poller.poll(connect_timeout):
         return receive_response()
-    raise IOError("connection timed out")
+    raise OSError("connection timed out")
 
 
 def to_json(message, minified=False, stream=None):

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,7 +8,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from jomiel.kore.app import App as KoreApp
 
 
@@ -138,7 +136,7 @@ class App(KoreApp):
                     from argparse import ArgumentTypeError
 
                     raise ArgumentTypeError(
-                        "%s is not within the range (1-64)" % argval
+                        "%s is not within the range (1-64)" % argval,
                     )
                 return value
 
@@ -194,7 +192,7 @@ class App(KoreApp):
             )
 
         curve_group()
-        super(App, self).parse_opts(parser)
+        super().parse_opts(parser)
 
         from jomiel.subsys import init
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-kore
 #
@@ -33,7 +32,7 @@ def log_init(config_paths):
     # Try to find one of the specified logger config files and load it.
     for path in map(expanduser, config_paths):
         for found in glob(path):
-            with open(found, "r") as handle:
+            with open(found) as handle:
                 yaml = YAML(typ="safe")
                 data = yaml.load(handle)
                 lc.dictConfig(data)

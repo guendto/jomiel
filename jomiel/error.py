@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -22,7 +21,7 @@ class BaseError(Exception):
     __slots__ = ["message"]
 
     def __init__(self, message=None):
-        super(BaseError, self).__init__()
+        super().__init__()
         self.message = message if message else ""
 
 

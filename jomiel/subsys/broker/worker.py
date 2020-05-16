@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,7 +8,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from binascii import hexlify
 from logging import DEBUG
 from re import compile as rxc
@@ -18,16 +16,23 @@ from traceback import format_exc
 from google.protobuf.message import DecodeError
 from requests.exceptions import RequestException
 from validators import url as is_url
-from zmq import REP, Context, ContextTerminated, ZMQError
+from zmq import Context
+from zmq import ContextTerminated
+from zmq import REP
+from zmq import ZMQError
 
 import jomiel.protobuf.v1alpha1.status_pb2 as Status
 from jomiel.cache import opts
 from jomiel.comm import to_json
 from jomiel.dispatcher.media import script_dispatcher
-from jomiel.error import InvalidInputError, NoParserError, ParseError
+from jomiel.error import InvalidInputError
+from jomiel.error import NoParserError
+from jomiel.error import ParseError
 from jomiel.kore.app import exit_error
-from jomiel.log import lg, log_sanitize_string
-from jomiel.protobuf.v1alpha1.message_pb2 import Inquiry, Response
+from jomiel.log import lg
+from jomiel.log import log_sanitize_string
+from jomiel.protobuf.v1alpha1.message_pb2 import Inquiry
+from jomiel.protobuf.v1alpha1.message_pb2 import Response
 
 
 class Worker:
@@ -55,7 +60,7 @@ class Worker:
             sck.connect(self.dealer_endpoint)
         except ZMQError as error:
             self.log(
-                "{} ({})".format(error, self.dealer_endpoint), "error"
+                f"{error} ({self.dealer_endpoint})", "error",
             )
             exit_error()
         self.log("connected to <%s>" % self.dealer_endpoint)
@@ -81,7 +86,7 @@ class Worker:
                 self.message_receive()
             except DecodeError as error:
                 self.log(
-                    "received invalid message: %s" % (error), "error"
+                    "received invalid message: %s" % (error), "error",
                 )
                 self.renew_socket()
             finally:
@@ -91,7 +96,7 @@ class Worker:
         """Write a new (debug) worker entry to the logger."""
         logger = getattr(lg(), msgtype)
         logger(
-            "subsystem/broker<worker#%03d>: %s", self.worker_id, text
+            "subsystem/broker<worker#%03d>: %s", self.worker_id, text,
         )
 
     def run(self):
@@ -131,7 +136,7 @@ class Worker:
             _hex = hexlify(bytearray(message))
             self.log(
                 "<%s:serialized> [%s] %s"
-                % (prefix, _len, log_sanitize_string(_hex))
+                % (prefix, _len, log_sanitize_string(_hex)),
             )
 
     def message_send(self, response):
@@ -185,7 +190,7 @@ class Worker:
             if not is_url(inquiry.input_uri):
                 raise InvalidInputError(
                     "Invalid input URI value given <%s>"
-                    % inquiry.input_uri
+                    % inquiry.input_uri,
                 )
 
         def failed(error):

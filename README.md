@@ -95,7 +95,7 @@ See [docs/HOWTO](./docs/HOWTO.md).
 
 `jomiel` uses a _date based versioning scheme_. The release date (format
 `y.y.m.d(.hhmm)`) will be used for the version number. For example:
-`2020-05-15` -> `2.0.5.15`.  If another version was released on the same
+`2020-05-15` -> `2.0.5.15`. If another version was released on the same
 day at 13:09 (local time), an additional number (time) would be added to
 the version (`2.0.5.15` -> `2.0.5.15.1309`).
 
@@ -109,8 +109,8 @@ for the version number, instead.
 
 ## Acknowledgements
 
-- Linted by [flake8], [yamllint] and [markdownlint]
-- Formatted by [black]
+`jomiel` uses [pre-commit] and its many hooks to lint and format the
+project files. See the .pre-commit-config.yaml file for details.
 
 ### Subprojects
 
@@ -120,7 +120,6 @@ for the version number, instead.
 - [jomiel-comm] found in [jomiel/comm/](jomiel/comm/)
 - [jomiel-kore] found in [jomiel/kore/](jomiel/kore/)
 
-[markdownlint]: https://github.com/markdownlint/markdownlint
 [video-sharing]: https://en.wikipedia.org/wiki/Video_hosting_service
 [protocol buffers]: https://developers.google.com/protocol-buffers/
 [jomiel-proto]: https://github.com/guendto/jomiel-proto/
@@ -129,9 +128,7 @@ for the version number, instead.
 [jomiel-comm]: https://github.com/guendto/jomiel-comm/
 [jomiel-kore]: https://github.com/guendto/jomiel-kore/
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
-[yamllint]: https://pypi.org/project/yamllint/
 [aplv2]: https://www.tldrlegal.com/l/apache2
-[flake8]: https://pypi.org/project/flake8/
-[black]: https://pypi.org/project/black/
+[pre-commit]: https://pre-commit.com/
 [zeromq]: https://zeromq.org/
 [pypi]: https://pypi.org/
