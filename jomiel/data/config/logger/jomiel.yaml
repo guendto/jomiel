@@ -1,8 +1,9 @@
+---
 # -*- coding: utf-8 -*-
 #
 # jomiel logger configuration file
 #
----
+
 # https://docs.python.org/3/library/logging.html
 #
 version: 1
@@ -115,15 +116,15 @@ formatters:
     #
     default_formatter:
         format: '[%(asctime)s] %(levelname)s - %(message)s'
-        datefmt: "%FT%T%z"
+        datefmt: '%FT%T%z'
 
     chatter_formatter:
-        format: '[%(pathname)s:%(funcName)s:%(lineno)d] %(levelname)s:
-                 %(message)s'
+        format: >-
+            [%(pathname)s:%(funcName)s:%(lineno)d] %(levelname)s: %(message)s
 
     debug_formatter:
         format: '[%(asctime)s.%(msecs)03d] %(levelname)s - %(message)s'
-        datefmt: "%FT%T"
+        datefmt: '%FT%T'
 
     # Syslog formatter
     #
