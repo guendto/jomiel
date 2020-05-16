@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-kore
 #
@@ -37,7 +36,7 @@ def read_file(fpath):
         fpath (str): the file name
 
     """
-    with open(fpath, "r") as handle:
+    with open(fpath) as handle:
         return handle.read()
 
 

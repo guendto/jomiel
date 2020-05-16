@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel-kore
 #
@@ -9,23 +8,20 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from distutils.command.clean import clean
 
 from setuptools.command.build_py import build_py
 from wheel.bdist_wheel import bdist_wheel
 
 # from setuptools.command.sdist import sdist
-
-"""
-class CustomCommand__sdist(sdist):
-    # Custom command for setup target sdist. Triggers build_py.
-
-    def run(self):
-        # run
-        self.run_command("build_py")
-        return sdist.run(self)
-"""
+#
+# class CustomCommand__sdist(sdist):
+#    # Custom command for setup target sdist. Triggers build_py.
+#
+#    def run(self):
+#        # run
+#        self.run_command("build_py")
+#        return sdist.run(self)
 
 
 class CustomCommand__bdist_wheel(bdist_wheel):
@@ -52,7 +48,7 @@ class CustomCommand__build_py(build_py):
         from .file import touch_file
 
         compile_protobuf_bindings(
-            BOOTSTRAP_PATH, PROTO_ROOT_DIR, DATA_BINDINGS_DIR
+            BOOTSTRAP_PATH, PROTO_ROOT_DIR, DATA_BINDINGS_DIR,
         )
 
         def packagistize_bindings_dir():
