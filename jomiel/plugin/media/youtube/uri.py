@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # jomiel
 #
@@ -9,7 +8,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-
 from jomiel.plugin.uri import PluginURIRefiner
 
 
@@ -20,7 +18,7 @@ class URIRefiner(PluginURIRefiner):
 
     def __init__(self):
         """Initializes the refiner object."""
-        super(URIRefiner, self).__init__()
+        super().__init__()
         self.compile_regexes()
 
     def refine(self, uri_components):
