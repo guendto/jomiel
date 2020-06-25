@@ -25,6 +25,7 @@ class App(KoreApp):
             "protobuf",
             "requests",
             "pyzmq",
+            "ujson",
         ]
 
     def run(self):
