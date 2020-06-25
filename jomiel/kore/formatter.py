@@ -2,34 +2,38 @@
 # jomiel-kore
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2020 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-from json import dumps
+from ujson import dumps
 
 
-def json_get_pprint(json_object, indent=2):
-    """Return the pretty string of the given json object.
+def json_pprint_formatter(json_object, indent=2, ensure_ascii=False):
+    """Return the pretty representation of the given json object.
+
+    This is a convenience "wrapper" function for printing json objects
+    in a human-readable representation.
 
     Args:
-        json_object: the json object to use
-        indent: the used indentation
+        json_object (obj): the json object to use
 
-    Notes:
-        - https://stackoverflow.com/a/16319664, kudos
+        indent (int): the used indentation
+
+        ensure_ascii (bool): if True, limits output to ASCII and escapes
+            all extended characters above 127 (https://git.io/Jfh2q)
 
     Returns:
-        the prettified json string
+        the human-readable representation of the json object
 
     """
     return dumps(
         json_object,
+        ensure_ascii=ensure_ascii,
         sort_keys=True,
         indent=indent,
-        separators=(",", ": "),
     )
 
 
@@ -40,8 +44,9 @@ def json_pprint(json_object):
         json_object: the json object to use
 
     Returns:
+
     """
-    json_str = json_get_pprint(json_object)
+    json_str = json_pprint_formatter(json_object)
     print(json_str)
 
 
