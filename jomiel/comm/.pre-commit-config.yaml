@@ -10,11 +10,11 @@ repos:
           - id: yamllint
             args: [--format, parsable, --strict]
     - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
-      rev: 0.0.10
+      rev: 0.0.11
       hooks:
           - id: yamlfmt
     - repo: https://github.com/asottile/pyupgrade
-      rev: v2.4.1
+      rev: v2.6.2
       hooks:
           - id: pyupgrade
             args: [--py36-plus]
@@ -34,7 +34,7 @@ repos:
             args: [--safe]
             language_version: python3.8
     - repo: https://gitlab.com/pycqa/flake8
-      rev: 3.8.1
+      rev: 3.8.3
       hooks:
           - id: flake8
             additional_dependencies:
@@ -42,7 +42,7 @@ repos:
                 - flake8-bugbear == 20.1.4
             language_version: python3.8
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v3.0.0
+      rev: v3.1.0
       hooks:
           - id: check-byte-order-marker
           - id: check-docstring-first

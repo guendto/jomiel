@@ -136,23 +136,34 @@ def inquire(socket, input_uri, timeout=60):
     raise OSError("connection timed out")
 
 
-def to_json(message, minified=False, stream=None):
+def to_json(message, minified=False, stream=None, **kwargs):
     """Returns the JSON of the given protobuf message.
-
-    Minifies the JSON if the `minify` is set to True, otherwise a
-    human-readable representation is returned.
-
-    Notes:
-        - google.protobuf.json_format.MessageToJson returns a
-          human-readable representation of the data, for a minified
-          version, we need to use the json python module
 
     Args:
         Message (obj): The protobuf message to be converted
-        minified (bool): If True, the resulting JSON will be minified
+
+        minified (bool): If True, the resulting JSON will be minified,
+            otherwise (default) a human-readable representation is
+            returned.
+
+        stream (obj): Unless None, write the json to stream
+
+        **kwargs (list): arbitrary keyword args (to be passed as such to
+            ujson.dumps)
+
+    Supported arbitrary keyword args (kwargs):
+        See the `ujson` documentation at <https://git.io/Jfhr7>.
 
     Returns:
-        str: the resulting JSON
+        str: the resulting JSON -- unless stream is None, in which case
+            the resulting JSON is written to the stream and nothing is
+            returned
+
+    Notes:
+        - google.protobuf.json_format.MessageToJson returns a
+          human-readable representation of the data
+
+        - For a minified representation, use the ujson module
 
     """
     from google.protobuf.json_format import MessageToJson
@@ -160,15 +171,15 @@ def to_json(message, minified=False, stream=None):
     rval = MessageToJson(message)
 
     if minified:
-        from json import loads, dumps
+        from ujson import loads, dumps
 
         loaded = loads(rval)
-        rval = dumps(loaded)
+        rval = dumps(loaded, **kwargs)
 
     if stream:
         stream.write(rval)
-
-    return rval
+    else:
+        return rval
 
 
 def to_yaml(message, stream=None):
