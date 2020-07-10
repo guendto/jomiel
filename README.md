@@ -12,6 +12,8 @@ Two core technologies serve as a basis for `jomiel`:
 The client applications can be written in modern [languages][examples]
 for most platforms.
 
+`jomiel` is a spiritual successor to (now defunct) [libquvi].
+
 ![Example (jomiel)](./docs/examples/jomiel-framed.svg)
 
 ## Table of Contents
@@ -130,5 +132,6 @@ project files. See the .pre-commit-config.yaml file for details.
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
 [aplv2]: https://www.tldrlegal.com/l/apache2
 [pre-commit]: https://pre-commit.com/
+[libquvi]: http://quvi.sf.net/
 [zeromq]: https://zeromq.org/
 [pypi]: https://pypi.org/
