@@ -95,15 +95,24 @@ See [docs/HOWTO](./docs/HOWTO.md).
 
 ## Versioning
 
-`jomiel` uses a _date based versioning scheme_. The release date (format
-`y.y.m.d(.hhmm)`) will be used for the version number. For example:
-`2020-05-15` -> `2.0.5.15`. If another version was released on the same
-day at 13:09 (local time), an additional number (time) would be added to
-the version (`2.0.5.15` -> `2.0.5.15.1309`).
+`jomiel` uses a _date based versioning scheme_.
 
-Notice that when `jomiel` is run using the repository code, the combined
-output of the `git-describe` and the `git-show` commands will be used
-for the version number, instead.
+**Definition**
+
+`y.y.mm.dd(.hhmm)`
+
+**Example**
+
+`Fri 10 Jul 2020 12:05:40 PM EEST` would become:
+
+- `2.0.7.10` (initial release on that day)
+- `2.0.7.10.1205` (another release on the same day at 12:05, local time)
+
+**Exception**
+
+When `jomiel` is run from the _repository code_, the combined output of
+the commands `git-describe` and the `git-show` will be used for the
+version number, instead.
 
 ## License
 
