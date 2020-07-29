@@ -7,4 +7,5 @@ recursive-include jomiel/data/bindings *.py
 recursive-include . LICENSE NOTICE
 recursive-include docs *.svg *.md
 
+global-exclude __pycache__
 global-exclude *.py[co]
