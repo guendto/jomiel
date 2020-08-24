@@ -1,5 +1,4 @@
 include .pre-commit-config.yaml .flake8 pyproject.toml tox.ini
-include requirements.txt requirements.in
 
 recursive-include jomiel *.proto *.md *.yaml VERSION bootstrap
 recursive-include jomiel/data/bindings *.py
