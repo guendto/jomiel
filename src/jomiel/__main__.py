@@ -20,12 +20,12 @@ def main():
     from jomiel import __version__
 
     pkg_name = "jomiel"
-    data_dir = "%s.data" % pkg_name
+    data_dir = f"{pkg_name}.data"
 
     App(
         package_name=pkg_name,
         package_data_dir=data_dir,
-        config_module="%s.cache" % pkg_name,
+        config_module=f"{pkg_name}.cache",
         version=__version__,
     ).run()
 
