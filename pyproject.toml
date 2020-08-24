@@ -21,10 +21,3 @@ exclude = '''   # exclude common dirs
     )/
 )
 '''
-
-[tool.check-manifest]
-ignore = [
-    "jomiel/VERSION",
-    "jomiel.yaml",
-    ".tox*"
-]
