@@ -12,9 +12,9 @@
 
 def main():
     """main"""
-    from sys import path
+    # from sys import path
 
-    path.append(".")
+    # [print(p) for p in path]
 
     from jomiel.app import App
     from jomiel import __version__
