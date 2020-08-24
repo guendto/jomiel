@@ -7,16 +7,15 @@ requires = [
 build-backend = 'setuptools.build_meta'
 
 [tool.black]
+target-version = ['py38']
 line-length = 72
-exclude = '''   # exclude common dirs
+exclude = '''
 (
     /(
-        jomiel/data/bindings/
-        \.tox
+        \.eggs
         \.git
-        docker
+        \.tox
         build
-        docs
         dist
     )/
 )
