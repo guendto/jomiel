@@ -17,6 +17,7 @@ def main():
     path.append(".")
 
     from jomiel.app import App
+    from jomiel import __version__
 
     pkg_name = "jomiel"
     data_dir = "%s.data" % pkg_name
@@ -24,8 +25,8 @@ def main():
     App(
         package_name=pkg_name,
         package_data_dir=data_dir,
-        package_additional_search_paths=["%s.bindings" % data_dir],
         config_module="%s.cache" % pkg_name,
+        version=__version__,
     ).run()
 
 
