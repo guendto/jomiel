@@ -13,15 +13,8 @@ from logging import DEBUG
 from re import compile as rxc
 from traceback import format_exc
 
-from google.protobuf.message import DecodeError
-from requests.exceptions import RequestException
-from validators import url as is_url
-from zmq import Context
-from zmq import ContextTerminated
-from zmq import REP
-from zmq import ZMQError
-
 import jomiel.protobuf.v1alpha1.status_pb2 as Status
+from google.protobuf.message import DecodeError
 from jomiel.cache import opts
 from jomiel.comm import to_json
 from jomiel.dispatcher.media import script_dispatcher
@@ -33,6 +26,12 @@ from jomiel.log import lg
 from jomiel.log import log_sanitize_string
 from jomiel.protobuf.v1alpha1.message_pb2 import Inquiry
 from jomiel.protobuf.v1alpha1.message_pb2 import Response
+from requests.exceptions import RequestException
+from validators import url as is_url
+from zmq import Context
+from zmq import ContextTerminated
+from zmq import REP
+from zmq import ZMQError
 
 
 class Worker:
