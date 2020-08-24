@@ -12,10 +12,6 @@
 
 def main():
     """main"""
-    from sys import path
-
-    path.append(".")
-
     from jomiel.keygen.app import App
 
     pkg_name = "jomiel"  # shares the pkg_resources
