@@ -8,15 +8,14 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
+from jomiel.kore.app import exit_error
+from jomiel.kore.sig import GracefulExit
+from jomiel.log import lg
 from zmq import Context
 from zmq import DEALER
 from zmq import proxy
 from zmq import ROUTER
 from zmq import ZMQError
-
-from jomiel.kore.app import exit_error
-from jomiel.kore.sig import GracefulExit
-from jomiel.log import lg
 
 
 def log(text, msgtype="debug"):
