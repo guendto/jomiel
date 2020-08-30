@@ -31,11 +31,6 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except ModuleNotFoundError as error:
-        from jomiel.kore.error import if_proto_bindings_missing
-
-        if_proto_bindings_missing(error)
+    main()
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
