@@ -13,6 +13,7 @@
 def main():
     """main"""
     from jomiel.keygen.app import App
+    from jomiel import __version__
 
     pkg_name = "jomiel"  # shares the pkg_resources
     data_dir = "%s.data" % pkg_name
@@ -26,6 +27,7 @@ def main():
         no_print_config_option=True,
         no_config_file_option=True,
         no_logger_options=True,
+        version=__version__,
     ).run()
 
 
