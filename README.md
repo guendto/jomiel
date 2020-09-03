@@ -128,11 +128,11 @@ project files. See the .pre-commit-config.yaml file for details.
 
 ### Subprojects
 
-`jomiel` subtrees (includes) the following subprojects:
+`jomiel` has the following subtrees (see git-subtree):
 
-- [jomiel-proto] found in [jomiel/comm/proto/](jomiel/comm/proto/)
-- [jomiel-comm] found in [jomiel/comm/](jomiel/comm/)
-- [jomiel-kore] found in [jomiel/kore/](jomiel/kore/)
+- [src/jomiel/comm/proto/](src/jomiel/comm/proto/) of [jomiel-proto]
+- [src/jomiel/comm/](src/jomiel/comm/) of [jomiel-comm]
+- [src/jomiel/kore/](src/jomiel/kore/) of [jomiel-kore]
 
 [video-sharing]: https://en.wikipedia.org/wiki/Video_hosting_service
 [protocol buffers]: https://developers.google.com/protocol-buffers/
