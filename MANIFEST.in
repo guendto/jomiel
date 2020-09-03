@@ -1,8 +1,6 @@
 include .pre-commit-config.yaml .flake8 pyproject.toml tox.ini
 
-recursive-include src/jomiel/protobuf *_pb2.py
 recursive-include src *.yaml bootstrap
-
 recursive-include . LICENSE NOTICE
 recursive-include docs *.svg *.md
 
