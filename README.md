@@ -25,10 +25,6 @@ for most platforms.
   - [Website coverage](#website-coverage)
   - [If you are contributing new plugins](#if-you-are-contributing-new-plugins)
 - [HOWTO](#howto)
-- [Versioning](#versioning)
-  - [Definition](#definition)
-  - [Example](#example)
-  - [Exception](#exception)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
   - [Subprojects](#subprojects)
@@ -95,27 +91,6 @@ found in the jomiel/plugin/ directory.
 ## HOWTO
 
 See [docs/HOWTO](./docs/HOWTO.md).
-
-## Versioning
-
-`jomiel` uses a _date based versioning scheme_.
-
-### Definition
-
-`y.y.mm.dd(.hhmm)`
-
-### Example
-
-`Fri 10 Jul 2020 12:05:40 PM EEST` would become:
-
-- `2.0.7.10` (initial release on that day)
-- `2.0.7.10.1205` (another release on the same day at 12:05, local time)
-
-### Exception
-
-When `jomiel` is run from the _repository code_, the combined output of
-the commands `git-describe` and the `git-show` will be used for the
-version number, instead.
 
 ## License
 
