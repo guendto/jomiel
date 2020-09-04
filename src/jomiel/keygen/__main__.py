@@ -12,29 +12,26 @@
 
 def main():
     """main"""
-    from sys import path
+    from jomiel.keygen.app import App
+    from jomiel import __version__
 
-    path.append(".")
-
-    from jomiel.app import App
-
-    pkg_name = "jomiel"
+    pkg_name = "jomiel"  # shares the pkg_resources
     data_dir = "%s.data" % pkg_name
 
     App(
         package_name=pkg_name,
         package_data_dir=data_dir,
-        package_additional_search_paths=["%s.bindings" % data_dir],
         config_module="%s.cache" % pkg_name,
+        no_default_config_files=True,
+        # no_version_long_option=True,
+        no_print_config_option=True,
+        no_config_file_option=True,
+        no_logger_options=True,
+        version=__version__,
     ).run()
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except ModuleNotFoundError as error:
-        from jomiel.kore.error import if_proto_bindings_missing
-
-        if_proto_bindings_missing(error)
+    main()
 
 # vim: set ts=4 sw=4 tw=72 expandtab:

@@ -52,9 +52,6 @@ class App(metaclass=ABCMeta):
                 - The value will be used to determine the different XDG
                   configuration file paths
 
-                - Needed to retrieve information about the installed
-                  version of the application
-
                 - If None, the package resources queries will be skipped
 
                 - If None, XDG configuration file path searches will be
@@ -73,8 +70,7 @@ class App(metaclass=ABCMeta):
                 module" used throughout the application runtime
                 life-cycle to access global _cached_ values.
 
-            version (str): The program version string, if None, the
-                `git show` return value will be used, instead.
+            version (str): The program version string, or None.
 
             no_print_config_option (bool): If True, disable -D and -E
                 options.
@@ -150,8 +146,8 @@ class App(metaclass=ABCMeta):
                 if self._package_data_dir:
                     path_prefix = self._package_data_dir
 
-                config_path = "%s.config.logger" % path_prefix
-                config_fname = "%s.yaml" % pkg_name
+                config_path = f"{path_prefix}.config.logger"
+                config_fname = f"{pkg_name}.yaml"
 
                 try:
                     with resources_path(config_path, config_fname) as p:
@@ -161,35 +157,10 @@ class App(metaclass=ABCMeta):
 
             return (config_files, logger_files)
 
-        def determine_version():
-            """Return the app version string.
-
-            Unless kwargs 'version' was given, tries to determine the
-            version from different sources. See `try_version` function
-            for more details.
-
-            """
-            version = kwargs.get("version")
-
-            if not version:
-                from .version import try_version
-
-                if self._package_data_dir:
-                    version = try_version(self._package_data_dir)
-                else:
-                    version = "(unknown)"
-
-            if isinstance(
-                version, list,
-            ):  # Value read from VERSION file
-                return version
-
-            return (version, None)
-
         add_package_search_paths()
 
         (config_files, self._logger_files) = determine_xdg_paths()
-        self._version = determine_version()
+        self._version = kwargs.get("version", "?")
 
         from configargparse import get_parser
 
@@ -201,7 +172,7 @@ class App(metaclass=ABCMeta):
         parser.add(
             "--version",
             action="version",
-            version="%(prog)s version " + self._version[0],
+            version="%(prog)s version " + self._version,
         )
 
         if not self._no_version_long_option:
@@ -353,21 +324,10 @@ class App(metaclass=ABCMeta):
                         {key: value} for key, value in found_packages
                     ]
 
-                def app_version():
-                    """Return the application version."""
-                    if self._version[1]:  # Has 'packaged' version.
-                        version = {
-                            "semantic": self._version[0].strip(),
-                            "packaged": self._version[1].strip(),
-                        }
-                    else:
-                        version = self._version[0]
-                    return version
-
                 from sys import version as py_version
 
                 return {
-                    "version": app_version(),
+                    "version": self._version,
                     "python": {
                         "version": py_version.replace("\n", ""),
                         "packages": package_versions(),

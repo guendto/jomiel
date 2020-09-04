@@ -12,16 +12,16 @@ The [Python] library for communicating with [jomiel].
 
 ## Installation
 
-`jomiel-comm` is intended to be `git-subtree`'d into your project.
-Installation from [PyPI] is not currently supported.
+`jomiel-comm` isn't [PyPI] ready, you can subtree (see git-subtree) it
+into your project source tree, instead.
 
 ## Acknowledgements
 
 `jomiel-comm` uses [pre-commit] and its many hooks to lint and format
 the project files. See the .pre-commit-config.yaml file for details.
 
-[aplv2]: https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)
 [python]: https://www.python.org/about/gettingstarted/
+[aplv2]: https://www.tldrlegal.com/l/apache2
 [jomiel]: https://github.com/guendto/jomiel/
 [pre-commit]: https://pre-commit.com/
 [pypi]: https://pypi.org

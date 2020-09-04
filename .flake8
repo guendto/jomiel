@@ -1,22 +1,20 @@
 [flake8]
 
 exclude =
+    .eggs/
     .git/
-    jomiel/data/bindings/
-    jomiel/kore/
+    .tox/
+    src/jomiel/kore/
+    src/jomiel/protobuf/
     build/
     dist/
-    docs/
 
 per-file-ignores =
-    # module level import not at top of file
-    setup.py:E402
-
     # unexpected spaces around keyword / parameter equals
-    jomiel/app.py:E251
+    src/jomiel/app.py:E251
 
     # undefined name 'plugin_handlers'
-    jomiel/cache.py:F821
+    src/jomiel/cache.py:F821
 
     # do not use bare 'except' (B001: flake8-bugbear)
-    jomiel/dispatcher/media.py:E722,B001
+    src/jomiel/dispatcher/media.py:E722,B001

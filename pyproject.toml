@@ -1,30 +1,26 @@
 [build-system]
 requires = [
-    "setuptools >= 42.0.1",
-    "setuptools_scm >= 3.3.3, <4",
-    "wheel >= 0.33.6",
+    "setuptools >= 49",
+    "setuptools_scm[toml] >= 4",
+    "wheel >= 0.35",
 ]
 build-backend = 'setuptools.build_meta'
 
+[tool.setuptools_scm]
+write_to = "src/jomiel/__init__.py"
+write_to_template = "__version__ = {version!r}"
+
 [tool.black]
+target-version = ['py38']
 line-length = 72
-exclude = '''   # exclude common dirs
+exclude = '''
 (
     /(
-        jomiel/data/bindings/
-        \.tox
+        \.eggs
         \.git
-        docker
+        \.tox
         build
-        docs
         dist
     )/
 )
 '''
-
-[tool.check-manifest]
-ignore = [
-    "jomiel/VERSION",
-    "jomiel.yaml",
-    ".tox*"
-]

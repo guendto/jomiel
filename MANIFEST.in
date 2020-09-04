@@ -1,10 +1,21 @@
-include .pre-commit-config.yaml .flake8 pyproject.toml tox.ini
-include requirements.txt requirements.in
+recursive-exclude src/jomiel/kore/examples/ *.yaml
 
-recursive-include jomiel *.proto *.md *.yaml VERSION bootstrap
-recursive-include jomiel/data/bindings *.py
+recursive-exclude src/ .pre-commit-config.yaml
+recursive-exclude src/ .flake8
 
-recursive-include . LICENSE NOTICE
-recursive-include docs *.svg *.md
+recursive-exclude src/ pyproject.toml
+recursive-exclude src/ README.md
 
-global-exclude *.py[co]
+recursive-exclude src/ LICENSE
+recursive-exclude src/ NOTICE
+
+global-exclude __pycache__
+global-exclude .gitignore
+global-exclude *.py[cod]
+
+exclude jomiel.yaml
+
+recursive-include src/jomiel/data *.yaml
+recursive-include docs/ *.md *.svg
+
+prune build/
