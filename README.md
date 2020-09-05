@@ -14,7 +14,7 @@ for most platforms.
 
 `jomiel` is a spiritual successor to (now defunct) [libquvi].
 
-![Example (jomiel)](./docs/examples/jomiel-framed.svg)
+![Example (jomiel)](./docs/demo.svg)
 
 ## Table of Contents
 
