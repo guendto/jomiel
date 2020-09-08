@@ -2,7 +2,7 @@
 
 `jomiel` is the meta inquiry middleware for distributed systems. It
 returns meta data for content on [video-sharing] websites (e.g.
-YouTube) and runs as a service, responding to client inquiries.
+YouTube) and runs as a service responding to client inquiries.
 
 Two core technologies serve as a basis for `jomiel`:
 
@@ -33,12 +33,19 @@ for most platforms.
 
 ## Features
 
-- Plug-in system enabling customization to add support for media hosts
+- Customizable plugin system for adding support for video-sharing
+  websites
+
+- Messaging ([Protocol Buffers]) is language-neutral and
+  platform-neutral
+
 - Support for authentication and encryption (CURVE and SSH)
+
 - [ZeroMQ] supports every modern language and platform
-- [Protocol Buffers] are language-neutral, platform-neutral
+
+- Runs fully as a service
+
 - Highly configurable
-- Runs as a service
 
 ## Getting started
 
@@ -75,16 +82,17 @@ can experiment sending inquries to it:
 jomiel --plugin-list    # List supported websites
 ```
 
-The website coverage is currently very limited. The plugins can be
-found in the jomiel/plugin/ directory.
+The video-sharing website coverage is still very limited.
 
 - `jomiel` is written in [Python] which is an easy language to learn
 - Additional support can be implemented by adding new plugins
 
+See the jomiel/plugin/ directory for the existing plugins.
+
 ### If you are contributing new plugins
 
-- Make sure the site is not dedicated to copyright infringement, be that
-  they host the media or the link to it
+- Make sure the site is not dedicated to copyright infringement (be that
+  they host the media or the link to it)
 
 - Make sure the site is not NSFW
 
