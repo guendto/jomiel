@@ -60,18 +60,15 @@ jomiel                    # Starts the service
 
 To run `jomiel` from the repository:
 
-- Make sure you have installed protobuf compiler (debian:
-  protobuf-compiler)
-
 ```shell
-git clone https://github.com/guendto/jomiel.git && cd jomiel
-pip install -r ./requirements.txt
-python setup.py build_py    # Generate the protobuf message bindings
-python jomiel               # Starts the service
+git clone https://github.com/guendto/jomiel.git
+cd jomiel
+pip install -e .
+jomiel                    # Starts the service
 ```
 
-`jomiel` is still a young project. Once you have `jomiel` running, you
-can experiment sending inquries to it:
+`jomiel` is still a young project. Once you have `jomiel` running, try
+sending inquiries to it with:
 
 - [examples] - the demo programs written in most modern languages
 - [yomiel] - the pretty printer for `jomiel` messages
