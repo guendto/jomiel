@@ -110,13 +110,11 @@ project files. See the .pre-commit-config.yaml file for details.
 
 `jomiel` has the following subtrees (see git-subtree):
 
-- [src/jomiel/comm/proto/](src/jomiel/comm/proto/) of [jomiel-proto]
 - [src/jomiel/comm/](src/jomiel/comm/) of [jomiel-comm]
 - [src/jomiel/kore/](src/jomiel/kore/) of [jomiel-kore]
 
 [video-sharing]: https://en.wikipedia.org/wiki/Video_hosting_service
 [protocol buffers]: https://developers.google.com/protocol-buffers/
-[jomiel-proto]: https://github.com/guendto/jomiel-proto/
 [examples]: https://github.com/guendto/jomiel-examples/
 [python]: https://www.python.org/about/gettingstarted/
 [jomiel-comm]: https://github.com/guendto/jomiel-comm/
