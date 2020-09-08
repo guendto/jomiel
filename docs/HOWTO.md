@@ -10,6 +10,7 @@
   - [SSH: jomiel (server-side)](#ssh-jomiel-server-side)
   - [SSH: yomiel (client-side)](#ssh-yomiel-client-side)
   - [SSH Notes](#ssh-notes)
+- [Build a release from the repo](#build-a-release-from-the-repo)
 
 <!-- vim-markdown-toc -->
 
@@ -115,6 +116,17 @@ yomiel --auth-mode ssh --ssh-server user@host:port URI
 
 - Have either [pexpect] or [paramiko](recommended) installed
 - Use --ssh-paramiko to tell `yomiel` to use it
+
+## Build a release from the repo
+
+```shell
+git clone https://github.com/guendto/jomiel
+cd jomiel
+./bin/gen
+git tag -am 'jomiel version VERSION (INITIALS)' TAGNAME
+pip install pep517
+python -m pep517.build [-s|-b] .
+```
 
 [pexpect]: https://pypi.org/project/pexpect/
 [paramiko]: https://pypi.org/project/paramiko/
