@@ -89,9 +89,7 @@ See [docs/HOWTO](./docs/HOWTO.md).
 `jomiel` uses [pre-commit] and its many hooks to lint and format the
 project files. See the .pre-commit-config.yaml file for details.
 
-### Subprojects
-
-`jomiel` has the following subtrees (see git-subtree):
+### Subprojects (as git subtrees)
 
 - [src/jomiel/comm/](src/jomiel/comm/) of [jomiel-comm]
 - [src/jomiel/kore/](src/jomiel/kore/) of [jomiel-kore]
