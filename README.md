@@ -33,15 +33,12 @@ for most platforms.
 
 ## Features
 
-- Customizable plugin system for adding support for video-sharing
-  websites
+- Language and platform neutral messaging using [Protocol Buffers] and
+  [ZeroMQ]
 
-- Messaging ([Protocol Buffers]) is language-neutral and
-  platform-neutral
+- A plugin architecture for extending video-sharing website support
 
-- Support for authentication and encryption (CURVE and SSH)
-
-- [ZeroMQ] supports every modern language and platform
+- Authentication and encryption (CURVE and SSH)
 
 - Runs fully as a service
 
