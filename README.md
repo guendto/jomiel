@@ -67,8 +67,8 @@ pip install -e .
 jomiel                    # Starts the service
 ```
 
-`jomiel` is still a young project. Once you have `jomiel` running, try
-sending inquiries to it with:
+`jomiel` is still a young project. Once you have `jomiel` running, you
+can try sending inquiries with:
 
 - [examples] - the demo programs written in most modern languages
 - [yomiel] - the pretty printer for `jomiel` messages
