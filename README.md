@@ -23,7 +23,7 @@ for most platforms.
 
 - A plugin architecture for extending [video-sharing] website support
 
-- Authentication and encryption (CURVE and SSH)
+- Authentication and encryption ([CURVE] and [SSH])
 
 - Runs fully as a service
 
@@ -102,6 +102,8 @@ project files. See the .pre-commit-config.yaml file for details.
 [jomiel-kore]: https://github.com/guendto/jomiel-kore/
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
 [aplv2]: https://www.tldrlegal.com/l/apache2
+[curve]: http://api.zeromq.org/4-0:zmq-curve
+[ssh]: https://en.wikipedia.org/wiki/Ssh
 [pre-commit]: https://pre-commit.com/
 [libquvi]: http://quvi.sf.net/
 [zeromq]: https://zeromq.org/
