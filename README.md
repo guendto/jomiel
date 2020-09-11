@@ -21,7 +21,7 @@ for most platforms.
 - Language and platform neutral messaging using [Protocol Buffers] and
   [ZeroMQ]
 
-- A plugin architecture for extending video-sharing website support
+- A plugin architecture for extending [video-sharing] website support
 
 - Authentication and encryption (CURVE and SSH)
 
@@ -33,23 +33,21 @@ for most platforms.
 
 - `jomiel` requires [Python] 3.6+
 
-To install `jomiel` from from [PyPI]:
+To install from [PyPI]:
 
 ```shell
 pip install jomiel        # For the latest release
-jomiel                    # Starts the service
 ```
 
-To run `jomiel` from the repository:
+To run from the repository:
 
 ```shell
 git clone https://github.com/guendto/jomiel.git
 cd jomiel
 pip install -e .
-jomiel                    # Starts the service
 ```
 
-`jomiel` is still a young project. Once you have `jomiel` running, you
+Once you have `jomiel` running, you
 can try sending inquiries with:
 
 - [examples] - the demo programs written in most modern languages
@@ -57,23 +55,26 @@ can try sending inquiries with:
 
 ### Website coverage
 
+To view the list of the supported [video-sharing] websites, type:
+
 ```shell
-jomiel --plugin-list    # List supported websites
+jomiel --plugin-list
 ```
 
-The video-sharing website coverage is still very limited.
+The website coverage is still very limited.
 
-- `jomiel` is written in [Python] which is an easy language to learn
-- Additional support can be implemented by adding new plugins
+- Additional support can be added by writing new plugins
+- The plugin architechture is implemented in [Python]
+- [Python] is a fun and easy language to learn
 
-See the jomiel/plugin/ directory for the existing plugins.
+See the `src/jomiel/plugin/` directory for the existing plugins.
 
-### If you are contributing new plugins
+### When you are contributing new plugins
 
-- Make sure the site is not dedicated to copyright infringement (be that
+- Make sure the website is not dedicated to copyright infringement (be that
   they host the media or the link to it)
 
-- Make sure the site is not NSFW
+- Make sure the website is not NSFW
 
 ## HOWTO
 
