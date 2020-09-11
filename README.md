@@ -16,21 +16,6 @@ for most platforms.
 
 ![Example (jomiel)](./docs/demo.svg)
 
-## Table of Contents
-
-<!-- vim-markdown-toc GFM -->
-
-- [Features](#features)
-- [Getting started](#getting-started)
-  - [Website coverage](#website-coverage)
-  - [If you are contributing new plugins](#if-you-are-contributing-new-plugins)
-- [HOWTO](#howto)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
-  - [Subprojects](#subprojects)
-
-<!-- vim-markdown-toc -->
-
 ## Features
 
 - Language and platform neutral messaging using [Protocol Buffers] and
