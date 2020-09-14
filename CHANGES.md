@@ -8,6 +8,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [v0.999] - 2020-09-14
 ### Added
 
 - Documentation/HOWTO: "build a release from the repo"
@@ -140,7 +141,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - First public preview release.
 
-[unreleased]: https://github.com/guendto/jomiel/compare/v0.4.2...HEAD
+[unreleased]: https://github.com/guendto/jomiel/compare/v0.999...HEAD
+[v0.999]: https://github.com/guendto/jomiel/compare/v0.4.2...v0.999
 [v0.4.2]: https://github.com/guendto/jomiel/compare/v0.4.1...v0.4.2
 [v0.4.1]: https://github.com/guendto/jomiel/compare/v0.4.0...v0.4.1
 [v0.4.0]: https://github.com/guendto/jomiel/compare/v0.3.0...v0.4.0
