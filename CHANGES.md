@@ -9,6 +9,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ## [v0.999] - 2020-09-14
+
 ### Added
 
 - Documentation/HOWTO: "build a release from the repo"
@@ -40,8 +41,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Use "ujson" instead of "json" package for improved performance
 - Regenerate pinned package requirements
-
-- Merge commit 'e42dec123176ab70c548057dde05a3a799d8a038'
 
 ## [v0.4.0] - 2020-05-16
 
