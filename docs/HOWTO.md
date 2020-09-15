@@ -123,7 +123,7 @@ yomiel --auth-mode ssh --ssh-server user@host:port URI
 git clone https://github.com/guendto/jomiel
 cd jomiel
 ./bin/gen
-git tag -am 'jomiel version VERSION (INITIALS)' TAGNAME
+git tag -s KEYID -am 'jomiel version VERSION (INITIALS)' TAGNAME
 pip install pep517
 python -m pep517.build [-s|-b] .
 ```
