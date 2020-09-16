@@ -59,7 +59,8 @@ class Worker:
             sck.connect(self.dealer_endpoint)
         except ZMQError as error:
             self.log(
-                f"{error} ({self.dealer_endpoint})", "error",
+                f"{error} ({self.dealer_endpoint})",
+                "error",
             )
             exit_error()
         self.log("connected to <%s>" % self.dealer_endpoint)
@@ -85,7 +86,8 @@ class Worker:
                 self.message_receive()
             except DecodeError as error:
                 self.log(
-                    "received invalid message: %s" % (error), "error",
+                    "received invalid message: %s" % (error),
+                    "error",
                 )
                 self.renew_socket()
             finally:
@@ -95,7 +97,9 @@ class Worker:
         """Write a new (debug) worker entry to the logger."""
         logger = getattr(lg(), msgtype)
         logger(
-            "subsystem/broker<worker#%03d>: %s", self.worker_id, text,
+            "subsystem/broker<worker#%03d>: %s",
+            self.worker_id,
+            text,
         )
 
     def run(self):
