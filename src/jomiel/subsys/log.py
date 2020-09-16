@@ -20,14 +20,16 @@ def init():
     from jomiel.log import lg
 
     lg().debug(
-        "subsys/log: configuration file loaded from '%s'", logger_file,
+        "subsys/log: configuration file loaded from '%s'",
+        logger_file,
     )
 
     if opts.logger_idents:
         from jomiel.kore.app import dump_logger_identities
 
         dump_logger_identities(
-            logger_idents, opts.logger_idents_verbose,
+            logger_idents,
+            opts.logger_idents_verbose,
         )
 
     if opts.plugin_list:
