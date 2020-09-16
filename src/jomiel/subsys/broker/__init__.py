@@ -51,7 +51,9 @@ def init():
         """Bind the router device for talking to the clients."""
         router_endpoint = opts.broker_router_endpoint
         (router, auth) = bind_endpoint(
-            ROUTER, router_endpoint, setup_curve=True,
+            ROUTER,
+            router_endpoint,
+            setup_curve=True,
         )
         log("bind router at <%s>" % router_endpoint)
         return (router, auth)
@@ -78,7 +80,8 @@ def init():
 
             for worker_id in range(opts.broker_worker_threads):
                 worker_thread = Thread(
-                    target=worker_new, args=(worker_id + 1,),
+                    target=worker_new,
+                    args=(worker_id + 1,),
                 )
                 worker_thread.start()
 
