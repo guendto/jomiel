@@ -165,7 +165,8 @@ class Parser(PluginMediaParser):
             def parse_video_id():
                 """Parse video ID from the input URI (components)."""
                 result = re_match(
-                    r"v=([\w\-_]{11})", uri_components.query,
+                    r"v=([\w\-_]{11})",
+                    uri_components.query,
                 )
                 if result:
                     self.media.identifier = result.group(1)

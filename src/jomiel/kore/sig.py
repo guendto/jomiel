@@ -47,9 +47,7 @@ class GracefulExit:
         signal(SIGTERM, sigterm_handler)
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        """Restore the the SIGTERM handler back to its original state.
-
-        """
+        """Restore the the SIGTERM handler back to its original state."""
         self.log("<sigterm> restore system handler")
         signal(SIGTERM, self.orig_sigterm)
 
