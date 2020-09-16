@@ -12,7 +12,7 @@ import logging as lgg
 
 
 def read_input(**kwargs):
-    """ Reads input from, either, the command line (nargs returned by
+    """Reads input from, either, the command line (nargs returned by
     configargparse) or directly from stdin. The input is parsed for URIs
     -- and if requested, made sure that they are of proper standard.
 
@@ -184,7 +184,8 @@ if __name__ == "__main__":
         """Enable verbose logging."""
         level = lgg.DEBUG if opts.verbose else lgg.INFO
         lgg.basicConfig(
-            level=level, format="[%(levelname)s] %(message)s",
+            level=level,
+            format="[%(levelname)s] %(message)s",
         )
 
     enable_debug()
