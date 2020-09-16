@@ -4,6 +4,7 @@ repos:
       rev: v0.9.0
       hooks:
           - id: markdownlint
+    # NOTE: See also .mdlrc and .mdlstyle.rb files
     - repo: https://github.com/adrienverge/yamllint.git
       rev: v1.23.0
       hooks:

@@ -21,3 +21,4 @@ recursive-include src/jomiel/data *.yaml
 recursive-include docs/ *.md *.svg
 
 include CHANGES.md
+include .mdl*
