@@ -89,10 +89,12 @@ class App(metaclass=ABCMeta):
 
         """
         self._no_version_long_option = kwargs.get(
-            "no_version_long_option", False,
+            "no_version_long_option",
+            False,
         )
         self._no_print_config_option = kwargs.get(
-            "no_print_config_option", False,
+            "no_print_config_option",
+            False,
         )
         self._no_logger_options = kwargs.get("no_logger_options", False)
         self._config_module = kwargs.get("config_module")
@@ -104,11 +106,13 @@ class App(metaclass=ABCMeta):
         self._package_name = kwargs.get("package_name")
 
         self._no_default_config_files = kwargs.get(
-            "no_default_config_files", False,
+            "no_default_config_files",
+            False,
         )
 
         self._no_config_file_option = kwargs.get(
-            "no_config_file_option", False,
+            "no_config_file_option",
+            False,
         )
 
         def add_package_search_paths():
@@ -317,7 +321,8 @@ class App(metaclass=ABCMeta):
 
                     for package_name in sorted(required_packages):
                         package_version(
-                            package_name, found_packages,
+                            package_name,
+                            found_packages,
                         )
 
                     return [

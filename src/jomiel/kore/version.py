@@ -34,7 +34,8 @@ def package_version(package_name, destination):
         from zmq import zmq_version
 
         version = "{} (libzmq version {})".format(
-            version, zmq_version(),
+            version,
+            zmq_version(),
         )
 
     destination.append((package_name, version))

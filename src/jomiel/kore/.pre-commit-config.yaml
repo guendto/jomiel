@@ -1,25 +1,25 @@
 ---
 repos:
     - repo: https://github.com/markdownlint/markdownlint
-      rev: v0.9.0
+      rev: v0.11.0
       hooks:
           - id: markdownlint
     - repo: https://github.com/adrienverge/yamllint.git
-      rev: v1.23.0
+      rev: v1.24.2
       hooks:
           - id: yamllint
             args: [--format, parsable, --strict]
     - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
-      rev: 0.0.11
+      rev: 0.1.0
       hooks:
           - id: yamlfmt
     - repo: https://github.com/asottile/pyupgrade
-      rev: v2.6.2
+      rev: v2.7.2
       hooks:
           - id: pyupgrade
             args: [--py36-plus]
     - repo: https://github.com/asottile/reorder_python_imports
-      rev: v2.3.0
+      rev: v2.3.5
       hooks:
           - id: reorder-python-imports
     - repo: https://github.com/asottile/add-trailing-comma
@@ -28,7 +28,7 @@ repos:
           - id: add-trailing-comma
             args: [--py36-plus]
     - repo: https://github.com/psf/black
-      rev: 19.10b0
+      rev: 20.8b1
       hooks:
           - id: black
             args: [--safe]
@@ -42,7 +42,7 @@ repos:
                 - flake8-bugbear == 20.1.4
             language_version: python3.8
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v3.1.0
+      rev: v3.2.0
       hooks:
           - id: check-byte-order-marker
           - id: check-docstring-first
