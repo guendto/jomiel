@@ -1,8 +1,10 @@
 # jomiel
 
 ![pypi-v]
+![pypi-wheel]
 
 [pypi-v]: https://img.shields.io/pypi/v/jomiel?color=%230a66dc
+[pypi-wheel]: https://img.shields.io/pypi/wheel/jomiel?color=%230a66dc
 
 `jomiel` is the meta inquiry middleware for distributed systems. It
 returns meta data for content on [video-sharing] websites (e.g.
