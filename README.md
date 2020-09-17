@@ -1,8 +1,10 @@
 # jomiel
 
+![pypi-pyversions]
 ![pypi-v]
 ![pypi-wheel]
 
+[pypi-pyversions]: https://img.shields.io/pypi/pyversions/jomiel?color=%230a66dc
 [pypi-v]: https://img.shields.io/pypi/v/jomiel?color=%230a66dc
 [pypi-wheel]: https://img.shields.io/pypi/wheel/jomiel?color=%230a66dc
 
