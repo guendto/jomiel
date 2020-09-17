@@ -1,5 +1,9 @@
 # jomiel
 
+![pypi-v]
+
+[pypi-v]: https://img.shields.io/pypi/v/jomiel?color=%230a66dc
+
 `jomiel` is the meta inquiry middleware for distributed systems. It
 returns meta data for content on [video-sharing] websites (e.g.
 YouTube) and runs as a service responding to client inquiries.
