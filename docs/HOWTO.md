@@ -1,4 +1,4 @@
-# jomiel - HOWTO
+# HOWTO: jomiel
 
 <!-- vim-markdown-toc GFM -->
 
