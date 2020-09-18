@@ -2,6 +2,8 @@
 
 <!-- vim-markdown-toc GFM -->
 
+- [Build and run jomiel in a container](#build-and-run-jomiel-in-a-container)
+  - [Build and run a client application in a container](#build-and-run-a-client-application-in-a-container)
 - [Use a proxy](#use-a-proxy)
 - [Authenticate and encrypt using CURVE](#authenticate-and-encrypt-using-curve)
   - [CURVE: jomiel (server-side)](#curve-jomiel-server-side)
@@ -13,6 +15,72 @@
 - [Build a release from the repo](#build-a-release-from-the-repo)
 
 <!-- vim-markdown-toc -->
+
+## Build and run jomiel in a container
+
+To run `jomiel` in a container.
+
+- build a network that `jomiel` and the clients will use:
+
+```shell
+docker network create jomiel_default
+```
+
+- build the image; start by cloning the repository:
+
+```shell
+git clone https://github.com/guendto/jomiel
+cd jomiel
+docker build -t tg/jomiel -f docker/pypi/Dockerfile .
+```
+
+- start the container:
+
+```shell
+docker run \
+  --network jomiel_default \
+  --network-alias jomiel \
+  --rm tg/jomiel
+```
+
+### Build and run a client application in a container
+
+- make sure the `network` is available (see the steps above):
+
+```shell
+docker network ls | grep jomiel
+14775a938d51        jomiel_default      bridge              local
+```
+
+- check that `jomiel` container is running (see the steps above if it
+  isn't):
+
+```shell
+docker ps | grep jomiel
+54bd7945001e        jomiel      "jomiel -l syslog"   11 seconds ago      Up 9 seconds     wizardly_sanderson
+```
+
+- build a new `client` image; let's use [jomiel-examples] for this
+  purpose:
+
+```shell
+git clone https://github.com/guendto/jomiel-examples
+cd jomiel-examples
+docker build \
+  -t tg/jomiel-examples/c-example \
+  -f c/docker/alpine/Dockerfile .
+```
+
+- run the created image (make a note of the `-r` which is used to
+  specify the `jomiel` endpoint address):
+
+```shell
+docker run \
+  --network jomiel_default \
+  tg/jomiel-examples/c-example \
+  -r tcp://jomiel:5514 \
+  https://youtu.be/PRdcZSuCpNoa
+```
 
 ## Use a proxy
 
@@ -127,6 +195,7 @@ pip install pep517
 python -m pep517.build [-s|-b] .
 ```
 
+[jomiel-examples]: https://github.com/guendto/jomiel-examples
 [pexpect]: https://pypi.org/project/pexpect/
 [paramiko]: https://pypi.org/project/paramiko/
 [python-requests.org]: https://2.python-requests.org/
