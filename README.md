@@ -48,7 +48,7 @@ for most platforms.
 To install from [PyPI]:
 
 ```shell
-pip install jomiel        # For the latest release
+pip install jomiel
 ```
 
 To run from the repository:
