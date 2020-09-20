@@ -10,8 +10,7 @@
 [black]: https://pypi.org/project/black
 
 `jomiel` is the meta inquiry middleware for distributed systems. It
-returns meta data for content on [video-sharing] websites (e.g.
-YouTube) and runs as a service responding to client inquiries.
+returns data about content on [video-sharing] websites (e.g. YouTube).
 
 Two core technologies serve as a basis for `jomiel`:
 
