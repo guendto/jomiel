@@ -23,7 +23,7 @@ To run `jomiel` in a container.
 - build a network that `jomiel` and the clients will use:
 
 ```shell
-docker network create jomiel_default
+docker network create jomiel_network
 ```
 
 - build the image; start by cloning the repository:
@@ -38,7 +38,7 @@ docker build -t tg/jomiel -f docker/pypi/Dockerfile .
 
 ```shell
 docker run \
-  --network jomiel_default \
+  --network jomiel_network \
   --network-alias jomiel \
   --rm tg/jomiel
 ```
@@ -49,7 +49,7 @@ docker run \
 
 ```shell
 docker network ls | grep jomiel
-14775a938d51        jomiel_default      bridge              local
+14775a938d51        jomiel_network      bridge              local
 ```
 
 - check that `jomiel` container is running (see the steps above if it
@@ -76,7 +76,7 @@ docker build \
 
 ```shell
 docker run \
-  --network jomiel_default \
+  --network jomiel_network \
   tg/jomiel-examples/c-example \
   -r tcp://jomiel:5514 \
   https://youtu.be/PRdcZSuCpNoa
