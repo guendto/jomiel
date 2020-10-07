@@ -61,7 +61,9 @@ can try sending inquiries with:
 - [examples] - the demo programs written in most modern languages
 - [yomiel] - the pretty printer for `jomiel` messages
 
-### Website coverage
+Be sure to check out the [HOWTO](./docs/HOWTO.md#howto-jomiel), also.
+
+## Website coverage
 
 To view the list of the supported [video-sharing] websites, type:
 
@@ -83,10 +85,6 @@ See the `src/jomiel/plugin/` directory for the existing plugins.
   they host the media or the link to it)
 
 - Make sure the website is not NSFW
-
-## HOWTO
-
-See [docs/HOWTO](./docs/HOWTO.md).
 
 ## License
 
