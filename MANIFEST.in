@@ -15,6 +15,7 @@ global-exclude *.py[cod]
 
 exclude jomiel.yaml
 
+prune docker/
 prune build/
 
 recursive-include src/jomiel/data *.yaml
