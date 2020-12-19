@@ -6,7 +6,7 @@ repos:
           - id: markdownlint
     # NOTE: See also .mdlrc and .mdlstyle.rb files
     - repo: https://github.com/adrienverge/yamllint.git
-      rev: v1.24.2
+      rev: v1.25.0
       hooks:
           - id: yamllint
             args: [--format, parsable, --strict]
@@ -15,12 +15,12 @@ repos:
       hooks:
           - id: yamlfmt
     - repo: https://github.com/asottile/pyupgrade
-      rev: v2.7.2
+      rev: v2.7.4
       hooks:
           - id: pyupgrade
             args: [--py36-plus]
     - repo: https://github.com/asottile/reorder_python_imports
-      rev: v2.3.5
+      rev: v2.3.6
       hooks:
           - id: reorder-python-imports
     - repo: https://github.com/asottile/add-trailing-comma
@@ -35,7 +35,7 @@ repos:
             args: [--safe]
             language_version: python3.8
     - repo: https://github.com/pycqa/flake8
-      rev: 3.8.3
+      rev: 3.8.4
       hooks:
           - id: flake8
             additional_dependencies:
@@ -43,7 +43,7 @@ repos:
                 - flake8-bugbear == 20.1.4
             language_version: python3.8
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v3.2.0
+      rev: v3.4.0
       hooks:
           - id: check-byte-order-marker
           - id: check-docstring-first
