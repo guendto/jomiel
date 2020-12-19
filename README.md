@@ -95,16 +95,10 @@ See the `src/jomiel/plugin/` directory for the existing plugins.
 `jomiel` uses [pre-commit] and its many hooks to lint and format the
 project files. See the .pre-commit-config.yaml file for details.
 
-### Subprojects (as git subtrees)
-
-- [src/jomiel/kore/](src/jomiel/kore/) of [jomiel-kore]
-
 [video-sharing]: https://en.wikipedia.org/wiki/Video_hosting_service
 [protocol buffers]: https://developers.google.com/protocol-buffers/
 [examples]: https://github.com/guendto/jomiel-examples/
 [python]: https://www.python.org/about/gettingstarted/
-[jomiel-comm]: https://github.com/guendto/jomiel-comm/
-[jomiel-kore]: https://github.com/guendto/jomiel-kore/
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
 [aplv2]: https://www.tldrlegal.com/l/apache2
 [ssh]: https://en.wikipedia.org/wiki/Ssh
