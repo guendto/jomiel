@@ -21,6 +21,7 @@ class App(KoreApp):
         return [
             "jomiel-messages",
             "configargparse",
+            "jomiel-comm",
             "ruamel.yaml",
             "validators",
             "protobuf",
