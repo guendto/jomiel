@@ -8,7 +8,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-from jomiel.kore.app import App as KoreApp
+from jomiel_kore.app import App as KoreApp
 
 
 class App(KoreApp):
@@ -36,7 +36,7 @@ class App(KoreApp):
 
         if len(opts.filename) == 0:
             from sys import stderr
-            from jomiel.kore.app import exit_error
+            from jomiel_kore.app import exit_error
 
             print(
                 "error: the following arguments are required: filename",
@@ -63,7 +63,7 @@ class App(KoreApp):
                 ) = create_certificates(basedir, name)
             except OSError as message:
                 print("error: %s" % message)
-                from jomiel.kore.app import exit_error
+                from jomiel_kore.app import exit_error
 
                 exit_error()
 
