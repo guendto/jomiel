@@ -8,6 +8,19 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Packaging: new prerequisite "jomiel-comm"
+- Packaging: new prerequisite "jomiel-kore"
+
+### Changed
+
+- Repository doesn't have git-subtrees anymore
+
+### Removed
+
+- `jomiel-comm` and `jomiel-kore` from the subtrees
+
 ## [v0.999] - 2020-09-14
 
 ### Added
