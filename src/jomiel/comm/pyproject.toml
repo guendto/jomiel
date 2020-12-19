@@ -1,9 +1,0 @@
-[tool.black]
-line-length = 72
-exclude = '''
-(
-    /(
-        \.git
-    )/
-)
-'''
