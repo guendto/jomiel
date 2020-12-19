@@ -22,6 +22,7 @@ class App(KoreApp):
             "jomiel-messages",
             "configargparse",
             "jomiel-comm",
+            "jomiel-kore",
             "ruamel.yaml",
             "validators",
             "protobuf",
