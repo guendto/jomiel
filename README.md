@@ -97,7 +97,6 @@ project files. See the .pre-commit-config.yaml file for details.
 
 ### Subprojects (as git subtrees)
 
-- [src/jomiel/comm/](src/jomiel/comm/) of [jomiel-comm]
 - [src/jomiel/kore/](src/jomiel/kore/) of [jomiel-kore]
 
 [video-sharing]: https://en.wikipedia.org/wiki/Video_hosting_service
