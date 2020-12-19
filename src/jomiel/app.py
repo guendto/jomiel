@@ -8,7 +8,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-from jomiel.kore.app import App as KoreApp
+from jomiel_kore.app import App as KoreApp
 
 
 class App(KoreApp):
@@ -82,7 +82,7 @@ class App(KoreApp):
                 default="Mozilla/5.0",
             )
 
-            from jomiel.kore.opts import check_if_positive_integer
+            from jomiel_kore.opts import check_if_positive_integer
 
             grp.add(
                 "--http-timeout",
