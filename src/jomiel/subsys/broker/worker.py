@@ -16,7 +16,6 @@ from traceback import format_exc
 import jomiel_messages.protobuf.v1alpha1.status_pb2 as Status
 from google.protobuf.message import DecodeError
 from jomiel.cache import opts
-from jomiel.comm import to_json
 from jomiel.dispatcher.media import script_dispatcher
 from jomiel.error import InvalidInputError
 from jomiel.error import NoParserError
@@ -24,6 +23,7 @@ from jomiel.error import ParseError
 from jomiel.kore.app import exit_error
 from jomiel.log import lg
 from jomiel.log import log_sanitize_string
+from jomiel_comm.formatter import to_json
 from jomiel_messages.protobuf.v1alpha1.message_pb2 import Inquiry
 from jomiel_messages.protobuf.v1alpha1.message_pb2 import Response
 from requests.exceptions import RequestException

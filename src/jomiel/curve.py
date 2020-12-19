@@ -47,7 +47,7 @@ def setup(socket):
 
     auth = auth_init()
 
-    from jomiel.comm.auth.curve import load_cert_file
+    from jomiel_comm.auth.curve import load_cert_file
 
     (pubkey, seckey) = load_cert_file(opts.curve_server_key_file)
 
