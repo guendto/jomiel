@@ -13,7 +13,7 @@
 def init():
     """Initiates the logging subsystem."""
     from jomiel.cache import logger_paths, opts
-    from jomiel.kore.log import log_init
+    from jomiel_kore.log import log_init
 
     (logger_file, logger_idents) = log_init(logger_paths)
 
@@ -25,7 +25,7 @@ def init():
     )
 
     if opts.logger_idents:
-        from jomiel.kore.app import dump_logger_identities
+        from jomiel_kore.app import dump_logger_identities
 
         dump_logger_identities(
             logger_idents,

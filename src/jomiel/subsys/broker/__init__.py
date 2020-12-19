@@ -8,9 +8,9 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
-from jomiel.kore.app import exit_error
-from jomiel.kore.sig import GracefulExit
 from jomiel.log import lg
+from jomiel_kore.app import exit_error
+from jomiel_kore.sig import GracefulExit
 from zmq import Context
 from zmq import DEALER
 from zmq import proxy

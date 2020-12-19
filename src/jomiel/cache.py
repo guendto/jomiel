@@ -29,7 +29,7 @@ def dump_plugins():
 
     yaml = {"plugins": foreach_plugin()}
 
-    from jomiel.kore.app import dump_as_yaml
+    from jomiel_kore.app import dump_as_yaml
 
     dump_as_yaml(yaml)
 

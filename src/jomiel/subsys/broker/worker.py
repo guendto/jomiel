@@ -20,10 +20,10 @@ from jomiel.dispatcher.media import script_dispatcher
 from jomiel.error import InvalidInputError
 from jomiel.error import NoParserError
 from jomiel.error import ParseError
-from jomiel.kore.app import exit_error
 from jomiel.log import lg
 from jomiel.log import log_sanitize_string
 from jomiel_comm.formatter import to_json
+from jomiel_kore.app import exit_error
 from jomiel_messages.protobuf.v1alpha1.message_pb2 import Inquiry
 from jomiel_messages.protobuf.v1alpha1.message_pb2 import Response
 from requests.exceptions import RequestException

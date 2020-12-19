@@ -17,7 +17,7 @@ from jomiel.error import ParseError
 from jomiel.hypertext import http_get
 from jomiel.plugin.media.parser import PluginMediaParser
 
-# from jomiel.kore.formatter import json_pprint
+# from jomiel_kore.formatter import json_pprint
 
 
 class Parser(PluginMediaParser):
