@@ -10,16 +10,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Packaging: new prerequisite "jomiel-comm"
-- Packaging: new prerequisite "jomiel-kore"
+- Packaging: new prerequisite [jomiel-comm]
+- Packaging: new prerequisite [jomiel-kore]
 
-### Changed
-
-- Repository doesn't have git-subtrees anymore
+[jomiel-comm]: https://pypi.org/project/jomiel-comm
+[jomiel-kore]: https://pypi.org/project/jomiel-kore
 
 ### Removed
 
-- `jomiel-comm` and `jomiel-kore` from the subtrees
+- git-subtrees for `jomiel-comm` and `jomiel-kore`
 
 ## [v0.999] - 2020-09-14
 
