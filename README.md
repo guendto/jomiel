@@ -12,15 +12,17 @@
 `jomiel` is the meta inquiry middleware for distributed systems. It
 returns data about content on [video-sharing] websites (e.g. YouTube).
 
-Two core technologies serve as a basis for `jomiel`:
+At its core, two technologies form the basis for `jomiel`:
 
-- [Protocol Buffers] for platform-independent data serialization
-- [ZeroMQ] as the messaging library
+- [ZeroMQ] (also known as ØMQ, 0MQ, or zmq) looks like an embeddable
+  networking library but acts like a concurrency framework
+
+- [Protocol Buffers] is a language-neutral, platform-neutral,
+  extensible mechanism for serializing structured data
 
 The client applications can be written in modern [languages][examples]
-for most platforms.
-
-`jomiel` is a spiritual successor to (now defunct) [libquvi].
+for most platforms. `jomiel` is a spiritual successor to (now defunct)
+[libquvi].
 
 ![Example (jomiel)](./docs/demo.svg)
 
