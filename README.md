@@ -57,8 +57,7 @@ cd jomiel
 pip install -e .
 ```
 
-Once you have `jomiel` running, you
-can try sending inquiries with:
+Once you have `jomiel` running, you can try sending inquiries with:
 
 - [examples] - the demo programs written in most modern languages
 - [yomiel] - the pretty printer for `jomiel` messages
