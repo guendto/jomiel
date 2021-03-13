@@ -59,7 +59,7 @@ pip install -e .
 
 Once you have `jomiel` started and running, try sending inquiries with:
 
-- [examples] - the demo programs written in most modern languages
+- [examples] - the demo client programs written in most modern languages
 - [yomiel] - the pretty printer for `jomiel` messages
 
 Be sure to check out the [HOWTO](./docs/HOWTO.md#howto-jomiel), also.
