@@ -191,17 +191,12 @@ class Worker:
                     % inquiry.input_uri,
                 )
 
-        def failed(error):
-            """Check if an error occurred."""
-            builder = ResponseBuilder(error)
-            self.message_send(builder.response)
-
         try:
             validate_input_uri()
             handler = match_handler()
             self.message_send(handler.response)
         except Exception as error:
-            failed(error)
+            self.message_send(ResponseBuilder(error).response)
 
 
 def worker_new(worker_id):
