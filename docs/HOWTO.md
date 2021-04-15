@@ -85,7 +85,8 @@ docker run \
 ## Use a proxy
 
 If you need to use a proxy with HTTP connections, you can configure
-proxies by setting the environment variables http_proxy and https_proxy.
+proxies by setting the environment variables `http_proxy` and
+`https_proxy`.
 
 ```shell
 export https_proxy="https://localhost:3128"
