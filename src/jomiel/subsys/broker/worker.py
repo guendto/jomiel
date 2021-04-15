@@ -89,6 +89,7 @@ class Worker:
                     "received invalid message: %s" % (error),
                     "error",
                 )
+                self.message_send(ResponseBuilder(error).response)
                 self.renew_socket()
             finally:
                 self.log("reset")
@@ -167,8 +168,7 @@ class Worker:
         if inquiry.WhichOneof("inquiry") == "media":
             self.handle_media_inquiry(inquiry.media)
         else:
-            # TODO: Do something useful here
-            self.log("ignored unknown inquiry type")
+            raise DecodeError("Invalid oneof field in Inquiry")
 
     def handle_media_inquiry(self, inquiry):
         """Handles the incoming inquiry requests."""
@@ -261,7 +261,7 @@ class ResponseBuilder:
             self.parse_failed(error)
         elif error_type == NoParserError:
             self.handler_not_found(error)
-        elif error_type == InvalidInputError:
+        elif error_type == InvalidInputError or error_type == DecodeError:
             self.invalid_input_given(error)
         else:
             if not self.is_requests_error(error, error_type):
@@ -300,9 +300,16 @@ class ResponseBuilder:
         )
 
     def invalid_input_given(self, error):
-        """System raised InvalidInputError, initialize response accordingly."""
+        """System raised InvalidInputError, e.g.
+
+        - failed to decode the incoming Inquiry message (DecodeError was
+          raised because of an invalid or otherwise corrupted message)
+
+        - client sent unexpected input (e.g. input URI was not an URI)
+
+        """
         self.init(
-            error.message,
+            error.message if hasattr(error, "message") else str(error),
             Status.STATUS_CODE_BAD_REQUEST,
             Status.ERROR_CODE_INVALID_INPUT,
         )
