@@ -67,7 +67,7 @@ docker ps | grep jomiel
 git clone https://github.com/guendto/jomiel-examples
 cd jomiel-examples
 docker build \
-  -t tg/jomiel-examples/c-example \
+  -t jomiel-examples/c \
   -f c/docker/alpine/Dockerfile .
 ```
 
@@ -77,7 +77,7 @@ docker build \
 ```shell
 docker run \
   --network jomiel_network \
-  tg/jomiel-examples/c-example \
+  jomiel-example/c \
   -r tcp://jomiel:5514 \
   https://youtu.be/PRdcZSuCpNoa
 ```
