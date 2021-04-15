@@ -2,17 +2,17 @@
 
 <!-- vim-markdown-toc GFM -->
 
-- [Build and run jomiel in a container](#build-and-run-jomiel-in-a-container)
-  - [Build and run a client application in a container](#build-and-run-a-client-application-in-a-container)
-- [Use a proxy](#use-a-proxy)
-- [Authenticate and encrypt using CURVE](#authenticate-and-encrypt-using-curve)
-  - [CURVE: jomiel (server-side)](#curve-jomiel-server-side)
-  - [CURVE: yomiel (client-side)](#curve-yomiel-client-side)
-- [Authenticate and encrypt using SSH](#authenticate-and-encrypt-using-ssh)
-  - [SSH: jomiel (server-side)](#ssh-jomiel-server-side)
-  - [SSH: yomiel (client-side)](#ssh-yomiel-client-side)
-  - [SSH Notes](#ssh-notes)
-- [Build a release from the repo](#build-a-release-from-the-repo)
+* [Build and run jomiel in a container](#build-and-run-jomiel-in-a-container)
+  * [Build and run a client application in a container](#build-and-run-a-client-application-in-a-container)
+* [Use a proxy](#use-a-proxy)
+* [Authenticate and encrypt using CURVE](#authenticate-and-encrypt-using-curve)
+  * [CURVE: jomiel (server-side)](#curve-jomiel-server-side)
+  * [CURVE: yomiel (client-side)](#curve-yomiel-client-side)
+* [Authenticate and encrypt using SSH](#authenticate-and-encrypt-using-ssh)
+  * [SSH: jomiel (server-side)](#ssh-jomiel-server-side)
+  * [SSH: yomiel (client-side)](#ssh-yomiel-client-side)
+  * [SSH Notes](#ssh-notes)
+* [Build a release from the repo](#build-a-release-from-the-repo)
 
 <!-- vim-markdown-toc -->
 
