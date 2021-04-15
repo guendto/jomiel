@@ -31,7 +31,7 @@ docker network create jomiel_network
 ```shell
 git clone https://github.com/guendto/jomiel
 cd jomiel
-docker build -t tg/jomiel -f docker/pypi/Dockerfile .
+docker build -t jomiel/jomiel -f docker/pypi/Dockerfile .
 ```
 
 - start the container:
@@ -40,7 +40,7 @@ docker build -t tg/jomiel -f docker/pypi/Dockerfile .
 docker run \
   --network jomiel_network \
   --network-alias jomiel \
-  --rm tg/jomiel
+  --rm jomiel/jomiel
 ```
 
 ### Build and run a client application in a container
