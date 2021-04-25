@@ -2,31 +2,29 @@
 
 <!-- vim-markdown-toc GFM -->
 
-* [Build and run jomiel in a container](#build-and-run-jomiel-in-a-container)
-  * [Build and run a client application in a container](#build-and-run-a-client-application-in-a-container)
-* [Use a proxy](#use-a-proxy)
-* [Authenticate and encrypt using CURVE](#authenticate-and-encrypt-using-curve)
-  * [CURVE: jomiel (server-side)](#curve-jomiel-server-side)
-  * [CURVE: yomiel (client-side)](#curve-yomiel-client-side)
-* [Authenticate and encrypt using SSH](#authenticate-and-encrypt-using-ssh)
-  * [SSH: jomiel (server-side)](#ssh-jomiel-server-side)
-  * [SSH: yomiel (client-side)](#ssh-yomiel-client-side)
-  * [SSH Notes](#ssh-notes)
-* [Build a release from the repo](#build-a-release-from-the-repo)
+- [Build and run jomiel in a container](#build-and-run-jomiel-in-a-container)
+  - [Build and run a client application in a container](#build-and-run-a-client-application-in-a-container)
+- [Use a proxy](#use-a-proxy)
+- [Authenticate and encrypt using CURVE](#authenticate-and-encrypt-using-curve)
+  - [CURVE: jomiel (server-side)](#curve-jomiel-server-side)
+  - [CURVE: yomiel (client-side)](#curve-yomiel-client-side)
+- [Authenticate and encrypt using SSH](#authenticate-and-encrypt-using-ssh)
+  - [SSH: jomiel (server-side)](#ssh-jomiel-server-side)
+  - [SSH: yomiel (client-side)](#ssh-yomiel-client-side)
+  - [SSH Notes](#ssh-notes)
+- [Build a release from the repo](#build-a-release-from-the-repo)
 
 <!-- vim-markdown-toc -->
 
 ## Build and run jomiel in a container
 
-To run `jomiel` in a container.
-
-- build a network that `jomiel` and the clients will use:
+Build a network that `jomiel` and the clients will use:
 
 ```shell
 docker network create jomiel_network
 ```
 
-- build the image; start by cloning the repository:
+Build the image; start by cloning the repository:
 
 ```shell
 git clone https://github.com/guendto/jomiel
@@ -34,7 +32,7 @@ cd jomiel
 docker build -t jomiel/jomiel -f docker/pypi/Dockerfile .
 ```
 
-- start the container:
+Start the container:
 
 ```shell
 docker run \
@@ -45,23 +43,23 @@ docker run \
 
 ### Build and run a client application in a container
 
-- make sure the `network` is available (see the steps above):
+Make sure the `network` is available (see the steps above):
 
 ```shell
 docker network ls | grep jomiel
 14775a938d51        jomiel_network      bridge              local
 ```
 
-- check that `jomiel` container is running (see the steps above if it
-  isn't):
+Check that `jomiel` container is running (see the steps above if it
+isn't):
 
 ```shell
 docker ps | grep jomiel
 54bd7945001e        jomiel      "jomiel -l syslog"   11 seconds ago      Up 9 seconds     wizardly_sanderson
 ```
 
-- build a new `client` image; let's use [jomiel-examples] for this
-  purpose:
+Build a new `client` image; let's use [jomiel-examples] for this
+purpose:
 
 ```shell
 git clone https://github.com/guendto/jomiel-examples
@@ -71,8 +69,8 @@ docker build \
   -f c/docker/alpine/Dockerfile .
 ```
 
-- run the created image (make a note of the `-r` which is used to
-  specify the `jomiel` endpoint address):
+Run the created image (make a note of the `-r` which is used to specify
+the `jomiel` endpoint address):
 
 ```shell
 docker run \
@@ -135,7 +133,7 @@ mv client.key .curve          # Make client CURVE public key usable
 jomiel --curve-enable         # Restart jomiel with CURVE enabled
 ```
 
-`jomiel` will search (by default) the .curve/ subdir for
+`jomiel` will search (by default) the .curve/ subdir for:
 
 - any **public** _client keys_ (note plural)
 - the **secret** _server key_
@@ -156,7 +154,7 @@ mv server.key .curve          # Make server CURVE public key usable
 yomiel --auth-mode curve URI  # Start yomiel with CURVE enabled
 ```
 
-`yomiel` will search (by default) the .curve/ subdir for
+`yomiel` will search (by default) the .curve/ subdir for:
 
 - the **secret** _client_ key
 - the **public** _server_ key
