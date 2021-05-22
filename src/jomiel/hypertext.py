@@ -8,6 +8,10 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
+from jomiel.cache import opts
+from jomiel.log import lg
+from jomiel.log import log_sanitize_string
+from requests import get
 
 
 def be_verbose():
@@ -44,13 +48,8 @@ def http_get(uri):
         obj: requests.Response
 
     """
-    from jomiel.log import lg, log_sanitize_string
-    from jomiel.cache import opts
-
     hdrs = {"User-Agent": opts.http_user_agent}
     lg().debug("http<get>: '%s'", log_sanitize_string(uri))
-
-    from requests import get
 
     resp = get(
         uri,
