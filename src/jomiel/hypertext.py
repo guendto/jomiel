@@ -38,7 +38,7 @@ def be_verbose():
     verbose_logging()
 
 
-def http_get(uri):
+def http_get(uri, **kwargs):
     """Make a new HTTP/GET request.
 
     Args:
