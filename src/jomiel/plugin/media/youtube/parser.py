@@ -180,6 +180,7 @@ class Parser(PluginMediaParser):
                     "video_id": self.media.identifier,
                     "eurl": "https://youtube.googleapis.com/v/"
                     + self.media.identifier,
+                    "html5": 1,
                 },
             )
             return "https://www.youtube.com/get_video_info?" + data
