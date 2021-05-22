@@ -174,12 +174,12 @@ class Parser(PluginMediaParser):
                     raise ParseError("unable to match video ID")
 
             parse_video_id()
+            v_id = self.media.identifier
 
             data = urlencode(
                 {
-                    "video_id": self.media.identifier,
-                    "eurl": "https://youtube.googleapis.com/v/"
-                    + self.media.identifier,
+                    "video_id": v_id,
+                    "eurl": f"https://youtube.googleapis.com/v/{v_id}",
                     "html5": 1,
                 },
             )
