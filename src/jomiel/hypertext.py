@@ -64,18 +64,20 @@ def http_get(uri, **kwargs):
         obj: requests.Response
 
     """
-    hdrs = {"User-Agent": opts.http_user_agent}
-    lg().debug("http<get>: '%s'", log_sanitize_string(uri))
+    headers = http_headers(**kwargs)
 
-    resp = get(
+    lg().debug("http<get>: '%s'", log_sanitize_string(uri))
+    lg().debug("http<get/headers>: '%s'", log_sanitize_string(headers))
+
+    result = get(
         uri,
         allow_redirects=opts.http_allow_redirects,
         timeout=opts.http_timeout,
-        headers=hdrs,
+        headers=headers,
     )
 
-    resp.raise_for_status()
-    return resp
+    result.raise_for_status()
+    return result
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
