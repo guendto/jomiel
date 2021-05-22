@@ -38,6 +38,22 @@ def be_verbose():
     verbose_logging()
 
 
+def http_headers(headers=None):
+    """Construct common HTTP headers from the jomiel options.
+
+    Args:
+        headers (dict): additional headers to use
+
+    Returns:
+        A headers dictionary ready to be used with `requests`
+
+    """
+    result = {"user-agent": opts.http_user_agent}
+    if headers:
+        result.update(headers)
+    return result
+
+
 def http_get(uri, **kwargs):
     """Make a new HTTP/GET request.
 
