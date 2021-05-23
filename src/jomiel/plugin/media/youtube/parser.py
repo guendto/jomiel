@@ -63,8 +63,8 @@ class Parser(PluginMediaParser):
                     return d.get(key_name)
                 raise ParseError(f"'{key_name}' not found")
 
-            def playability_check_error():
-                """Check for playability error in player response."""
+            def _check_playability_status():
+                """Check the 'playability status' of the video."""
                 playability_status = _value_from(
                     video_info,
                     "playabilityStatus",
@@ -145,7 +145,7 @@ class Parser(PluginMediaParser):
                 parse("formats")
 
             # json_pprint(video_info)
-            playability_check_error()
+            _check_playability_status()
             parse_video_details()
             parse_streaming_data()
 
