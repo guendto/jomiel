@@ -57,23 +57,15 @@ class Parser(PluginMediaParser):
         def parse_metadata(video_info):
             """Parse meta data from the video info."""
 
-            def get_of(d, keyname):
-                """Return a value from the given dict.
-
-                Args:
-                    d (dict): to query from
-                    keyname (str): key name to query to
-
-                Returns:
-                    the value in the dict
-                """
-                if keyname not in d:
-                    raise ParseError(f"{keyname} not found")
-                return d.get(keyname)
+            def _value_from(d, key_name):
+                """Return value from a dictionary, or raise an error."""
+                if key_name in d:
+                    return d.get(key_name)
+                raise ParseError(f"'{key_name}' not found")
 
             def playability_check_error():
                 """Check for playability error in player response."""
-                playability_status = get_of(
+                playability_status = _value_from(
                     video_info,
                     "playabilityStatus",
                 )
@@ -82,23 +74,23 @@ class Parser(PluginMediaParser):
 
             def parse_video_details():
                 """Parse videoDetails of player_response."""
-                vd = get_of(video_info, "videoDetails")
+                vd = _value_from(video_info, "videoDetails")
 
                 self.media.statistics.average_rating = float(
-                    get_of(vd, "averageRating"),
+                    _value_from(vd, "averageRating"),
                 )
                 self.media.statistics.view_count = int(
-                    get_of(vd, "viewCount"),
+                    _value_from(vd, "viewCount"),
                 )
-                self.media.description = get_of(vd, "shortDescription")
+                self.media.description = _value_from(vd, "shortDescription")
                 self.media.length_seconds = int(
-                    get_of(vd, "lengthSeconds"),
+                    _value_from(vd, "lengthSeconds"),
                 )
-                self.media.author.channel_id = get_of(vd, "channelId")
-                self.media.author.name = get_of(vd, "author")
-                self.media.title = get_of(vd, "title")
+                self.media.author.channel_id = _value_from(vd, "channelId")
+                self.media.author.name = _value_from(vd, "author")
+                self.media.title = _value_from(vd, "title")
 
-                thumbs = get_of(vd, "thumbnail")["thumbnails"]
+                thumbs = _value_from(vd, "thumbnail")["thumbnails"]
                 for t in thumbs:
                     thumb = self.media.thumbnail.add()
                     thumb.width = int(t["width"])
@@ -148,7 +140,7 @@ class Parser(PluginMediaParser):
                     for fmt in formats:
                         parse_format(fmt)
 
-                sd = get_of(video_info, "streamingData")
+                sd = _value_from(video_info, "streamingData")
                 parse("adaptiveFormats")
                 parse("formats")
 
