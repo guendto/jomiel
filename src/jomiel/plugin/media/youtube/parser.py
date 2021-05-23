@@ -72,30 +72,47 @@ class Parser(PluginMediaParser):
                 if playability_status["status"] == "ERROR":
                     raise ParseError(playability_status["reason"])
 
-            def parse_video_details():
-                """Parse videoDetails of player_response."""
+            def _parse_video_details():
+                """Return video details."""
+
+                def _int(key_name):
+                    """Return int from 'vd' or 0."""
+                    value = vd.get(key_name, 0)
+                    return int(value)
+
+                def _float(key_name):
+                    """Return float from 'vd' or 0."""
+                    value = vd.get(key_name, 0)
+                    return float(value)
+
+                def _str(key_name):
+                    """Return str from 'vd' or ''."""
+                    return vd.get(key_name, "")
+
                 vd = _value_from(video_info, "videoDetails")
 
-                self.media.statistics.average_rating = float(
-                    _value_from(vd, "averageRating"),
+                self.media.statistics.average_rating = _float(
+                    "averageRating",
                 )
-                self.media.statistics.view_count = int(
-                    _value_from(vd, "viewCount"),
-                )
-                self.media.description = _value_from(vd, "shortDescription")
-                self.media.length_seconds = int(
-                    _value_from(vd, "lengthSeconds"),
-                )
-                self.media.author.channel_id = _value_from(vd, "channelId")
-                self.media.author.name = _value_from(vd, "author")
-                self.media.title = _value_from(vd, "title")
 
-                thumbs = _value_from(vd, "thumbnail")["thumbnails"]
-                for t in thumbs:
-                    thumb = self.media.thumbnail.add()
-                    thumb.width = int(t["width"])
-                    thumb.height = int(t["height"])
-                    thumb.uri = t["url"]
+                self.media.statistics.view_count = _int("viewCount")
+                self.media.length_seconds = _int("lengthSeconds")
+
+                self.media.description = _str("shortDescription")
+                self.media.author.channel_id = _str("channelId")
+
+                self.media.author.name = _str("author")
+                self.media.title = _str("title")
+
+                thumbnail = vd.get("thumbnail")
+                if thumbnail:
+                    thumbnails = thumbnail.get("thumbnails", [])
+                    # Re-use 'vd' so that _int() works out of the box.
+                    for vd in thumbnails:
+                        thumb = self.media.thumbnail.add()
+                        thumb.width = _int("width")
+                        thumb.height = _int("height")
+                        thumb.uri = vd["url"]
 
             def parse_streaming_data():
                 """Parse streaming data."""
@@ -146,7 +163,7 @@ class Parser(PluginMediaParser):
 
             # json_pprint(video_info)
             _check_playability_status()
-            parse_video_details()
+            _parse_video_details()
             parse_streaming_data()
 
         def parse_player_response():
