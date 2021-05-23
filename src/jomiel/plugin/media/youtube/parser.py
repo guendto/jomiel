@@ -182,7 +182,7 @@ class Parser(PluginMediaParser):
                 raise ParseError("unable to match video ID")
             self.media.identifier = result.group(1)
 
-        def video_info_request():
+        def _video_info_request():
             """Make a GET request to the /get_video_info endpoint."""
             v_id = self.media.identifier
             data = urlencode(
@@ -212,7 +212,7 @@ class Parser(PluginMediaParser):
 
         _parse_video_id()
         try:
-            video_info = video_info_request()
+            video_info = _video_info_request()
             video_info = parse_qs(video_info)
             video_info = _parse_player_response()
         except HTTPError:
