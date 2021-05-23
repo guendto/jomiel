@@ -175,16 +175,12 @@ class Parser(PluginMediaParser):
                 raise ParseError("'player_response' is not 'list'")
             raise ParseError("'player_response' not found")
 
-        def parse_video_id():
-            """Parse video ID from the components of the input URI."""
-            result = re_match(
-                r"v=([\w\-_]{11})",
-                uri_components.query,
-            )
-            if result:
-                self.media.identifier = result.group(1)
-            else:
+        def _parse_video_id():
+            """Return video identifier."""
+            result = re_match(r"v=([\w\-_]{11})", uri_components.query)
+            if not result:
                 raise ParseError("unable to match video ID")
+            self.media.identifier = result.group(1)
 
         def video_info_request():
             """Make a GET request to the /get_video_info endpoint."""
@@ -214,7 +210,7 @@ class Parser(PluginMediaParser):
             payload.update({"videoId": self.media.identifier})
             return http_post(uri, payload, params=params).text
 
-        parse_video_id()
+        _parse_video_id()
         try:
             video_info = video_info_request()
             video_info = parse_qs(video_info)
