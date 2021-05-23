@@ -114,57 +114,55 @@ class Parser(PluginMediaParser):
                         thumb.height = _int("height")
                         thumb.uri = vd["url"]
 
-            def parse_streaming_data():
-                """Parse streaming data."""
+            def _parse_streaming_data():
+                """Parse 'streaming data'."""
 
-                def parse(key):
-                    """parse
+                def _parse(key_name):
+                    """Parse an element of the 'streaming data'."""
 
-                    Args:
-                        key (str): the key name
+                    def _parse_format():
+                        """Parse 'format' of streaming data."""
 
-                    """
+                        def _profile():
+                            """Generate the stream profile string."""
+                            profile = _fmt.get(
+                                "qualityLabel",
+                                _fmt.get("quality", "undefined"),
+                            )
+                            return f"{profile} (itag={_fmt['itag']})"
 
-                    def parse_format(fmt):
-                        """parse_format
+                        def _int(key_name):
+                            """Return int from '_fmt' dict or 0."""
+                            value = _fmt.get(key_name, 0)
+                            return int(value)
 
-                        Args:
-                            fmt (dict): the format dict to parse
+                        stream = self.media.stream.add()
 
-                        """
-                        s = self.media.stream.add()
+                        stream.content_length = _int("contentLength")
+                        stream.quality.bitrate = _int("bitrate")
 
-                        s.quality.profile = "{} (itag={})".format(
-                            fmt["qualityLabel"]
-                            if "qualityLabel" in fmt
-                            else fmt["quality"],
-                            fmt["itag"],
-                        )
+                        stream.quality.height = _int("height")
+                        stream.quality.width = _int("width")
 
-                        if "width" in fmt and "height" in fmt:
-                            s.quality.width = int(fmt["width"])
-                            s.quality.height = int(fmt["height"])
+                        stream.quality.profile = _profile()
+                        stream.mime_type = _fmt["mimeType"]
 
-                        s.quality.bitrate = int(fmt["bitrate"])
-                        if "contentLength" in fmt:
-                            s.content_length = int(fmt["contentLength"])
+                        stream.uri = _fmt["url"]
 
-                        s.mime_type = fmt["mimeType"]
-                        s.uri = fmt["url"]
+                    for _fmt in streaming_data[key_name]:
+                        _parse_format()
 
-                    formats = sd[key]
-
-                    for fmt in formats:
-                        parse_format(fmt)
-
-                sd = _value_from(video_info, "streamingData")
-                parse("adaptiveFormats")
-                parse("formats")
+                streaming_data = _value_from(
+                    video_info,
+                    "streamingData",
+                )
+                _parse("adaptiveFormats")
+                _parse("formats")
 
             # json_pprint(video_info)
             _check_playability_status()
             _parse_video_details()
-            parse_streaming_data()
+            _parse_streaming_data()
 
         def parse_player_response():
             """Check that "player_response" exists and return it.
