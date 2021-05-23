@@ -54,7 +54,7 @@ class Parser(PluginMediaParser):
 
         """
 
-        def parse_metadata(video_info):
+        def _parse_metadata(video_info):
             """Parse meta data from the video info."""
 
             def _value_from(d, key_name):
@@ -220,7 +220,7 @@ class Parser(PluginMediaParser):
             lg().debug("http<get>: /get_video_info failed")
             video_info = _youtubei_player_request()
         json = loads(video_info)
-        parse_metadata(json)
+        _parse_metadata(json)
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
