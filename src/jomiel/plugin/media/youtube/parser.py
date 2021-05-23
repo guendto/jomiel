@@ -164,16 +164,16 @@ class Parser(PluginMediaParser):
             _parse_video_details()
             _parse_streaming_data()
 
-        def parse_player_response():
-            """Check that "player_response" exists and return it.
-
-            Returns:
-                dict: the player response parsed from json
-
-            """
-            if "player_response" not in video_info:
-                raise ParseError('"player_response" not found')
-            return video_info["player_response"][0]
+        def _parse_player_response():
+            """Return 'player_response'."""
+            if "player_response" in video_info:
+                pr = video_info["player_response"]
+                if type(pr) == "list":
+                    if len(pr) > 0:
+                        return pr[0]
+                    raise ParseError("'player_response' is empty")
+                raise ParseError("'player_response' is not 'list'")
+            raise ParseError("'player_response' not found")
 
         def parse_video_id():
             """Parse video ID from the components of the input URI."""
@@ -218,7 +218,7 @@ class Parser(PluginMediaParser):
         try:
             video_info = video_info_request()
             video_info = parse_qs(video_info)
-            video_info = parse_player_response()
+            video_info = _parse_player_response()
         except HTTPError:
             # /get_video_info endpoint failed. Try /youtubei/player.
             lg().debug("http<get>: /get_video_info failed")
