@@ -195,7 +195,7 @@ class Parser(PluginMediaParser):
             uri = f"https://www.youtube.com/get_video_info?{data}"
             return http_get(uri).text
 
-        def youtubei_request():
+        def _youtubei_player_request():
             """Make a POST request to the /youtubei/player endpoint."""
             uri = "https://www.youtube.com/youtubei/v1/player"
             params = {"key": "AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8"}
@@ -218,7 +218,7 @@ class Parser(PluginMediaParser):
         except HTTPError:
             # /get_video_info endpoint failed. Try /youtubei/player.
             lg().debug("http<get>: /get_video_info failed")
-            video_info = youtubei_request()
+            video_info = _youtubei_player_request()
         json = loads(video_info)
         parse_metadata(json)
 
