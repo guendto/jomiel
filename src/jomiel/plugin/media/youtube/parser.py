@@ -168,7 +168,7 @@ class Parser(PluginMediaParser):
             """Return 'player_response'."""
             if "player_response" in video_info:
                 pr = video_info["player_response"]
-                if type(pr) == "list":
+                if isinstance(pr, list):
                     if len(pr) > 0:
                         return pr[0]
                     raise ParseError("'player_response' is empty")
