@@ -8,6 +8,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- plugin/youtube: frequent HTTP/404s while retrieving data
+
+### Improved
+
+- plugin/youtube: add an alt. pipeline to make video info requests
+
 ## [v1.0.1] - 2021-04-25
 
 ### Fixed
