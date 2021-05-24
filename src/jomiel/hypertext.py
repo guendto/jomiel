@@ -2,12 +2,17 @@
 # jomiel
 #
 # Copyright
-#  2019-2020 Toni Gündoğdu
+#  2019-2021 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
+from jomiel.cache import opts
+from jomiel.log import lg
+from jomiel.log import log_sanitize_string
+from requests import get
+from requests import post
 
 
 def be_verbose():
@@ -34,7 +39,55 @@ def be_verbose():
     verbose_logging()
 
 
-def http_get(uri):
+def http_headers(headers=None):
+    """Construct common HTTP headers from the jomiel options.
+
+    Args:
+        headers (dict): additional headers to use
+
+    Returns:
+        A headers dictionary ready to be used with `requests`
+
+    """
+    result = {"user-agent": opts.http_user_agent}
+    if headers:
+        result.update(headers)
+    return result
+
+
+def http_post(uri, payload, params=None, **kwargs):
+    """Make a new HTTP/POST request.
+
+    Args:
+        uri (string): URI to send the payload to
+        payload (dict): JSON payload to send to the HTTP server
+        params (dict): URI query parameters
+
+    Returns:
+        obj: requests.Response
+
+    """
+    headers = http_headers(**kwargs)
+
+    lg().debug("http<post>: '%s'", log_sanitize_string(uri))
+    lg().debug("http<post/params>: '%s'", log_sanitize_string(params))
+    lg().debug("http<post/headers>: '%s'", log_sanitize_string(headers))
+    lg().debug("http<post/payload>: '%s'", log_sanitize_string(payload))
+
+    result = post(
+        uri,
+        allow_redirects=opts.http_allow_redirects,
+        timeout=opts.http_timeout,
+        headers=headers,
+        params=params,
+        json=payload,
+    )
+
+    result.raise_for_status()
+    return result
+
+
+def http_get(uri, **kwargs):
     """Make a new HTTP/GET request.
 
     Args:
@@ -44,23 +97,20 @@ def http_get(uri):
         obj: requests.Response
 
     """
-    from jomiel.log import lg, log_sanitize_string
-    from jomiel.cache import opts
+    headers = http_headers(**kwargs)
 
-    hdrs = {"User-Agent": opts.http_user_agent}
     lg().debug("http<get>: '%s'", log_sanitize_string(uri))
+    lg().debug("http<get/headers>: '%s'", log_sanitize_string(headers))
 
-    from requests import get
-
-    resp = get(
+    result = get(
         uri,
         allow_redirects=opts.http_allow_redirects,
         timeout=opts.http_timeout,
-        headers=hdrs,
+        headers=headers,
     )
 
-    resp.raise_for_status()
-    return resp
+    result.raise_for_status()
+    return result
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:

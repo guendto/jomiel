@@ -2,7 +2,7 @@
 # jomiel
 #
 # Copyright
-#  2019 Toni Gündoğdu
+#  2019-2021 Toni Gündoğdu
 #
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -15,13 +15,21 @@ from urllib.parse import urlencode
 
 from jomiel.error import ParseError
 from jomiel.hypertext import http_get
+from jomiel.hypertext import http_post
+from jomiel.log import lg
 from jomiel.plugin.media.parser import PluginMediaParser
+from requests.exceptions import HTTPError
 
 # from jomiel_kore.formatter import json_pprint
 
 
 class Parser(PluginMediaParser):
-    """Media metadata parser implementation for YouTube."""
+    """Media metadata parser implementation for YouTube.
+
+    - Retrieve data from the /get_video_info endpoint
+    - If that fails, try the /youtubei/player endpoint, instead.
+
+    """
 
     __slots__ = []
 
@@ -43,22 +51,11 @@ class Parser(PluginMediaParser):
 
         Raises:
             jomiel.error.ParseError if a parsing error occurred
+
         """
 
         def parse_metadata(video_info):
             """Parse meta data from the video info."""
-
-            def parse_player_response():
-                """Check that "player_response" exists and return it.
-
-                Returns:
-                    dict: the player response parsed from json
-
-                """
-                if "player_response" not in video_info:
-                    raise ParseError('"player_response" not found')
-                player_response = video_info["player_response"][0]
-                return loads(player_response)
 
             def get_of(d, keyname):
                 """Return a value from the given dict.
@@ -71,18 +68,21 @@ class Parser(PluginMediaParser):
                     the value in the dict
                 """
                 if keyname not in d:
-                    raise ParseError("%s not found" % keyname)
+                    raise ParseError(f"{keyname} not found")
                 return d.get(keyname)
 
             def playability_check_error():
                 """Check for playability error in player response."""
-                playability_status = get_of(resp, "playabilityStatus")
+                playability_status = get_of(
+                    video_info,
+                    "playabilityStatus",
+                )
                 if playability_status["status"] == "ERROR":
                     raise ParseError(playability_status["reason"])
 
             def parse_video_details():
                 """Parse videoDetails of player_response."""
-                vd = get_of(resp, "videoDetails")
+                vd = get_of(video_info, "videoDetails")
 
                 self.media.statistics.average_rating = float(
                     get_of(vd, "averageRating"),
@@ -148,34 +148,40 @@ class Parser(PluginMediaParser):
                     for fmt in formats:
                         parse_format(fmt)
 
-                sd = get_of(resp, "streamingData")
+                sd = get_of(video_info, "streamingData")
                 parse("adaptiveFormats")
                 parse("formats")
 
-            video_info = parse_qs(video_info)
-            resp = parse_player_response()
-            # json_pprint(resp)
+            # json_pprint(video_info)
             playability_check_error()
             parse_video_details()
             parse_streaming_data()
 
-        def video_info_uri():
-            """Return the URI to query the info for the video."""
+        def parse_player_response():
+            """Check that "player_response" exists and return it.
 
-            def parse_video_id():
-                """Parse video ID from the input URI (components)."""
-                result = re_match(
-                    r"v=([\w\-_]{11})",
-                    uri_components.query,
-                )
-                if result:
-                    self.media.identifier = result.group(1)
-                else:
-                    raise ParseError("unable to match video ID")
+            Returns:
+                dict: the player response parsed from json
 
-            parse_video_id()
+            """
+            if "player_response" not in video_info:
+                raise ParseError('"player_response" not found')
+            return video_info["player_response"][0]
+
+        def parse_video_id():
+            """Parse video ID from the components of the input URI."""
+            result = re_match(
+                r"v=([\w\-_]{11})",
+                uri_components.query,
+            )
+            if result:
+                self.media.identifier = result.group(1)
+            else:
+                raise ParseError("unable to match video ID")
+
+        def video_info_request():
+            """Make a GET request to the /get_video_info endpoint."""
             v_id = self.media.identifier
-
             data = urlencode(
                 {
                     "video_id": v_id,
@@ -183,12 +189,35 @@ class Parser(PluginMediaParser):
                     "html5": 1,
                 },
             )
-            return "https://www.youtube.com/get_video_info?" + data
+            uri = f"https://www.youtube.com/get_video_info?{data}"
+            return http_get(uri).text
 
-        info_uri = video_info_uri()
+        def youtubei_request():
+            """Make a POST request to the /youtubei/player endpoint."""
+            uri = "https://www.youtube.com/youtubei/v1/player"
+            params = {"key": "AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8"}
+            payload = {
+                "context": {
+                    "client": {
+                        "clientName": "WEB",
+                        "clientVersion": "2.20201021.03.00",
+                    },
+                },
+            }
+            payload.update({"videoId": self.media.identifier})
+            return http_post(uri, payload, params=params).text
 
-        video_info = http_get(info_uri).text
-        parse_metadata(video_info)
+        parse_video_id()
+        try:
+            video_info = video_info_request()
+            video_info = parse_qs(video_info)
+            video_info = parse_player_response()
+        except HTTPError:
+            # /get_video_info endpoint failed. Try /youtubei/player.
+            lg().debug("http<get>: /get_video_info failed")
+            video_info = youtubei_request()
+        json = loads(video_info)
+        parse_metadata(json)
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
