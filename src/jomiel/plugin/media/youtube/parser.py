@@ -54,132 +54,135 @@ class Parser(PluginMediaParser):
 
         """
 
-        def parse_metadata(video_info):
+        def _parse_metadata(video_info):
             """Parse meta data from the video info."""
 
-            def get_of(d, keyname):
-                """Return a value from the given dict.
+            def _value_from(d, key_name):
+                """Return value from a dictionary, or raise an error."""
+                if key_name in d:
+                    return d.get(key_name)
+                raise ParseError(f"'{key_name}' not found")
 
-                Args:
-                    d (dict): to query from
-                    keyname (str): key name to query to
-
-                Returns:
-                    the value in the dict
-                """
-                if keyname not in d:
-                    raise ParseError(f"{keyname} not found")
-                return d.get(keyname)
-
-            def playability_check_error():
-                """Check for playability error in player response."""
-                playability_status = get_of(
+            def _check_playability_status():
+                """Check the 'playability status' of the video."""
+                playability_status = _value_from(
                     video_info,
                     "playabilityStatus",
                 )
                 if playability_status["status"] == "ERROR":
                     raise ParseError(playability_status["reason"])
 
-            def parse_video_details():
-                """Parse videoDetails of player_response."""
-                vd = get_of(video_info, "videoDetails")
+            def _parse_video_details():
+                """Return video details."""
 
-                self.media.statistics.average_rating = float(
-                    get_of(vd, "averageRating"),
+                def _int(key_name):
+                    """Return int from 'vd' or 0."""
+                    value = vd.get(key_name, 0)
+                    return int(value)
+
+                def _float(key_name):
+                    """Return float from 'vd' or 0."""
+                    value = vd.get(key_name, 0)
+                    return float(value)
+
+                def _str(key_name):
+                    """Return str from 'vd' or ''."""
+                    return vd.get(key_name, "")
+
+                vd = _value_from(video_info, "videoDetails")
+
+                self.media.statistics.average_rating = _float(
+                    "averageRating",
                 )
-                self.media.statistics.view_count = int(
-                    get_of(vd, "viewCount"),
+
+                self.media.statistics.view_count = _int("viewCount")
+                self.media.length_seconds = _int("lengthSeconds")
+
+                self.media.description = _str("shortDescription")
+                self.media.author.channel_id = _str("channelId")
+
+                self.media.author.name = _str("author")
+                self.media.title = _str("title")
+
+                thumbnail = vd.get("thumbnail")
+                if thumbnail:
+                    thumbnails = thumbnail.get("thumbnails", [])
+                    # Re-use 'vd' so that _int() works out of the box.
+                    for vd in thumbnails:
+                        thumb = self.media.thumbnail.add()
+                        thumb.width = _int("width")
+                        thumb.height = _int("height")
+                        thumb.uri = vd["url"]
+
+            def _parse_streaming_data():
+                """Parse 'streaming data'."""
+
+                def _parse(key_name):
+                    """Parse an element of the 'streaming data'."""
+
+                    def _parse_format():
+                        """Parse 'format' of streaming data."""
+
+                        def _profile():
+                            """Generate the stream profile string."""
+                            profile = _fmt.get(
+                                "qualityLabel",
+                                _fmt.get("quality", "undefined"),
+                            )
+                            return f"{profile} (itag={_fmt['itag']})"
+
+                        def _int(key_name):
+                            """Return int from '_fmt' dict or 0."""
+                            value = _fmt.get(key_name, 0)
+                            return int(value)
+
+                        stream = self.media.stream.add()
+
+                        stream.content_length = _int("contentLength")
+                        stream.quality.bitrate = _int("bitrate")
+
+                        stream.quality.height = _int("height")
+                        stream.quality.width = _int("width")
+
+                        stream.quality.profile = _profile()
+                        stream.mime_type = _fmt["mimeType"]
+
+                        stream.uri = _fmt["url"]
+
+                    for _fmt in streaming_data[key_name]:
+                        _parse_format()
+
+                streaming_data = _value_from(
+                    video_info,
+                    "streamingData",
                 )
-                self.media.description = get_of(vd, "shortDescription")
-                self.media.length_seconds = int(
-                    get_of(vd, "lengthSeconds"),
-                )
-                self.media.author.channel_id = get_of(vd, "channelId")
-                self.media.author.name = get_of(vd, "author")
-                self.media.title = get_of(vd, "title")
-
-                thumbs = get_of(vd, "thumbnail")["thumbnails"]
-                for t in thumbs:
-                    thumb = self.media.thumbnail.add()
-                    thumb.width = int(t["width"])
-                    thumb.height = int(t["height"])
-                    thumb.uri = t["url"]
-
-            def parse_streaming_data():
-                """Parse streaming data."""
-
-                def parse(key):
-                    """parse
-
-                    Args:
-                        key (str): the key name
-
-                    """
-
-                    def parse_format(fmt):
-                        """parse_format
-
-                        Args:
-                            fmt (dict): the format dict to parse
-
-                        """
-                        s = self.media.stream.add()
-
-                        s.quality.profile = "{} (itag={})".format(
-                            fmt["qualityLabel"]
-                            if "qualityLabel" in fmt
-                            else fmt["quality"],
-                            fmt["itag"],
-                        )
-
-                        if "width" in fmt and "height" in fmt:
-                            s.quality.width = int(fmt["width"])
-                            s.quality.height = int(fmt["height"])
-
-                        s.quality.bitrate = int(fmt["bitrate"])
-                        if "contentLength" in fmt:
-                            s.content_length = int(fmt["contentLength"])
-
-                        s.mime_type = fmt["mimeType"]
-                        s.uri = fmt["url"]
-
-                    formats = sd[key]
-
-                    for fmt in formats:
-                        parse_format(fmt)
-
-                sd = get_of(video_info, "streamingData")
-                parse("adaptiveFormats")
-                parse("formats")
+                _parse("adaptiveFormats")
+                _parse("formats")
 
             # json_pprint(video_info)
-            playability_check_error()
-            parse_video_details()
-            parse_streaming_data()
+            _check_playability_status()
+            _parse_video_details()
+            _parse_streaming_data()
 
-        def parse_player_response():
-            """Check that "player_response" exists and return it.
+        def _parse_player_response():
+            """Return 'player_response'."""
+            if "player_response" in video_info:
+                pr = video_info["player_response"]
+                if type(pr) == "list":
+                    if len(pr) > 0:
+                        return pr[0]
+                    raise ParseError("'player_response' is empty")
+                raise ParseError("'player_response' is not 'list'")
+            raise ParseError("'player_response' not found")
 
-            Returns:
-                dict: the player response parsed from json
-
-            """
-            if "player_response" not in video_info:
-                raise ParseError('"player_response" not found')
-            return video_info["player_response"][0]
-
-        def parse_video_id():
-            """Parse video ID from the components of the input URI."""
-            result = re_match(
-                r"v=([\w\-_]{11})",
-                uri_components.query,
-            )
-            if result:
-                self.media.identifier = result.group(1)
-            else:
+        def _parse_video_id():
+            """Return video identifier."""
+            result = re_match(r"v=([\w\-_]{11})", uri_components.query)
+            if not result:
                 raise ParseError("unable to match video ID")
+            self.media.identifier = result.group(1)
 
-        def video_info_request():
+        def _video_info_request():
             """Make a GET request to the /get_video_info endpoint."""
             v_id = self.media.identifier
             data = urlencode(
@@ -192,7 +195,7 @@ class Parser(PluginMediaParser):
             uri = f"https://www.youtube.com/get_video_info?{data}"
             return http_get(uri).text
 
-        def youtubei_request():
+        def _youtubei_player_request():
             """Make a POST request to the /youtubei/player endpoint."""
             uri = "https://www.youtube.com/youtubei/v1/player"
             params = {"key": "AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8"}
@@ -207,17 +210,17 @@ class Parser(PluginMediaParser):
             payload.update({"videoId": self.media.identifier})
             return http_post(uri, payload, params=params).text
 
-        parse_video_id()
+        _parse_video_id()
         try:
-            video_info = video_info_request()
+            video_info = _video_info_request()
             video_info = parse_qs(video_info)
-            video_info = parse_player_response()
+            video_info = _parse_player_response()
         except HTTPError:
             # /get_video_info endpoint failed. Try /youtubei/player.
             lg().debug("http<get>: /get_video_info failed")
-            video_info = youtubei_request()
+            video_info = _youtubei_player_request()
         json = loads(video_info)
-        parse_metadata(json)
+        _parse_metadata(json)
 
 
 # vim: set ts=4 sw=4 tw=72 expandtab:
