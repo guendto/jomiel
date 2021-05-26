@@ -66,7 +66,10 @@ Try sending inquiries to `jomiel` with:
 - [examples] - the demo client programs written in most modern languages
 - [yomiel] - the pretty printer for `jomiel` messages
 
-Be sure to check out the [HOWTO](./docs/HOWTO.md#howto-jomiel), also.
+Be sure to check out:
+
+- [changes](./CHANGES.md)
+- [howto](./docs/HOWTO.md#howto-jomiel)
 
 [examples]: https://github.com/guendto/jomiel-examples/
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
