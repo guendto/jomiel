@@ -8,9 +8,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [v1.0.2] - 2021-05-26
+
 ### Fixed
 
-- plugin/youtube: frequent HTTP/404s while retrieving data
+- plugin/youtube: frequent HTTP/404s while retrieving data (56704d0)
 
 ### Improved
 
@@ -175,7 +177,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - First public preview release.
 
-[unreleased]: https://github.com/guendto/jomiel/compare/v1.0.1..HEAD
+[unreleased]: https://github.com/guendto/jomiel/compare/v1.0.2..HEAD
+[v1.0.1]: https://github.com/guendto/jomiel/compare/v1.0.1..v1.0.2
 [v1.0.1]: https://github.com/guendto/jomiel/compare/v1.0.0..v1.0.1
 [v1.0.0]: https://github.com/guendto/jomiel/compare/v0.999..v1.0.0
 [v0.999]: https://github.com/guendto/jomiel/compare/v0.4.2..v0.999
