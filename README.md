@@ -74,6 +74,82 @@ Be sure to check out:
 [examples]: https://github.com/guendto/jomiel-examples/
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
 
+## Usage
+
+```text
+usage: jomiel [-h] [--version] [-v] [--config-file FILE] [-D] [-E]
+              [--logger-config FILE] [-L] [--logger-idents-verbose] [-l IDENT]
+              [-p] [-m] [--debug-sensitive] [-F] [--http-user-agent STRING]
+              [--http-timeout TIME] [--http-debug] [-I] [-r ADDR] [-d ADDR]
+              [-w [1-64]] [--curve-enable] [--curve-public-key-dir DIR]
+              [--curve-server-key-file FILE] [--curve-domain DOMAIN]
+              [--curve-allow ADDR]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  -v, --version-long    show version information about program's environment
+                        and exit (default: False)
+  --config-file FILE    Read configuration from the specified file (default:
+                        None)
+  -D, --print-config    Show the configuration values and exit (default:
+                        False)
+  -E, --report-config   Report keys, values and where they were set (default:
+                        False)
+  -p, --plugin-list     Display the found plugins and exit (default: False)
+
+logger:
+  --logger-config FILE  Logger configuration file to read (default: None)
+  -L, --logger-idents   Print logger identities and exit (default: False)
+  --logger-idents-verbose
+                        Print logger identities in detail, use together with
+                        --logger-idents (default: False)
+  -l IDENT, --logger-ident IDENT
+                        Use the logger identity (default: default)
+
+debug:
+  -m, --debug-minify-json
+                        Minify JSON messages in the logger (default: False)
+  --debug-sensitive     Log sensitive data, e.g. input URIs, serialized
+                        messages (default: False)
+
+http:
+  -F, --http-allow-redirects
+                        Follow HTTP redirections (default: False)
+  --http-user-agent STRING
+                        Identify as STRING to the HTTP server (default:
+                        Mozilla/5.0)
+  --http-timeout TIME   Time in seconds allowed for the connection to the HTTP
+                        server to take (default: 5)
+  --http-debug          Enable verbose HTTP output (default: False)
+
+broker:
+  -I, --broker-input-allow-any
+                        Disable input URI validation (default: False)
+  -r ADDR, --broker-router-endpoint ADDR
+                        Bind the frontend (router) socket to the local
+                        endpoint (default: tcp://*:5514)
+  -d ADDR, --broker-dealer-endpoint ADDR
+                        Bind the backend (dealer) socket to the local endpoint
+                        (default: inproc://workers)
+  -w [1-64], --broker-worker-threads [1-64]
+                        Number of worker threads in the pool waiting for
+                        client connections (default: 5)
+
+curve:
+  --curve-enable        Enable CURVE support (default: False)
+  --curve-public-key-dir DIR
+                        Directory that holds all public client key files
+                        (default: .curve/)
+  --curve-server-key-file FILE
+                        Secret CURVE key file for the server (default:
+                        .curve/server.key_secret)
+  --curve-domain DOMAIN
+                        Configure CURVE authentication for a given domain
+                        (default: *)
+  --curve-allow ADDR    Allow (whitelist IP addresses) (default: 127.0.0.1)
+```
+
 ## Website coverage
 
 ```shell
