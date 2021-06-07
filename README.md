@@ -53,12 +53,18 @@ Install from [PyPI]:
 pip install jomiel
 ```
 
-Run from the repository:
+Install from the repository, e.g. for development:
 
 ```shell
 git clone https://github.com/guendto/jomiel.git
 cd jomiel
-pip install -e .
+pip install -e .  # Install a project in editable mode
+```
+
+Or, if you'd rather not install in "editable mode":
+
+```shell
+pip install git+https://github.com/guendto/jomiel
 ```
 
 Try sending inquiries to `jomiel` with:
