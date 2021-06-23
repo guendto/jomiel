@@ -8,6 +8,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- plugin/youtube: workaround the age-gate (HTTP/404) (e269c41)
+
 ## [v1.0.2] - 2021-05-26
 
 ### Fixed
