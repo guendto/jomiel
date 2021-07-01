@@ -58,14 +58,13 @@ docker ps | grep jomiel
 54bd7945001e        jomiel      "jomiel -l syslog"   11 seconds ago      Up 9 seconds     wizardly_sanderson
 ```
 
-Build a new `client` image; let's use [jomiel-examples] for this
-purpose:
+Build a new `client` image; let's use [jomiel-client-demos] for this:
 
 ```shell
-git clone https://github.com/guendto/jomiel-examples
-cd jomiel-examples
+git clone https://github.com/guendto/jomiel-client-demos
+cd jomiel-client-demos
 docker build \
-  -t jomiel-examples/c \
+  -t jomiel-client-demos/c \
   -f c/docker/alpine/Dockerfile .
 ```
 
@@ -194,7 +193,7 @@ pip install pep517
 python -m pep517.build [-s|-b] .
 ```
 
-[jomiel-examples]: https://github.com/guendto/jomiel-examples
+[jomiel-client-demos]: https://github.com/guendto/jomiel-client-demos
 [pexpect]: https://pypi.org/project/pexpect/
 [paramiko]: https://pypi.org/project/paramiko/
 [python-requests.org]: https://2.python-requests.org/
