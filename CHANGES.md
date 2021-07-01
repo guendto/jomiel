@@ -8,6 +8,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [v1.0.3] - 2021-07-01
+
 ### Fixed
 
 - plugin/youtube: workaround the age-gate (HTTP/404) (e269c41)
@@ -181,7 +183,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - First public preview release.
 
-[unreleased]: https://github.com/guendto/jomiel/compare/v1.0.2..HEAD
+[unreleased]: https://github.com/guendto/jomiel/compare/v1.0.3..HEAD
+[v1.0.3]: https://github.com/guendto/jomiel/compare/v1.0.2..v1.0.3
 [v1.0.2]: https://github.com/guendto/jomiel/compare/v1.0.1..v1.0.2
 [v1.0.1]: https://github.com/guendto/jomiel/compare/v1.0.0..v1.0.1
 [v1.0.0]: https://github.com/guendto/jomiel/compare/v0.999..v1.0.0
