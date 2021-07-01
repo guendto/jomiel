@@ -28,7 +28,7 @@ Two technologies form the basis for `jomiel`:
 ## Features
 
 - **Language and platform neutral**. It communicates using [Protocol
-  Buffers] and [ZeroMQ]. There are plenty of [examples]. Pick your
+  Buffers] and [ZeroMQ]. There are plenty of [client demos]. Pick your
   favorite language.
 
 - **Secure**. It can authenticate and encrypt connections using [CURVE]
@@ -69,7 +69,7 @@ pip install git+https://github.com/guendto/jomiel
 
 Try sending inquiries to `jomiel` with:
 
-- [examples] - the demo client programs written in most modern languages
+- the [client demos] written in different modern programming languages
 - [yomiel] - the pretty printer for `jomiel` messages
 
 Be sure to check out:
@@ -77,7 +77,7 @@ Be sure to check out:
 - [changes](./CHANGES.md)
 - [howto](./docs/HOWTO.md#howto-jomiel)
 
-[examples]: https://github.com/guendto/jomiel-examples/
+[client demos]: https://github.com/guendto/jomiel-client-demos/
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
 
 ## Usage
