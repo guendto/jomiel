@@ -190,6 +190,8 @@ class Parser(PluginMediaParser):
                     "video_id": v_id,
                     "eurl": f"https://youtube.googleapis.com/v/{v_id}",
                     "html5": 1,
+                    "c": "TVHTML5",
+                    "cver": "6.20180913",
                 },
             )
             uri = f"https://www.youtube.com/get_video_info?{data}"
