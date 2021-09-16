@@ -104,6 +104,7 @@ class Worker:
         except KeyboardInterrupt:
             self.log("interrupted")
         finally:
+            self.socket.close()
             self.log("exit")
 
     def message_dump(self, logtext, message):
