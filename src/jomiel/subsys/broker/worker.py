@@ -53,10 +53,7 @@ class Worker:
         try:
             sck.connect(self.dealer_endpoint)
         except ZMQError as error:
-            self.log(
-                f"{error} ({self.dealer_endpoint})",
-                "error",
-            )
+            self.log(f"{error} ({self.dealer_endpoint})")
             exit_error()
         self.log("connected to <%s>" % self.dealer_endpoint)
         return sck
