@@ -41,7 +41,7 @@ def init():
         try:
             sck.bind(endpoint)
         except ZMQError as error:
-            log(f"{error}: {endpoint}", "error")
+            log(f"{error}: {endpoint}")
             exit_error()
         return (sck, auth)
 
