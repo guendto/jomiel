@@ -6,7 +6,7 @@ repos:
           - id: markdownlint
     # NOTE: See also .mdlrc and .mdlstyle.rb files
     - repo: https://github.com/adrienverge/yamllint.git
-      rev: v1.26.1
+      rev: v1.26.3
       hooks:
           - id: yamllint
             args: [--format, parsable, --strict]
@@ -15,12 +15,12 @@ repos:
       hooks:
           - id: yamlfmt
     - repo: https://github.com/asottile/pyupgrade
-      rev: v2.19.4
+      rev: v2.26.0
       hooks:
           - id: pyupgrade
             args: [--py36-plus]
     - repo: https://github.com/asottile/reorder_python_imports
-      rev: v2.5.0
+      rev: v2.6.0
       hooks:
           - id: reorder-python-imports
     - repo: https://github.com/asottile/add-trailing-comma
@@ -29,7 +29,7 @@ repos:
           - id: add-trailing-comma
             args: [--py36-plus]
     - repo: https://github.com/psf/black
-      rev: 21.6b0
+      rev: 21.9b0
       hooks:
           - id: black
             args: [--safe]
