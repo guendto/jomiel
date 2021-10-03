@@ -45,8 +45,6 @@ def init():
             exit_error()
         return (sck, auth)
 
-    from jomiel.cache import opts
-
     def bind_router():
         """Bind the router device for talking to the clients."""
         router_endpoint = opts.broker_router_endpoint
@@ -58,8 +56,6 @@ def init():
         log("bind router at <%s>" % router_endpoint)
         return (router, auth)
 
-    (router, auth) = bind_router()
-
     def bind_dealer():
         """Bind the dealer device for talking to the workers."""
         dealer_endpoint = opts.broker_dealer_endpoint
@@ -67,6 +63,9 @@ def init():
         log("bind dealer at <%s>" % dealer_endpoint)
         return dealer
 
+    from jomiel.cache import opts
+
+    (router, auth) = bind_router()
     dealer = bind_dealer()
 
     def main_loop():
