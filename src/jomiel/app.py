@@ -119,6 +119,7 @@ class App(KoreApp):
                     local endpoint""",
                 default="tcp://*:5514",
                 metavar="ADDR",
+                env_var="BROKER_ROUTER_ENDPOINT",
             )
 
             grp.add(
