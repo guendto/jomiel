@@ -8,6 +8,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 """TODO."""
+from jomiel.cache import opts
 from jomiel.log import lg
 from jomiel_kore.app import exit_error
 from jomiel_kore.sig import GracefulExit
@@ -18,26 +19,21 @@ from zmq import ROUTER
 from zmq import ZMQError
 
 
-def _log(text, msgtype):
-    """Write a new entry to the logger."""
-    logger = getattr(lg(), msgtype)
-    logger("subsystem/broker: %s", text)
-
-
-def log(text):
-    """Write a new "debug" entry to the logger."""
-    _log(text, "debug")
-
-
-def log_error(text):
-    """Write a new "error" entry to the logger."""
-    _log(text, "error")
-
-
 def init():
     """Initiates the broker."""
 
-    ctx = Context.instance()
+    def _log(text, msgtype):
+        """Write a new entry to the logger."""
+        logger = getattr(lg(), msgtype)
+        logger("subsystem/broker: %s", text)
+
+    def log(text):
+        """Write a new "debug" entry to the logger."""
+        _log(text, "debug")
+
+    def log_error(text):
+        """Write a new "error" entry to the logger."""
+        _log(text, "error")
 
     def bind_endpoint(device, endpoint, setup_curve=False):
         """Bind the device to the endpoint."""
@@ -73,11 +69,6 @@ def init():
         log("bind dealer at <%s>" % dealer_endpoint)
         return dealer
 
-    from jomiel.cache import opts
-
-    (router, auth) = bind_router()
-    dealer = bind_dealer()
-
     def main_loop():
         """The main loop; sits and awaits for new connections."""
 
@@ -112,6 +103,11 @@ def init():
             ctx.term()
 
         log("shutdown")
+
+    ctx = Context.instance()
+
+    (router, auth) = bind_router()
+    dealer = bind_dealer()
 
     with GracefulExit(log):
         main_loop()
