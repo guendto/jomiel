@@ -18,10 +18,20 @@ from zmq import ROUTER
 from zmq import ZMQError
 
 
-def log(text, msgtype="debug"):
-    """Write a new (debug) entry to the logger."""
+def _log(text, msgtype):
+    """Write a new entry to the logger."""
     logger = getattr(lg(), msgtype)
     logger("subsystem/broker: %s", text)
+
+
+def log(text):
+    """Write a new "debug" entry to the logger."""
+    _log(text, "debug")
+
+
+def log_error(text):
+    """Write a new "error" entry to the logger."""
+    _log(text, "error")
 
 
 def init():
@@ -41,7 +51,7 @@ def init():
         try:
             sck.bind(endpoint)
         except ZMQError as error:
-            log(f"{error}: {endpoint}")
+            log_error(f"{error}: {endpoint}")
             exit_error()
         return (sck, auth)
 
@@ -91,9 +101,9 @@ def init():
         try:
             proxy(router, dealer)
         except KeyboardInterrupt:
-            log("<sigint> signal interrupt")
+            log_error("<sigint> signal interrupt")
         except ZMQError as error:
-            log(error)
+            log_error(error)
         finally:
             dealer.close()
             router.close()
