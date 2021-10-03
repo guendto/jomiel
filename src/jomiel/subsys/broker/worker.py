@@ -109,7 +109,7 @@ class Worker:
         except ContextTerminated as msg:
             self.log(msg)
         except KeyboardInterrupt:
-            self.log_error("interrupted")
+            self.log("interrupted")
         finally:
             self.socket.close()
             self.log("exit")

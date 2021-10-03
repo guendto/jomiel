@@ -92,7 +92,7 @@ def init():
         try:
             proxy(router, dealer)
         except KeyboardInterrupt:
-            log_error("<sigint> signal interrupt")
+            log("<sigint> signal interrupt")
         except ZMQError as error:
             log_error(error)
         finally:
