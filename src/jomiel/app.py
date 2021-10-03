@@ -129,6 +129,7 @@ class App(KoreApp):
                     local endpoint""",
                 default="inproc://workers",
                 metavar="ADDR",
+                env_var="BROKER_DEALER_ENDPOINT",
             )
 
             def check_worker_thread_range(argval):
