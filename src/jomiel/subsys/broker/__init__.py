@@ -23,16 +23,16 @@ def init():
     """Initiates the broker."""
 
     def _log(text, msgtype):
-        """Write a new entry to the logger."""
+        """Write a event to the logger."""
         logger = getattr(lg(), msgtype)
         logger("subsystem/broker: %s", text)
 
     def log(text):
-        """Write a new "debug" entry to the logger."""
+        """Write a "debug" event to the logger."""
         _log(text, "debug")
 
     def log_error(text):
-        """Write a new "error" entry to the logger."""
+        """Write an "error" event to the logger."""
         _log(text, "error")
 
     def bind_endpoint(device, endpoint, setup_curve=False):
