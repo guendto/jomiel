@@ -53,7 +53,7 @@ class Worker:
         try:
             sck.connect(self.dealer_endpoint)
         except ZMQError as error:
-            self.log(f"{error} ({self.dealer_endpoint})")
+            self.log_error(f"{error} ({self.dealer_endpoint})")
             exit_error()
         self.log("connected to <%s>" % self.dealer_endpoint)
         return sck
@@ -77,23 +77,30 @@ class Worker:
                 self.log("awaiting")
                 self.message_receive()
             except DecodeError as error:
-                self.log(
+                self.log_error(
                     "received invalid message: %s" % (error),
-                    "error",
                 )
                 self.message_send(ResponseBuilder(error).response)
                 self.renew_socket()
             finally:
                 self.log("reset")
 
-    def log(self, text, msgtype="debug"):
-        """Write a new (debug) worker entry to the logger."""
+    def _log(self, text, msgtype):
+        """Write new log event to the logger."""
         logger = getattr(lg(), msgtype)
         logger(
             "subsystem/broker<worker#%03d>: %s",
             self.worker_id,
             text,
         )
+
+    def log(self, text):
+        """Write an "debug" event to the logger."""
+        self._log(text, "debug")
+
+    def log_error(self, text):
+        """Write an "error" event to the logger."""
+        self._log(text, "error")
 
     def run(self):
         """Runs the worker."""
@@ -102,7 +109,7 @@ class Worker:
         except ContextTerminated as msg:
             self.log(msg)
         except KeyboardInterrupt:
-            self.log("interrupted")
+            self.log_error("interrupted")
         finally:
             self.socket.close()
             self.log("exit")
