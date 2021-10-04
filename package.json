@@ -1,0 +1,9 @@
+{
+  "version": "1.0.4",
+  "scripts": {
+    "release": "standard-version -s --releaseCommitMessageFormat 'chore(release): jomiel version {{currentTag}} (tG)'"
+  },
+  "devDependencies": {
+    "standard-version": "^9.3.1"
+  }
+}
