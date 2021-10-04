@@ -7,14 +7,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* add support for env.var. BROKER_DEALER_ENDPOINT ([42db6e9](https://guendto///commit/42db6e93971caaa12b2cb620edcacde275a36d67))
-* add support for env.var. BROKER_ROUTER_ENDPOINT ([f4487c2](https://guendto///commit/f4487c28f437087c98768c527f123c941e78ed56))
+* add support for env.var. BROKER_DEALER_ENDPOINT ([42db6e9](https://github.com/guendto/jomiel/commit/42db6e93971caaa12b2cb620edcacde275a36d67))
+* add support for env.var. BROKER_ROUTER_ENDPOINT ([f4487c2](https://github.com/guendto/jomiel/commit/f4487c28f437087c98768c527f123c941e78ed56))
 
 
 ### Bug Fixes
 
-* **subsys/broker/worker:** write errors using the error logging level ([8a40b3b](https://guendto///commit/8a40b3bf1cca1c9bd016c9e10ddf9df5332a7133))
-* **subsys/broker:** write errors using the error logging level ([b25a06f](https://guendto///commit/b25a06ff07f050dab87ac22a2e9b3928ecf00faf))
+* **subsys/broker/worker:** write errors using the error logging level ([8a40b3b](https://github.com/guendto/jomiel/commit/8a40b3bf1cca1c9bd016c9e10ddf9df5332a7133))
+* **subsys/broker:** write errors using the error logging level ([b25a06f](https://github.com/guendto/jomiel/commit/b25a06ff07f050dab87ac22a2e9b3928ecf00faf))
 
 ## [v1.0.4] - 2021-09-17
 
