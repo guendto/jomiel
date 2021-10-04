@@ -83,7 +83,7 @@ Be sure to check out:
 ## Usage
 
 ```text
-usage: jomiel [-h] [--version] [-v] [--config-file FILE] [-D] [-E]
+usage: jomiel [-h] [--version] [-v] [--config-file FILE] [-D] [-E] [-P]
               [--logger-config FILE] [-L] [--logger-idents-verbose] [-l IDENT]
               [-p] [-m] [--debug-sensitive] [-F] [--http-user-agent STRING]
               [--http-timeout TIME] [--http-debug] [-I] [-r ADDR] [-d ADDR]
@@ -101,6 +101,8 @@ optional arguments:
   -D, --print-config    Show the configuration values and exit (default:
                         False)
   -E, --report-config   Report keys, values and where they were set (default:
+                        False)
+  -P, --config-paths    Print default configuration file paths (default:
                         False)
   -p, --plugin-list     Display the found plugins and exit (default: False)
 
@@ -134,10 +136,12 @@ broker:
                         Disable input URI validation (default: False)
   -r ADDR, --broker-router-endpoint ADDR
                         Bind the frontend (router) socket to the local
-                        endpoint (default: tcp://*:5514)
+                        endpoint [env var: BROKER_ROUTER_ENDPOINT] (default:
+                        tcp://*:5514)
   -d ADDR, --broker-dealer-endpoint ADDR
                         Bind the backend (dealer) socket to the local endpoint
-                        (default: inproc://workers)
+                        [env var: BROKER_DEALER_ENDPOINT] (default:
+                        inproc://workers)
   -w [1-64], --broker-worker-threads [1-64]
                         Number of worker threads in the pool waiting for
                         client connections (default: 5)
@@ -154,6 +158,9 @@ curve:
                         Configure CURVE authentication for a given domain
                         (default: *)
   --curve-allow ADDR    Allow (whitelist IP addresses) (default: 127.0.0.1)
+
+ If an arg is specified in more than one place, then commandline values
+override environment variables which override defaults.
 ```
 
 ## Website coverage
