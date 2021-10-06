@@ -15,7 +15,7 @@ def init():
     from jomiel.cache import logger_paths, opts
     from jomiel_kore.log import log_init
 
-    (logger_file, logger_idents) = log_init(logger_paths)
+    (logger_file, idents) = log_init(logger_paths)
 
     from jomiel.log import lg
 
@@ -28,7 +28,7 @@ def init():
         from jomiel_kore.app import dump_logger_identities
 
         dump_logger_identities(
-            logger_idents,
+            idents,
             opts.logger_idents_verbose,
         )
 
