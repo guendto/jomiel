@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/guendto/jomiel/compare/v1.1.0...v1.2.0) (2022-01-28)
+
+
+### Features
+
+* notify if --logger-ident did not match the logger identities ([d2cf98e](https://github.com/guendto/jomiel/commit/d2cf98ec51d00a06e6cac85b07c257df731fee23))
+
 ## [1.1.0](https://github.com/guendto/jomiel/compare/v1.0.4...v1.1.0) (2021-10-04)
 
 
