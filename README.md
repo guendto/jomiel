@@ -74,7 +74,7 @@ Try sending inquiries to `jomiel` with:
 
 Be sure to check out:
 
-- [changes](./CHANGES.md)
+- [changes](./CHANGELOG.md)
 - [howto](./docs/HOWTO.md#howto-jomiel)
 
 [client demos]: https://github.com/guendto/jomiel-client-demos/
