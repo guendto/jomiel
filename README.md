@@ -67,9 +67,10 @@ Or, if you'd rather not install in "editable mode":
 pip install git+https://github.com/guendto/jomiel
 ```
 
-Try sending inquiries to `jomiel` with:
+Clients for `jomiel`:
 
-- the [client demos] written in different modern programming languages
+- [client demos] written in different modern programming languages
+- [jinqr] - the simple jomiel client for downloading media streams
 - [yomiel] - the pretty printer for `jomiel` messages
 
 Be sure to check out:
@@ -79,6 +80,7 @@ Be sure to check out:
 
 [client demos]: https://github.com/guendto/jomiel-client-demos/
 [yomiel]: https://github.com/guendto/jomiel-yomiel/
+[jinqr]:  https://github.com/guendto/jinqr
 
 ## Usage
 
